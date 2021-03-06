@@ -31,7 +31,7 @@ function init(db) {
                 });
                 return;
             }
-            let userid = await users.checkpassword(login, password);
+            let userid = await users.login(login, password);
             if (userid) {
                 // Avec middleware express-session
                 req.session.regenerate(function (err) {

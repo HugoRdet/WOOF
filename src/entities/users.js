@@ -72,7 +72,18 @@ class Users {
       });
     });
   }
-
+  login(login, password) {
+    return new Promise((resolve, reject) => {
+      this.checkpassword(login, password).then((req) => console.log("vérification en cours"))
+      if(err){
+        console.log("Login rejeté");
+        reject();
+      }
+      else{
+        resolve(req);
+      }
+    });
+  }
   checkpassword(login, password) {
     return new Promise((resolve, reject) => {
       

@@ -72,6 +72,7 @@ class Users {
       });
     });
   }
+
   login(login, password) {
     return new Promise((resolve, reject) => {
       this.checkpassword(login, password).then((req) => console.log("vérification en cours"))

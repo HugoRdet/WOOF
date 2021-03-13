@@ -38,7 +38,8 @@ class Messages {
   commentMessage(messageId, userId, content) {
     let newComment = this.writeMessage(userId, content);
     this.db.update({_id: messageId}, {$push : {comments: newComment}},{upsert:true} , function(err, numAffected, affectedDocuments){
-      console.log(numAffected, "commentaire(s) ajouté(s)");
+      console.log(numAffected, "commentaire ajouté");
+      this.printMessage(newComment);
     });
   }
   

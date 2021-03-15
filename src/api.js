@@ -73,17 +73,18 @@ function init(db) {
     router
         .route("/user/:user_id(\\d+)")
         .get(async (req, res) => {
-        try {
-            const messages = await users.get(req.params.user_id);
-            if (!messages)
-                res.sendStatus(404);
-            else
-                res.send(message);
-        }
-        catch (e) {
-            res.status(500).send(e);
-        }
-    });
+            try {
+                const user = await users.get(req.params.user_id);
+                if (!user)
+                    res.sendStatus(404);
+                else
+                    res.send(user);
+            }
+            catch (e) {
+                res.status(500).send(e);
+            }
+        })
+        .delete((req, res, next) => res.send(`delete user ${req.params.user_id}`));
 
     router.put("/user", (req, res) => {
         const { login, password, pseudo } = req.body;

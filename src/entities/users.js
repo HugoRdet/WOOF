@@ -109,7 +109,7 @@ class Users {
       checkpassword(login, password).then( 
         (id) => {
           req = this.db.prepare(
-          `DELETE FROM users WHERE rowid = ?`;
+          `DELETE FROM users WHERE rowid = ?;`
           );
           req.gt([id], (err) => {
             if(err) {

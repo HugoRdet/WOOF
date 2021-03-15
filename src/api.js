@@ -1,5 +1,6 @@
 const express = require("express");
 const Users = require("./entities/users.js");
+const Messages = require("./entities/messages.js");
 
 function init(db) {
     
@@ -12,7 +13,7 @@ function init(db) {
     });
 
     const users = new Users.default(db);
-    const message = new Message.default('message.db');
+    const message = new Messages.default('message.db');
 
     router.post("/user/login", async (req, res) => {
         try {

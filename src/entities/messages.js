@@ -8,7 +8,7 @@ class Messages {
 
   writeMessage(author, content, parent_id) {
     return {
-      parent_id: parent_id;
+      parent_id: parent_id,
       author_id: author,
       content: content,
       date: new Date(),
@@ -40,7 +40,6 @@ class Messages {
     let newComment = this.writeMessage(userId, content, messageId);
     this.db.update({_id: messageId}, {$push : {comments: newComment}},{upsert:true} , function(err, numAffected, affectedDocuments){
       console.log(numAffected, "commentaire ajouté");
-      this.printMessage(newComment);
     });
   }
   

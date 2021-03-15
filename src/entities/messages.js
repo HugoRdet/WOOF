@@ -23,7 +23,7 @@ class Messages {
           console.log(numAffected, "commentaire ajouté");
         });
       }
-      resolve(author)
+      resolve(author);
     });
   }
 

@@ -1,10 +1,8 @@
 const express = require("express");
 const Users = require("./entities/users.js");
 const Messages = require("./entities/messages.js");
-const Datastore = require('nedb');
-var datastore = new Datastore('messages.db');
 
-function init(db) {
+function init(usersDB, messagesDB) {
     
     const router = express.Router();
     router.use(express.json());
@@ -14,8 +12,8 @@ function init(db) {
         next();
     });
 
-    const users = new Users.default(db);
-    const message = new Messages.default(datastore);
+    const users = new Users.default(usersDB);
+    const message = new Messages.default(messagesDB);
     message.open();
 
     router.post("/user/login", async (req, res) => {
@@ -74,11 +72,11 @@ function init(db) {
         .route("/user/:user_id(\\d+)")
         .get(async (req, res) => {
         try {
-            const messages = await users.get(req.params.user_id);
-            if (!messages)
+            const user = await users.get(req.params.user_id);
+            if (!user)
                 res.sendStatus(404);
             else
-                res.send(message);
+                res.send(user);
         }
         catch (e) {
             res.status(500).send(e);

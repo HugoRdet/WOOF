@@ -7,22 +7,24 @@ class Messages {
   }
 
   writeMessage(author, content, parent_id) {
-    let message = {
-      parent_id: parent_id,
-      author_id: author,
-      content: content,
-      date: new Date(),
-      likes: [],
-      comments: [],
-    } 
-    if(parent_id == -1)
-      this.db.insert(message);
-    else{
-      this.db.update({_id: parent_id}, {$push : {comments: newComment}},{} , function(err, numAffected, affectedDocuments){
-        console.log(numAffected, "commentaire ajouté");
-      });
-    }
-    return {parent_id, author_id};
+    return new Promise ((resolve, reject) => {
+      let message = {
+        parent_id: parent_id,
+        author_id: author,
+        content: content,
+        date: new Date(),
+        likes: [],
+        comments: [],
+      } 
+      if(parent_id == -1)
+        this.db.insert(message, function(){});
+      else{
+        this.db.update({_id: parent_id}, {$push : {comments: newComment}},{} , function(err, numAffected, affectedDocuments){
+          console.log(numAffected, "commentaire ajouté");
+        });
+      }
+      resolve(author)
+    });
   }
 
   printMessage(message) {

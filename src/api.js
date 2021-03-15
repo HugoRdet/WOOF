@@ -1,6 +1,8 @@
 const express = require("express");
 const Users = require("./entities/users.js");
 const Messages = require("./entities/messages.js");
+const Datastore = require('nedb');
+var datastore = new Datastore('messages.db');
 
 function init(db) {
     
@@ -13,7 +15,8 @@ function init(db) {
     });
 
     const users = new Users.default(db);
-    const message = new Messages.default('messages.db');
+    const message = new Messages.default(datastore);
+    message.open();
 
     router.post("/user/login", async (req, res) => {
         try {
@@ -113,8 +116,8 @@ function init(db) {
         if (!content || !pseudo) {
             res.status(400).send("Missing fields");
         } else {
-            message.writeMessage(pseudo, content, -1);
-                .then((parent_id, author_id) => res.status(201).send({id: parent_id}))
+            message.writeMessage(pseudo, content, -1)
+                .then((author_id) => res.status(201).send({id: author_id}))
                 .catch((err) => res.status(500).send(err));
         }
     });

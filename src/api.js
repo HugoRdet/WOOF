@@ -2,21 +2,21 @@ const express = require("express");
 const Users = require("./entities/users.js");
 
 function init(db) {
+    
     const router = express.Router();
-    // On utilise JSON
     router.use(express.json());
-    // simple logger for this router's requests
-    // all requests to this router will first hit this middleware
     router.use((req, res, next) => {
         console.log('API: method %s, path %s', req.method, req.path);
         console.log('Body', req.body);
         next();
     });
+
     const users = new Users.default(db);
+    const message = new Message.default('message.db');
+
     router.post("/user/login", async (req, res) => {
         try {
             const { login, password } = req.body;
-            // Erreur sur la requête HTTP
             if (!login || !password) {
                 res.status(400).json({
                     status: 400,
@@ -33,7 +33,6 @@ function init(db) {
             }
             let userid = await users.login(login, password);
             if (userid) {
-                // Avec middleware express-session
                 req.session.regenerate(function (err) {
                     if (err) {
                         res.status(500).json({
@@ -42,7 +41,6 @@ function init(db) {
                         });
                     }
                     else {
-                        // C'est bon, nouvelle session créée
                         req.session.userid = userid;
                         res.status(200).json({
                             status: 200,
@@ -52,7 +50,6 @@ function init(db) {
                 });
                 return;
             }
-            // Faux login : destruction de la session et erreur
             req.session.destroy((err) => { });
             res.status(403).json({
                 status: 403,
@@ -61,7 +58,6 @@ function init(db) {
             return;
         }
         catch (e) {
-            // Toute autre erreur
             res.status(500).json({
                 status: 500,
                 message: "erreur interne",
@@ -96,6 +92,7 @@ function init(db) {
                 .catch((err) => res.status(500).send(err));
         }
     });
+
 
     return router;
 }

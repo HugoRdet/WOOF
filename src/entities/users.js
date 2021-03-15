@@ -101,6 +101,36 @@ class Users {
       });
     });
   }
+  logout() {
+  }
+  
+  delete(login, password) {
+    return new Promise( (resolve, reject) => {
+      checkpassword(login, password).then( 
+        (id) => {
+          req = this.db.prepare(
+          `DELETE FROM users WHERE rowid = ?`;
+          );
+          req.gt([id], (err) => {
+            if(err) {
+              console.log('Erreur lors de la suppression');
+              reject();
+            }
+            else {
+              resolve();
+            }
+          });
+        });
+    });
+  }
+
+  getFollowedUsers(userId){
+    return new Promise ( (resolve, reject) => {
+      let req = this.db.prepare(
+        `SELECT rowid FROM users where `
+      )
+    })
+  }
 }
 
 exports.default = Users;

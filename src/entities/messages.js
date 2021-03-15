@@ -6,8 +6,9 @@ class Messages {
     this.db.loadDatabase();
   }
 
-  writeMessage(author, content) {
+  writeMessage(author, content, parent_id) {
     return {
+      parent_id: parent_id;
       author_id: author,
       content: content,
       date: new Date(),
@@ -36,7 +37,7 @@ class Messages {
   }
   
   commentMessage(messageId, userId, content) {
-    let newComment = this.writeMessage(userId, content);
+    let newComment = this.writeMessage(userId, content, messageId);
     this.db.update({_id: messageId}, {$push : {comments: newComment}},{upsert:true} , function(err, numAffected, affectedDocuments){
       console.log(numAffected, "commentaire ajouté");
       this.printMessage(newComment);
@@ -65,7 +66,7 @@ class Messages {
 
   getMessageByContent(content) {
     return new Promise( (resolve, reject) => {
-      this.db.find({content: {$regex: /content/}}, (err, data) => {
+      this.db.find({content: new RegExp(content)}, (err, data) => {
         if(err)
           reject();
         resolve(data);

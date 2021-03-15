@@ -7,7 +7,7 @@ console.debug(`Base directory: ${basedir}`);
 
 // Connexion à la bd
 const sqlite3 = require('sqlite3').verbose();
-var usersDB = new sqlite3.Database('./db/users.db');
+var usersDB = new sqlite3.Database(':memory:');
 const Datastore = require('nedb');
 var messagesDB = new Datastore('./db/messages.db');
 
@@ -15,7 +15,7 @@ express = require('express');
 const app = express()
 api_1 = require("./api.js");
 const session = require("express-session");
-
+/*
 app.use(session({
   genid: (req) => {
     console.log("inside the middleware session");
@@ -25,7 +25,7 @@ app.use(session({
   secret: "Big Brother Is Watching You",
   resave: false,
   saveUninitialized: true
-}))
+})) */
 
 
 

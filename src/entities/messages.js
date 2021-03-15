@@ -7,7 +7,7 @@ class Messages {
   }
 
   writeMessage(author, content, parent_id) {
-    return {
+    let message = {
       parent_id: parent_id,
       author_id: author,
       content: content,
@@ -15,6 +15,14 @@ class Messages {
       likes: [],
       comments: [],
     } 
+    if(parent_id == -1)
+      this.db.insert(message);
+    else{
+      this.db.update({_id: parent_id}, {$push : {comments: newComment}},{} , function(err, numAffected, affectedDocuments){
+        console.log(numAffected, "commentaire ajouté");
+      });
+    }
+    return {parent_id, author_id};
   }
 
   printMessage(message) {
@@ -33,13 +41,6 @@ class Messages {
     let newLike = {user_id: userId, date: new Date()};
     this.db.update({_id: messageId}, {likes: newLike}, {upsert:true}, function(err, numAffected){
       console.log(numAffected, "message liké(s)")
-    });
-  }
-  
-  commentMessage(messageId, userId, content) {
-    let newComment = this.writeMessage(userId, content, messageId);
-    this.db.update({_id: messageId}, {$push : {comments: newComment}},{upsert:true} , function(err, numAffected, affectedDocuments){
-      console.log(numAffected, "commentaire ajouté");
     });
   }
   

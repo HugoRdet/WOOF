@@ -71,6 +71,7 @@ function init(usersDB, messagesDB) {
     router
         .route("/user/:user_id(\\d+)")
         .get(async (req, res) => {
+<<<<<<< HEAD
         try {
             const user = await users.get(req.params.user_id);
             if (!user)
@@ -82,6 +83,20 @@ function init(usersDB, messagesDB) {
             res.status(500).send(e);
         }
     });
+=======
+            try {
+                const user = await users.get(req.params.user_id);
+                if (!user)
+                    res.sendStatus(404);
+                else
+                    res.send(user);
+            }
+            catch (e) {
+                res.status(500).send(e);
+            }
+        })
+        .delete((req, res, next) => res.send(`delete user ${req.params.user_id}`));
+>>>>>>> 3b1e4eca1377566ed1be198c433829e65e55f06e
 
     router.put("/user", (req, res) => {
         const { login, password, pseudo } = req.body;

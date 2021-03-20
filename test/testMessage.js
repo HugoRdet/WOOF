@@ -12,7 +12,7 @@ mocha.describe("Test de l'API message", () => {
     mocha.it("message", (done) => {
         const request_user_tmp = chai.request(app.default).keepOpen();
             const user_tmp = {
-                login: "Sard",
+                login: "SardoChesti",
                 password: "1234",
                 pseudo:"Sard"
             };
@@ -38,7 +38,7 @@ mocha.describe("Test de l'API message", () => {
                     console.log(`Retrieving message author ${res.body.id}`)
                     return Promise.all([
                         request
-                        .get(`/api/user/${res.body.id}`)
+                        .get(`/api/user/${res.body.pseudo}`)
                         .then((res) => {
                             res.should.have.status(200)
                             chai.assert.deepEqual(res.body, message)

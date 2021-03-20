@@ -38,7 +38,7 @@ class Messages {
   }
   
 
-
+  
   likeMessage(messageId, userId) {
     let newLike = {user_id: userId, date: new Date()};
     this.db.update({_id: messageId}, {likes: newLike}, {upsert:true}, function(err, numAffected){
@@ -46,6 +46,16 @@ class Messages {
     });
   }
   
+  getMessageById(messageId) {
+    return new Promise( (resolve, reject) => {
+      this.db.find({_id: messageId}, (err, data) => {
+        if(err)
+          reject();
+        resolve(data);
+      });
+    });
+  }
+
   getMessagesByAuthor(author) {
     return new Promise( (resolve, reject) => {
       this.db.find({author_id: author}, (err, data) => {
@@ -75,6 +85,33 @@ class Messages {
       });
     });
   }
+
+  getParentMessageFromComment(messageId, parentId) {
+    if (parentId == -1){
+      return;
+    }
+    let parentMessage = getMessageById(parentId).then(
+      this.db.update({_id: messageId}, {parent_message: parentMessage}, {upsert:true}, function(err, numAffected){
+        console.log(numAffected, "message commenté ajouté");
+      });
+    );
+  }
+  
+  getMessagesFromFollowed(followedPseudoList, loadNumber, loadMultiplier) {
+    return new Promise ( (resolve, reject) => {
+      this.db.find({ author_id : { $in: followedPseudoList }})
+        .sort({ date: -1 } // modifiable
+        .skip(loadNumber*loadMultiplier)
+        .limit(loadNumber)
+        .exec(function (err, data){
+          if (err)
+            reject();
+          resolve(data);
+      }));
+    });
+  }
+
+
 }
 
 exports.default = Messages

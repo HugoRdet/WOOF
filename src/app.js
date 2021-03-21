@@ -1,6 +1,6 @@
 const path = require('path');
 const api = require('./api.js');
-
+var uuid=require('node-uuid');
 // Détermine le répertoire de base
 const basedir = path.normalize(path.dirname(__dirname));
 console.debug(`Base directory: ${basedir}`);
@@ -15,17 +15,20 @@ express = require('express');
 const app = express()
 api_1 = require("./api.js");
 const session = require("express-session");
-/*
+
 app.use(session({
+  
   genid: (req) => {
-    console.log("inside the middleware session");
-    console.log(req.sessionID);
-    return uuid();
+    //console.log("inside the middleware session");
+    var uuid_tmp=uuid()
+    //console.log("Session Id: ",uuid_tmp);
+    return uuid_tmp;
   },
   secret: "Big Brother Is Watching You",
   resave: false,
   saveUninitialized: true
-})) */
+}))
+
 
 
 

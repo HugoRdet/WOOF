@@ -7,8 +7,17 @@ function init(usersDB, messagesDB) {
     const router = express.Router();
     router.use(express.json());
     router.use((req, res, next) => {
-        console.log('API: method %s, path %s', req.method, req.path);
-        console.log('Body', req.body);
+        
+        /*
+        !
+        !
+        ! OPTIONS PRATIQUES POUR LE DEBUGGAGE
+        !
+        !
+        */
+        
+        //console.log('API: method %s, path %s', req.method, req.path);
+        //console.log('Body', req.body);
         next();
     });
 
@@ -17,7 +26,9 @@ function init(usersDB, messagesDB) {
     message.open();
 
     router.post("/user/login", async (req, res) => {
+        
         try {
+            
             const { login, password } = req.body;
             if (!login || !password) {
                 res.status(400).json({
@@ -26,6 +37,9 @@ function init(usersDB, messagesDB) {
                 });
                 return;
             }
+            
+            
+            
             if(! await users.exists(login)) {
                 res.status(401).json({
                     status: 401,
@@ -44,6 +58,7 @@ function init(usersDB, messagesDB) {
                     }
                     else {
                         req.session.userid = userid;
+                        
                         res.status(200).json({
                             status: 200,
                             message: "Login et mot de passe accepté"
@@ -68,6 +83,13 @@ function init(usersDB, messagesDB) {
         }
     });
 
+    /*
+    !
+    !
+    ! A REFLECHIR
+    !
+    !
+    */
     router
         .route("/user/:user_id(\\d+)")
         .get(async (req, res) => {
@@ -81,10 +103,17 @@ function init(usersDB, messagesDB) {
         catch (e) {
             res.status(500).send(e);
         }
-    })
-        .delete((req, res, next) => res.send(`delete user ${req.params.user_id}`));
+    }).delete((req, res, next) => res.send(`delete user ${req.params.user_id}`)); // ??????
 
-    router.put("/user", (req, res) => {
+    /*
+    !
+    !
+    ! A REFLECHIR
+    !
+    !
+    */
+        
+    router.put("/user/create", (req, res) => {
         const { login, password, pseudo } = req.body;
         if (!login || !password || !pseudo) {
             res.status(400).send("Missing fields");
@@ -96,7 +125,7 @@ function init(usersDB, messagesDB) {
     });
 
     router
-        .route("/user/:pseudo(\\d+)")
+        .route("/user/display/:pseudo(\\d+)")
         .get(async (req, res) => {
         try {
             const message = await message.getMessageByAuthor(req.params.pseudo);
@@ -109,15 +138,35 @@ function init(usersDB, messagesDB) {
             res.status(500).send(e);
         }
     });
+    
+        router.put("/message/logout", (req, res) => {
+            if(req.session.userid == undefined) {
+                /*Dans le cas ou aucun utilisateur n'est connecté:*/
+                res.status(400).send("a ghost can't log out");
+            }else{
+                //un utilisateur est connecté
+                req.session.destroy((err) => { })
+                .then(() => res.send({response: "logout successfull"}))
+                .catch((err) => res.status(500).send(err));
+                
+            }
+        });
 
-    router.put("/message", (req, res) => {
-        const { content, pseudo } = req.body;
-        if (!content || !pseudo) {
-            res.status(400).send("Missing fields");
-        } else {
-            message.writeMessage(pseudo, content, -1)
+    router.put("/message/write", (req, res) => {
+        
+        if(req.session.userid == undefined) {
+            /*Dans le cas ou aucun utilisateur n'est connecté:*/
+            res.status(400).send("a ghost can't tweet");
+        }else{
+            //un utilisateur est connecté
+            const { content , parent_id } = req.body;
+            if (!content) {
+                res.status(400).send("Missing fields");
+            } else {
+                message.writeMessage(req.session.userid, content, parent_id)
                 .then((author_id) => res.status(201).send({id: author_id}))
                 .catch((err) => res.status(500).send(err));
+            }
         }
     });
 

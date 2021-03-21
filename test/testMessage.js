@@ -9,26 +9,29 @@ chai.use(chaiHttp);
 chai.should();
 
 mocha.describe("Test de l'API message", () => {
+<<<<<<< Updated upstream
     mocha.it("message", (done) => {
         const request_user_tmp = chai.request(app.default).keepOpen();
             const user_tmp = {
                 login: "SardoChesti",
                 password: "1234",
                 pseudo:"Sard"
+=======
+    mocha.it(" Non-Envoi d'un message lorsque qu'aucun utilisateur est connécté", (done) => {
+        const request = chai.request(app.default).keepOpen();
+            const message = {
+                content: "Ouin Ouin !"
+>>>>>>> Stashed changes
             };
             
-            request_user_tmp
-            .put('/api/user')
-            .send(user_tmp)
-        
-        .then((res)=>{
+            request
+            .put('/api/message/write')
+            .send(message)
             
-            const request = chai.request(app.default).keepOpen();
-                const message = {
-                    pseudo:"Sard",
-                    content: "Ouin Ouin !"
-                };
+            .then((res) => {
+                res.should.have.status(400);
                 
+<<<<<<< Updated upstream
                 request
                 .put('/api/message')
                 .send(message)
@@ -54,11 +57,11 @@ mocha.describe("Test de l'API message", () => {
             
             
         }).then(() => done(), (err) => done(err))
+=======
+            }).then(() => done(), (err) => done(err))
+>>>>>>> Stashed changes
             .finally(() => {
                 request.close()
             })
-        
-        
+        })
     })
-})
-

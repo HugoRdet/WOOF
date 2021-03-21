@@ -27,6 +27,7 @@ function init(usersDB, messagesDB) {
 
     router.post("/user/login", async (req, res) => {
         
+        
         try {
             
             const { login, password } = req.body;
@@ -47,7 +48,11 @@ function init(usersDB, messagesDB) {
                 });
                 return;
             }
-            let userid = await users.login(login, password);
+            
+            
+            let userid = await users.checkpassword(login, password);
+            
+            
             if (userid) {
                 req.session.regenerate(function (err) {
                     if (err) {
@@ -58,6 +63,8 @@ function init(usersDB, messagesDB) {
                     }
                     else {
                         req.session.userid = userid;
+                        req.session.userlogin=login;
+        
                         
                         res.status(200).json({
                             status: 200,
@@ -163,7 +170,8 @@ function init(usersDB, messagesDB) {
             if (!content) {
                 res.status(400).send("Missing fields");
             } else {
-                message.writeMessage(req.session.userid, content, parent_id)
+                message.writeMessage(req.session.userlogin, content, parent_id)
+                // ???????
                 .then((author_id) => res.status(201).send({id: author_id}))
                 .catch((err) => res.status(500).send(err));
             }

@@ -80,7 +80,7 @@ mocha.describe("Test de l'API user", () => {
             .send(user)
                 
             .then((res) => {
-                res.should.have.status(500);
+                res.should.have.status(200);
                     
             }).then(() => done(), (err) => done(err))
             .finally(() => {
@@ -88,7 +88,7 @@ mocha.describe("Test de l'API user", () => {
             })
         });
         
-    mocha.it("Login avec des identifiants incorrects", (done) => {
+    mocha.it("Login avec des identifiants incorrects (mdp incorrect)", (done) => {
         const request = chai.request(app.default).keepOpen();
             const user = {
                 login: "pikachu",
@@ -108,10 +108,10 @@ mocha.describe("Test de l'API user", () => {
             })
         });
     
-    mocha.it("Login avec des identifiants incorrects", (done) => {
+    mocha.it("Login avec des identifiants incorrects (login incorrect)", (done) => {
         const request = chai.request(app.default).keepOpen();
             const user = {
-                login: "pikachu",
+                login: "haha",
                 password: "mauvais_mdp",
             };
                 
@@ -120,7 +120,7 @@ mocha.describe("Test de l'API user", () => {
                 .send(user)
                 
                 .then((res) => {
-                    res.should.have.status(403);
+                    res.should.have.status(401);
                     
                 }).then(() => done(), (err) => done(err))
                 .finally(() => {

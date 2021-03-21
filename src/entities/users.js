@@ -85,18 +85,24 @@ class Users {
       }
     });
   }
+  
   checkpassword(login, password) {
     return new Promise((resolve, reject) => {
       
-      req = this.db.prepare(`
+      const req = this.db.prepare(`
         SELECT rowid FROM users WHERE login=? AND password=?;
       `);
+      
       req.get([login, password], (err, row) => {
         if(err) {
           console.log('Erreur SQL: ', err);
           reject();
         } else {
-          resolve(row.rowid);
+          if (row!=undefined){
+            resolve(row.rowid);
+          }else{
+            resolve(0);
+          }
         }
       });
     });

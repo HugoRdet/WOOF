@@ -196,9 +196,9 @@ class Users {
   getFollowedUsers(pseudo){
     return new Promise ( (resolve, reject) => {
       let req = this.db.prepare(
-        `SELECT followedPseudo FROM follow where followerPseudo=?; `
+        `SELECT followedPseudo FROM follow where followerPseudo==?; `
       );
-      req.get([pseudo], (err, res) => {
+      req.all([pseudo], (err, res) => {
         if(err) {
           console.log('Erreur SQL: ', err);
           reject();

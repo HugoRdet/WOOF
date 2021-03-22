@@ -30,8 +30,14 @@ class Messages {
 
   likeMessage(messageId, userId) {
     let newLike = {user_id: userId, date: new Date()};
-    this.db.update({_id: messageId}, {likes: newLike}, {upsert:true}, function(err, numAffected){
-      console.log(numAffected, "message liké(s)")
+    this.db.update({_id: messageId}, {$push : { likes: newLike}}, {}, function(err, numAffected){
+      return numAffected;
+    });
+  }
+
+  unlikeMessage(messageId, userId) {
+    this.db.update({_id: messageId}, {$pull : { likes: {user_id: userId}} }, {}, function(err, numAffected){
+      return numAffected;
     });
   }
   

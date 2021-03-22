@@ -147,14 +147,14 @@ function init(usersDB, messagesDB) {
         }
     });
     
-        router.put("/message/logout", (req, res) => {
+        router.put("/user/logout", (req, res) => {
             if(req.session.userid == undefined) {
                 /*Dans le cas ou aucun utilisateur n'est connecté:*/
                 res.status(400).send("a ghost can't log out");
             }else{
                 //un utilisateur est connecté
                 req.session.destroy((err) => { })
-                .then(() => res.send({response: "logout successfull"}))
+                res.send({response: "logout successfull"})
                 .catch((err) => res.status(500).send(err));
                 
             }

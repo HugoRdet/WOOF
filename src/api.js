@@ -63,7 +63,7 @@ function init(usersDB, messagesDB) {
                     }
                     else {
                         req.session.userid = userid;
-                        req.session.userpseudo=pseudo;
+                        req.session.userlogin=login;
         
                         
                         res.status(200).json({

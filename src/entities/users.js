@@ -1,6 +1,6 @@
 class Users {
   constructor(db) {
-    this.db = db
+    this.db = db;
     const req_create_tab = `
       CREATE TABLE IF NOT EXISTS users(
         login VARCHAR(256) NOT NULL PRIMARY KEY,
@@ -10,7 +10,7 @@ class Users {
     const req_create_tab_follow = `
       CREATE TABLE IF NOT EXISTS follow(
         followedPseudo VARCHAR(256) NOT NULL PRIMARY KEY,
-        followerPseudo VARCHAR(256) NOT NULL,
+        followerPseudo VARCHAR(256) NOT NULL);
     `;
     db.exec(req_create_tab, (err) => {
       if(err) {

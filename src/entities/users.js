@@ -64,6 +64,26 @@ class Users {
       
     });
   }
+  
+  get_login(userid) {
+    return new Promise((resolve, reject) => {
+      const req_insert_user=this.db.prepare(`SELECT pseudo
+                                        FROM users
+                                        WHERE rowid==(?)
+                                        `);
+      
+      req_insert_user.get([userid],(err,row) => {
+        if(err) {
+          //throw err;
+          reject(err);
+        } else {
+          resolve(row.pseudo);
+        }
+      });
+      
+    });
+  }
+  
 
   async exists(login) {
     return new Promise((resolve, reject) => {
@@ -191,4 +211,5 @@ class Users {
 }
 
 exports.default = Users;
+  
   

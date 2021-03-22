@@ -63,13 +63,20 @@ function init(usersDB, messagesDB) {
                     }
                     else {
                         req.session.userid = userid;
-                        req.session.userlogin=login;
+                        
+                        users.get_login(userid).then((pseudo) => {
+                            req.session.pseudo=pseudo;
+                            
+                            res.status(200).json({
+                                status: 200,
+                                message: "Login et mot de passe accepté"
+                            });
+                            
+                        });
+                        
         
                         
-                        res.status(200).json({
-                            status: 200,
-                            message: "Login et mot de passe accepté"
-                        });
+                        
                     }
                 });
                 return;
@@ -133,10 +140,14 @@ function init(usersDB, messagesDB) {
     });
 
     router
-        .route("/user/display/:pseudo(\\d+)")
+        .route("/user/display/:pseudo")
         .get(async (req, res) => {
         try {
+            console.log("TEST");
+            console.log(req.params.pseudo);
             const message = await message.getMessageByAuthor(req.params.pseudo);
+            console.log("TEST");
+            console.log(message);
             if (!message)
                 res.sendStatus(404);
             else
@@ -153,9 +164,9 @@ function init(usersDB, messagesDB) {
                 res.status(400).send("a ghost can't log out");
             }else{
                 //un utilisateur est connecté
-                req.session.destroy((err) => { })
+                req.session.destroy((err) => { });
                 res.send({response: "logout successfull"})
-                .catch((err) => res.status(500).send(err));
+    
                 
             }
         });
@@ -171,7 +182,7 @@ function init(usersDB, messagesDB) {
             if (!content) {
                 res.status(400).send("Missing fields");
             } else {
-                message.writeMessage(req.session.userlogin, content, parent_id)
+                message.writeMessage(req.session.userpseudo, content, parent_id)
                 // ???????
                 .then((author_id) => res.status(201).send({id: author_id}))
                 .catch((err) => res.status(500).send(err));
@@ -182,3 +193,4 @@ function init(usersDB, messagesDB) {
     return router;
 }
 exports.default = init;
+    

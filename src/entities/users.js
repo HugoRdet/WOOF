@@ -9,7 +9,7 @@ class Users {
     `;
     const req_create_tab_follow = `
       CREATE TABLE IF NOT EXISTS follow(
-        followedPseudo VARCHAR(256) NOT NULL PRIMARY KEY,
+        followedPseudo VARCHAR(256) NOT NULL,
         followerPseudo VARCHAR(256) NOT NULL);
     `;
     db.exec(req_create_tab, (err) => {
@@ -162,15 +162,14 @@ class Users {
 
   follow(pseudoFollowed, pseudoFollower){
     return new Promise((resolve, reject) => {
-      const req_insert_follow=this.db.prepare(`INSERT INTO follow(followedPseudo,followerPseudo)
-                            VALUES (?,?);`);
+      const req_insert_follow=this.db.prepare(`INSERT INTO follow(followedPseudo,followerPseudo) VALUES (?,?);`);
       
       req_insert_follow.run([pseudoFollowed,pseudoFollower],(err) => {
         if(err) {
           //throw err;
           reject(err);
         } else {
-          resolve(1);
+          resolve({"follow" : 'OK'});
         }
       });
     });
@@ -203,6 +202,7 @@ class Users {
           console.log('Erreur SQL: ', err);
           reject();
         } else {
+          console.log(res);
           resolve(res);
         }
       });

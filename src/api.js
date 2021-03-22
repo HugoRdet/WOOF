@@ -139,7 +139,7 @@ function init(usersDB, messagesDB) {
                     res.status(400).send("Missing fields");
                 } else {
                     users.follow(pseudo,req.session.pseudo)
-                    .then(() => res.status(201).send({response:" followed OK "}))
+                    .then((doc) => res.status(201).send(doc))
                     .catch((err) => res.status(500).send(err));
                 }
             }
@@ -235,7 +235,8 @@ function init(usersDB, messagesDB) {
             if (!doc)
                 res.sendStatus(404);
             else{
-                let n = 10;
+                console.log("jusqu'ici tout va bien ...");
+                let n = 2;
                 let m = 0;
                 let followedPseudoList = doc.map(({followedPseudo}) => followedPseudo);
                 message.getMessagesFromFollowed(followedPseudoList, n, m).then(

@@ -27,17 +27,6 @@ class Messages {
     });
   }
 
-  printMessage(message) {
-    console.log('Author : ', message.author_id);
-    console.log(message.content);
-    console.log("Likes : ", message.likes.length);
-    message.comments.forEach((comment) => {
-      console.log('Comment : ')
-      printMessage(comment)
-    });
-  }
-  
-
 
   likeMessage(messageId, userId) {
     let newLike = {user_id: userId, date: new Date()};
@@ -75,6 +64,7 @@ class Messages {
       });
     });
   }
+
 }
 
 exports.default = Messages

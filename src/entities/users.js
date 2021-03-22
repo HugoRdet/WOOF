@@ -9,7 +9,7 @@ class Users {
     `;
     const req_create_tab_follow = `
       CREATE TABLE IF NOT EXISTS follow(
-        followedPseudo VARCHAR(256) NOT NULL,
+        followedPseudo VARCHAR(256) NOT NULL PRIMARY KEY,
         followerPseudo VARCHAR(256) NOT NULL);
     `;
     db.exec(req_create_tab, (err) => {
@@ -161,8 +161,14 @@ class Users {
   }
 
   follow(pseudoFollowed, pseudoFollower){
+    
+    
     return new Promise((resolve, reject) => {
       const req_insert_follow=this.db.prepare(`INSERT INTO follow(followedPseudo,followerPseudo) VALUES (?,?);`);
+      
+      if (pseudoFollowed==pseudoFollower){
+        reject("a user cannot follow himself");
+      }
       
       req_insert_follow.run([pseudoFollowed,pseudoFollower],(err) => {
         if(err) {
@@ -176,11 +182,12 @@ class Users {
   }
 
   unfollow(pseudoFollowed, pseudoFollower){
+    
     return new Promise( (resolve, reject) => {
-      req = this.db.prepare(
-      `DELETE FROM follow WHERE followedPseudo = ? AND followerPseudo = ?;`
+      const req = this.db.prepare(
+      `DELETE FROM follow WHERE followedPseudo = ? AND followerPseudo = ?`
       );
-      req.gt([pseudoFollowed, pseudoFollower], (err) => {
+      req.run([pseudoFollowed, pseudoFollower], (err) => {
         if(err) {
           console.log('Erreur lors de la suppression');
           reject();
@@ -194,6 +201,7 @@ class Users {
 
   getFollowedUsers(pseudo){
     return new Promise ( (resolve, reject) => {
+      
       let req = this.db.prepare(
         `SELECT followedPseudo FROM follow where followerPseudo==?; `
       );
@@ -202,7 +210,6 @@ class Users {
           console.log('Erreur SQL: ', err);
           reject();
         } else {
-          console.log(res);
           resolve(res);
         }
       });

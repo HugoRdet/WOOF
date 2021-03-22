@@ -145,13 +145,12 @@ function init(usersDB, messagesDB) {
         try {
             console.log("TEST");
             console.log(req.params.pseudo);
-            const message = await message.getMessageByAuthor(req.params.pseudo);
-            console.log("TEST");
-            console.log(message);
-            if (!message)
-                res.sendStatus(404);
-            else
-                res.send(message);
+            message.getMessagesByAuthor(req.params.pseudo).then((doc) => {
+                if (!doc)
+                    res.sendStatus(404);
+                else
+                    res.send(doc);
+            });
         }
         catch (e) {
             res.status(500).send(e);

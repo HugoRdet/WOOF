@@ -38,8 +38,9 @@ class Messages {
   getMessagesByAuthor(author) {
     return new Promise( (resolve, reject) => {
       this.db.find({author_id: author}, (err, data) => {
-        if(err)
-          reject();
+        if(err){
+          reject(err);
+        }
         resolve(data);
       });
     });
@@ -55,7 +56,7 @@ class Messages {
     });
   }
 
-  getMessageByContent(content) {
+  getMessagesByContent(content) {
     return new Promise( (resolve, reject) => {
       this.db.find({content: new RegExp(content)}, (err, data) => {
         if(err)

@@ -97,13 +97,7 @@ function init(usersDB, messagesDB) {
         }
     });
 
-    /*
-    !
-    !
-    ! A REFLECHIR
-    !
-    !
-    */
+
     router
         .route("/user/:user_id(\\d+)")
         .get(async (req, res) => {
@@ -120,13 +114,7 @@ function init(usersDB, messagesDB) {
         }
     }).delete((req, res, next) => res.send(`delete user ${req.params.user_id}`)); // ??????
 
-    /*
-    !
-    !
-    ! A REFLECHIR
-    !
-    !
-    */
+    
         
     router.put("/user/create", (req, res) => {
         const { login, password, pseudo } = req.body;
@@ -138,20 +126,74 @@ function init(usersDB, messagesDB) {
                 .catch((err) => res.status(500).send(err));
         }
     });
-
+    
+        router.put("/user/follow", (req, res) => {
+            
+            if(req.session.userid == undefined) {
+                /*Dans le cas ou aucun utilisateur n'est connecté:*/
+                res.status(400).send("a ghost can't follow");
+            }else{
+                
+                const { pseudo } = req.body;
+                if ( !pseudo ) {
+                    res.status(400).send("Missing fields");
+                } else {
+                    users.follow(pseudo,req.session.pseudo)
+                    .then(() => res.status(201).send({response:" followed OK "}))
+                    .catch((err) => res.status(500).send(err));
+                }
+            }
+        });
+        
+        router.put("/user/unfollow", (req, res) => {
+            
+            if(req.session.userid == undefined) {
+                /*Dans le cas ou aucun utilisateur n'est connecté:*/
+                res.status(400).send("a ghost can't unfollow");
+            }else{
+                
+                const { pseudo } = req.body;
+                if ( !pseudo ) {
+                    res.status(400).send("Missing fields");
+                } else {
+                    users.unfollow(pseudo,req.session.pseudo)
+                    .then(() => res.status(201).send({response:" unfollowed OK "}))
+                    .catch((err) => res.status(500).send(err));
+                }
+            }
+        });
+        
+        router.get("/user/display/follow", (req, res) => {
+            
+            const { pseudo } = req.body;
+            if ( !pseudo ) {
+                res.status(400).send("Missing fields");
+            } else {
+            
+                users.getFollowedUsers(pseudo).then((doc) => {            
+                    if (!doc)
+                        res.sendStatus(404);
+                    else
+                        res.status(201).send(doc);
+                    
+                });
+                
+            }
+            
+        });
+    
     router
         .route("/user/display/:pseudo")
         .get(async (req, res) => {
         try {
-            console.log("TEST");
-            console.log(req.params.pseudo);
-            const message = await message.getMessageByAuthor(req.params.pseudo);
-            console.log("TEST");
-            console.log(message);
-            if (!message)
-                res.sendStatus(404);
-            else
-                res.send(message);
+            message.getMessagesByAuthor(req.params.pseudo).then((doc) => {            
+                if (!doc)
+                    res.sendStatus(404);
+                else
+                    res.status(201).send(doc);
+            
+            });
+            
         }
         catch (e) {
             res.status(500).send(e);

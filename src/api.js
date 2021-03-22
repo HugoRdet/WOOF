@@ -230,6 +230,79 @@ function init(usersDB, messagesDB) {
         }
     });
 
+    router.get("/user/display/newsfeed", (req, res) => {
+        users.getFollowedUsers(req.session.userpseudo).then((doc) => {            
+            if (!doc)
+                res.sendStatus(404);
+            else{
+                let n = 10;
+                let m = 0;
+                let followedPseudoList = doc.map(({followedPseudo}) => followedPseudo);
+                message.getMessagesFromFollowed(followedPseudoList, n, m).then(
+                    (data) => {
+                        if(!data)
+                            res.sendStatus(404);
+                        else
+                            res.status(201).send(data);
+                    }
+                );
+            }
+        });
+        }
+    );
+
+    router
+        .route("/message/search/:content")
+        .get(async (req, res) => {
+        try {
+            console.log(req.params.content)
+            message.getMessagesByContent(req.params.content).then((doc) => {            
+                if (!doc)
+                    res.sendStatus(404);
+                else
+                    res.status(201).send(doc);
+            
+            });
+        }
+        catch (e) {
+            res.status(500).send(e);
+        }
+    });
+
+    router.put("/message/like", (req, res) => {
+        
+        if(req.session.userid == undefined) {
+            /*Dans le cas ou aucun utilisateur n'est connecté:*/
+            res.status(400).send("a ghost can't like");
+        }else{
+            //un utilisateur est connecté
+            const { messageId } = req.body;
+            if (!messageId) {
+                res.status(400).send("Message not found");
+            } else {
+                message.likeMessage(messageId, req.session.userid);
+                res.status(201).send({"like" : 1});
+            }
+        }
+    });
+
+    router.put("/message/unlike", (req, res) => {
+        
+        if(req.session.userid == undefined) {
+            /*Dans le cas ou aucun utilisateur n'est connecté:*/
+            res.status(400).send("a ghost can't unlike");
+        }else{
+            //un utilisateur est connecté
+            const { messageId } = req.body;
+            if (!messageId) {
+                res.status(400).send("Message not found");
+            } else {
+            message.unlikeMessage(messageId, req.session.userid);
+            res.status(201).send({"unlike" : 1});
+            }
+        }
+    });
+
     return router;
 }
 exports.default = init;

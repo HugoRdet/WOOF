@@ -63,7 +63,7 @@ function init(usersDB, messagesDB) {
                     }
                     else {
                         req.session.userid = userid;
-                        req.session.userlogin=login;
+                        req.session.userpseudo=pseudo;
         
                         
                         res.status(200).json({
@@ -101,6 +101,7 @@ function init(usersDB, messagesDB) {
         .route("/user/:user_id(\\d+)")
         .get(async (req, res) => {
         try {
+            console.log("userid: ",req.session.userid);
             const user = await users.get(req.params.user_id);
             if (!user)
                 res.sendStatus(404);

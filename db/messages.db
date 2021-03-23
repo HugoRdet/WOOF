@@ -25,3 +25,7 @@
 {"parent_id":-1,"author_id":"Sard","content":"Ouin Ouin !","date":{"$$date":1616081660090},"likes":[],"comments":[],"_id":"vAjcnAVwpM0uZ6dS"}
 {"parent_id":-1,"author_id":"Sard","content":"Ouin Ouin !","date":{"$$date":1615823567398},"likes":[],"comments":[],"_id":"yrrwk0kNHRsxVUcE"}
 {"parent_id":-1,"author_id":"Sard","content":"Ouin Ouin !","date":{"$$date":1616082492812},"likes":[],"comments":[],"_id":"zxmZ0j4zipGirMRk"}
+{"parent_id":"-1","content":"C'est donc ca la vie d'influenceur? test","date":{"$$date":1616432127544},"likes":[],"comments":[],"_id":"dpthdS1a51zu2jRP"}
+{"parent_id":"-1","content":"C'est donc ca la vie d'influenceur? test","date":{"$$date":1616432127544},"likes":[{"user_id":1,"date":{"$$date":1616432172679}}],"comments":[],"_id":"dpthdS1a51zu2jRP"}
+{"parent_id":"-1","content":"C'est donc ca la vie d'influenceur? test","date":{"$$date":1616432127544},"likes":[{"user_id":1,"date":{"$$date":1616432172679}},{"user_id":1,"date":{"$$date":1616432207526}}],"comments":[],"_id":"dpthdS1a51zu2jRP"}
+{"parent_id":"-1","content":"C'est donc ca la vie d'influenceur? test","date":{"$$date":1616432127544},"likes":[],"comments":[],"_id":"dpthdS1a51zu2jRP"}

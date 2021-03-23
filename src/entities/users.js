@@ -215,6 +215,33 @@ class Users {
       });
     });
   }
+  
+  getCountFollowers(pseudo){
+    return new Promise( (resolve, reject) => {
+        let req = this.db.prepare(
+        `SELECT COUNT(DISTINCT followerPseudo) FROM follow WHERE followedPseudo=?;`
+      );
+      req.get([pseudo], (err, res) => {
+        if(err) 
+          reject(err);
+        else 
+          resolve();
+      });
+    });
+  }
+
+  deleteUser(userId){
+    return new Promise( (resolve, reject) => {
+      let req = this.db.prepare(
+        `DELETE FROM user WHERE rowid=?;`
+      );
+      req.run([userId], (err) => {
+        if(err)
+          reject();
+        resolve();
+      });
+    })
+  }
 }
 
 exports.default = Users;

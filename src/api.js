@@ -256,7 +256,6 @@ function init(usersDB, messagesDB) {
         .route("/message/search/:content")
         .get(async (req, res) => {
         try {
-            console.log(req.params.content)
             message.getMessagesByContent(req.params.content).then((doc) => {            
                 if (!doc)
                     res.sendStatus(404);
@@ -304,6 +303,42 @@ function init(usersDB, messagesDB) {
         }
     });
 
+    router
+        .route("/user/display/:pseudo")
+        .get(async (req, res) => {
+        try {
+            console.log(req.params.pseudo)
+            users.getCountFollowers(req.params.pseudo).then((count) => {            
+                if (!count)
+                    res.sendStatus(404);
+                else
+                    res.status(201).send(count);
+            
+            });
+        }
+        catch (e) {
+            res.status(500).send(e);
+        }
+    });
+
+    router
+        .route("/message/:messageid")
+        .get(
+            async (req, res) => {
+                message.getMessageById(req.params.messageid).then(
+                    ((msg) => {
+                        if(msg.author_id != req.session.userpseudo){
+                            console.log("Erreur d'authentification");
+                            res.sendStatus(401);
+                        }
+                        res.status(201).send(msg);      
+                    })
+                )
+            }
+        )
+        .delete((req, res, next) => message.deleteMessage(req.params.messageid););
+
+    
     return router;
 }
 exports.default = init;

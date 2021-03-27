@@ -65,7 +65,7 @@ function init(usersDB, messagesDB) {
                         req.session.userid = userid;
                         
                         users.get_login(userid).then((pseudo) => {
-                            req.session.pseudo=pseudo;
+                            req.session.userpseudo=pseudo;
                             
                             res.status(200).json({
                                 status: 200,
@@ -189,6 +189,14 @@ function init(usersDB, messagesDB) {
                 if (!doc)
                     res.sendStatus(404);
                 else
+                    //affiche les messages dans le terminal
+                    /*
+                    for (var k=0 ; k < doc.length ; k++){
+                        console.log("Autor : ",doc[k].author_id,"\n");
+                        console.log("content : ",doc[k].content,"\n");
+                        console.log("date : ",doc[k].date,"\n\n");
+                    }
+                    */
                     res.status(201).send(doc);
             
             });
@@ -217,14 +225,15 @@ function init(usersDB, messagesDB) {
             /*Dans le cas ou aucun utilisateur n'est connecté:*/
             res.status(400).send("a ghost can't tweet");
         }else{
+            
             //un utilisateur est connecté
             const { content , parent_id } = req.body;
             if (!content) {
-                res.status(400).send("Missing fields");
+                res.status(400).send("Vous conviendrez q'un message sans contenu n'a pas beaucoup d'interêt");
             } else {
                 message.writeMessage(req.session.userpseudo, content, parent_id)
-                // ???????
-                .then((author_id) => res.status(201).send({id: author_id}))
+                
+                .then((author_pseudo) => res.status(201).send({pseudo: author_pseudo}))
                 .catch((err) => res.status(500).send(err));
             }
         }
@@ -304,12 +313,13 @@ function init(usersDB, messagesDB) {
     });
 
     router
-        .route("/user/display/:pseudo")
+        .route("/user/display/count/followers/:pseudo")
         .get(async (req, res) => {
         try {
-            console.log(req.params.pseudo)
-            users.getCountFollowers(req.params.pseudo).then((count) => {            
-                if (!count)
+            
+            users.getCountFollowers(req.params.pseudo).then((count) => {  
+                console.log("count :",count);
+                if (count==undefined)
                     res.sendStatus(404);
                 else
                     res.status(201).send(count);
@@ -320,24 +330,101 @@ function init(usersDB, messagesDB) {
             res.status(500).send(e);
         }
     });
+    
+    router
+        .route("/user/display/count/messages/:pseudo")
+        .get(async (req, res) => {
+        try {
+            message.getCountMessagesByAuthor(req.params.pseudo).then((count) => {  
+                if (count==undefined)
+                    res.sendStatus(404);
+                else
+                    res.status(201).send({nb_tweets:count});
+            });
+            }
+            catch (e) {
+                res.status(500).send(e);
+            }
+        });
+    
+        
+    
+        router
+        .route("/user/display/followers/:pseudo")
+        .get(async (req, res) => {
+            try {
+                
+                users.getFollowers(req.params.pseudo).then((followers_) => {  
+                    
+                    if (!followers_)
+                        res.sendStatus(404);
+                    else
+                        res.status(201).send(followers_);
+                    
+                });
+            }
+            catch (e) {
+                res.status(500).send(e);
+            }
+        });
+
 
     router
-        .route("/message/:messageid")
-        .get(
-            async (req, res) => {
+        .route("/message/delete/:messageid")
+        .put(async (req, res) => {
+            try {
+                
                 message.getMessageById(req.params.messageid).then(
                     ((msg) => {
-                        if(msg.author_id != req.session.userpseudo){
-                            console.log("Erreur d'authentification");
-                            res.sendStatus(401);
+                        
+                        if ((msg==[])||(message==undefined)){
+                            res.status(200).send({message_delete:0});                            
+                        }else{
+                
+                            if(msg[0].author_id != req.session.userpseudo){
+                                console.log("Erreur d'authentification");
+                                res.sendStatus(401).send({message_delete:0});
+                            }else {
+                                
+                                message.deleteMessage(req.params.messageid)
+                                res.status(200).send({message_delete:msg});
+                            }
                         }
-                        res.status(201).send(msg);      
                     })
-                )
-            }
-        )
-        .delete((req, res, next) => message.deleteMessage(req.params.messageid););
+                ).catch((err) => res.status(500).send({message_delete:0}));
+        }
+        catch (e) {
+            res.status(500).send(e);
+        }
+    });
+    
+    
+    
 
+    router
+    .route("/message/delete_all")
+    .put(async (req, res) => {
+        
+        try {
+            
+            if (req.session.userpseudo!=undefined){
+                
+                message.deleteAllMessagesByAuthor(req.session.userpseudo).then(
+                    (nb_delete)=>{
+                    console.log("oui non \n");
+                    res.status(200).send({message_delete:nb_delete});
+                }
+                ).catch((err) => res.status(500).send({message_delete:0}));
+            }else{
+                res.status(400).send("A ghost can't delete his messages");
+            }
+        }
+        catch (e) {
+            console.log(e);
+            res.status(500).send(e);
+        }
+    });
+    
     
     return router;
 }

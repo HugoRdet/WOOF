@@ -216,16 +216,30 @@ class Users {
     });
   }
   
-  getCountFollowers(pseudo){
+  getFollowers(pseudo){
     return new Promise( (resolve, reject) => {
-        let req = this.db.prepare(
-        `SELECT COUNT(DISTINCT followerPseudo) FROM follow WHERE followedPseudo=?;`
+      let req = this.db.prepare(
+        `SELECT followerPseudo FROM follow WHERE followedPseudo=?;`
       );
       req.get([pseudo], (err, res) => {
         if(err) 
           reject(err);
         else 
-          resolve();
+          resolve(res);
+      });
+    });
+  }
+  
+  getCountFollowers(pseudo){
+    return new Promise( (resolve, reject) => {
+        let req = this.db.prepare(
+        `SELECT COUNT(followerPseudo) FROM follow WHERE followedPseudo=?;`
+      );
+      req.get([pseudo], (err, res) => {
+        if(err) 
+          reject(err);
+        else 
+          resolve(res);
       });
     });
   }

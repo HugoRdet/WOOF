@@ -97,6 +97,18 @@ class Messages {
     });
   }
   
+  getCountMessagesByAuthor(author){
+    return new Promise( (resolve, reject) => {
+      this.db.count({author_id: author}, (err, data) => {
+        if(err)
+          reject();
+        
+        resolve(data);
+      });
+    });
+  }
+  
+  
   getMessageById(messageId) {
     return new Promise( (resolve, reject) => {
       this.db.find({_id: messageId}, (err, data) => {
@@ -108,10 +120,23 @@ class Messages {
   }
 
   deleteMessage(messageId) {
+  
     this.db.remove({ $or: [{_id: messageId}, {parent_id: messageId}]}, {multi: true}, (err, numRemoved) => {
-      console.log(numRemoved, "message(s) supprimé(s).");
+      //console.log(numRemoved, "message(s) supprimé(s).");
+      return numRemoved;
+      
+      
     });
   }
+  
+  deleteAllMessagesByAuthor(author) {
+    
+    this.db.remove({ author_id : author }, { multi: true }, (err, numRemoved) => {
+      console.log("Messages supprimés:",numRemoved);
+      return numRemoved;
+    });
+  }
+  
   
 }
 

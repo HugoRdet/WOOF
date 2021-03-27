@@ -371,26 +371,22 @@ function init(usersDB, messagesDB) {
 
     router
         .route("/message/delete/:messageid")
-        .put(async (req, res) => {
+        .get(async (req, res) => {
             try {
-                
                 message.getMessageById(req.params.messageid).then(
-                    ((msg) => {
-                        
+                    (msg) => {
                         if ((msg==[])||(message==undefined)){
                             res.status(200).send({message_delete:0});                            
                         }else{
-                
                             if(msg[0].author_id != req.session.userpseudo){
                                 console.log("Erreur d'authentification");
                                 res.sendStatus(401).send({message_delete:0});
                             }else {
-                                
                                 message.deleteMessage(req.params.messageid)
                                 res.status(200).send({message_delete:msg});
                             }
                         }
-                    })
+                    }
                 ).catch((err) => res.status(500).send({message_delete:0}));
         }
         catch (e) {
@@ -406,15 +402,9 @@ function init(usersDB, messagesDB) {
     .put(async (req, res) => {
         
         try {
-            
             if (req.session.userpseudo!=undefined){
-                
-                message.deleteAllMessagesByAuthor(req.session.userpseudo).then(
-                    (nb_delete)=>{
-                    console.log("oui non \n");
-                    res.status(200).send({message_delete:nb_delete});
-                }
-                ).catch((err) => res.status(500).send({message_delete:0}));
+                message.deleteAllMessagesByAuthor(req.session.userpseudo);
+                res.status(201).send({"messages deleted from user" : req.session.userpseudo });
             }else{
                 res.status(400).send("A ghost can't delete his messages");
             }

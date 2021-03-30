@@ -16,7 +16,7 @@ class MainPage extends React.Component {
   render() {
     return (
       <div className="MainPage">
-        <NavigationPanel isConnected={this.state.isConnected}/>
+        <NavigationPanel isConnected={this.state.isConnected} login={this.getConnected} logout={this.setLogout}/>
       </div>
     )
 

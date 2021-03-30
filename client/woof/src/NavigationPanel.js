@@ -3,18 +3,27 @@ import Login from './Login'
 import Logout from './Logout'
 
 class NavigationPanel extends React.Component{
+  
+  login = () => {
+    this.props.login();
+  }
+
+  logout = () => {
+    this.props.logout();
+  }
+
   render() {
     if(this.props.isConnected){
       return (
         <nav className="navigationPanel">
-          <Logout/>
+          <Logout logout={this.logout}/>
         </nav>
       )
     }
     else {
       return (
         <nav className="navigationPanel">
-          <Login/>
+          <Login login={this.login}/>
         </nav>
       )
     }

@@ -1,6 +1,6 @@
 import React from 'react'
 
-class Login extends React.Component {
+class SignIn extends React.Component {
   login = () => {
     this.props.login();
   }
@@ -9,12 +9,12 @@ class Login extends React.Component {
       <form>
         <input type="text" placeholder="login"/>
         <input type="password" placeholder="password"/>
-        <button className="loginButton" onClick={this.login}>
-          Login
+        <button className="signInButton" onClick={this.login}>
+          Sign In
         </button>
       </form>
     )
   }
 }
 
-export default Login
+export default SignIn

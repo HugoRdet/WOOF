@@ -1,6 +1,7 @@
 import React from 'react'
-import Login from './Login'
+import SignIn from './SignIn'
 import Logout from './Logout'
+import SearchBar from './SearchBar'
 
 class NavigationPanel extends React.Component{
   
@@ -17,13 +18,15 @@ class NavigationPanel extends React.Component{
       return (
         <nav className="navigationPanel">
           <Logout logout={this.logout}/>
+          <SearchBar/>
         </nav>
       )
     }
     else {
       return (
         <nav className="navigationPanel">
-          <Login login={this.login}/>
+          <SignIn login={this.login}/>
+          <SearchBar/>
         </nav>
       )
     }

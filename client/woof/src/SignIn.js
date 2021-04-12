@@ -7,11 +7,11 @@ class SignIn extends React.Component {
   render() {
     return (
       <form>
-        <input type="text" placeholder="login"/>
-        <input type="password" placeholder="password"/>
-        <button className="signInButton" onClick={this.login}>
+        <button class="signInButton" onClick={this.login}>
           Sign In
         </button>
+        <input type="password" class="inputDefault" placeholder="password" required/>
+        <input type="text" class="inputDefault" placeholder="login" required/>
       </form>
     )
   }

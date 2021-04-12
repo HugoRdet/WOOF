@@ -3,7 +3,7 @@ import SignIn from './SignIn'
 import Logout from './Logout'
 import SearchBar from './SearchBar'
 
-class NavigationPanel extends React.Component{
+class BannerTop extends React.Component{
   
   login = () => {
     this.props.login();
@@ -16,21 +16,21 @@ class NavigationPanel extends React.Component{
   render() {
     if(this.props.isConnected){
       return (
-        <nav className="navigationPanel">
-          <Logout logout={this.logout}/>
+        <nav className="BannerTop">
           <SearchBar/>
+          <Logout logout={this.logout}/>
         </nav>
       )
     }
     else {
       return (
-        <nav className="navigationPanel">
-          <SignIn login={this.login}/>
+        <nav className="BannerTop">
           <SearchBar/>
+          <SignIn login={this.login}/>
         </nav>
       )
     }
   }
 }
 
-export default NavigationPanel
+export default BannerTop

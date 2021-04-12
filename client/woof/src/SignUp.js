@@ -4,12 +4,12 @@ class SignUp extends React.Component {
   render() {
     return (
       <form>
-        <input type="text" placeholder="login" required/>
-        <input type="text" placeholder="name" required/>
-        <input type="password" placeholder="password" required/>
         <button className="signUpButton" onClick={this.signUp()}>
           Login
         </button>
+        <input type="password" class="inputDefault" placeholder="password" required/>
+        <input type="text" class="inputDefaul" tplaceholder="name" required/>
+        <input type="text" class="inputDefault" placeholder="login" required/>
       </form>
     )
   }

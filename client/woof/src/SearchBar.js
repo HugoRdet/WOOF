@@ -10,7 +10,7 @@ class SearchBar extends React.Component {
       <div class="searchBar">
         <input type="text" id="searchInput" class="searchBarInput" placeholder="Search Here ..." />
         <button class="searchButton" onClick={this.search()}>
-          <i class="searchIcon"></i>
+          <i class="fa fa-search"></i>
         </button>
       </div>
     )
@@ -18,6 +18,7 @@ class SearchBar extends React.Component {
 
   search() {
     let input = document.getElementById("search");
+    console.log("OUIII")
     /*connexion au serveur*/
     /* renvoie le résultat des recherches avec input*/
   }

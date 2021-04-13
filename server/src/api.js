@@ -29,7 +29,6 @@ function init(usersDB, messagesDB) {
         
         
         try {
-            
             const { login, password } = req.body;
             if (!login || !password) {
                 res.status(400).json({
@@ -38,8 +37,6 @@ function init(usersDB, messagesDB) {
                 });
                 return;
             }
-            
-            
             
             if(! await users.exists(login)) {
                 res.status(401).json({
@@ -51,7 +48,7 @@ function init(usersDB, messagesDB) {
             
             
             let userid = await users.checkpassword(login, password);
-            
+            console.log(userid) ;
             
             if (userid) {
                 req.session.regenerate(function (err) {

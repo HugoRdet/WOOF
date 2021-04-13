@@ -1,24 +1,15 @@
 import React from 'react'
-import SignIn from './SignIn'
-import Logout from './Logout'
+import LogoutButton from './LogoutButton'
 import SearchBar from './SearchBar'
 
 class BannerTop extends React.Component{
   
-  login = () => {
-    this.props.login();
-  }
-
-  logout = () => {
-    this.props.logout();
-  }
-
   render() {
     if(this.props.isConnected){
       return (
         <nav className="BannerTop">
           <SearchBar/>
-          <Logout logout={this.logout}/>
+          <LogoutButton setLogout={this.props.setLogout}/>
         </nav>
       )
     }
@@ -26,7 +17,6 @@ class BannerTop extends React.Component{
       return (
         <nav className="BannerTop">
           <SearchBar/>
-          <SignIn login={this.login}/>
         </nav>
       )
     }

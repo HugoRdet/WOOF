@@ -7,7 +7,7 @@ console.debug(`Base directory: ${basedir}`);
 
 // Connexion à la bd
 const sqlite3 = require('sqlite3').verbose();
-var usersDB = new sqlite3.Database(':memory:');
+var usersDB = new sqlite3.Database('./db/users.db');
 const Datastore = require('nedb');
 var messagesDB = new Datastore('./db/messages.db');
 

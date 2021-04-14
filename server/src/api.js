@@ -3,6 +3,7 @@ const Users = require("./entities/users.js");
 const Messages = require("./entities/messages.js");
 
 function init(usersDB, messagesDB) {
+    console.log
     
     const router = express.Router();
     router.use(express.json());
@@ -62,7 +63,7 @@ function init(usersDB, messagesDB) {
                         req.session.userid = userid;
                         
                         users.get_login(userid).then((pseudo) => {
-                            req.session.userpseudo=pseudo;
+                            req.session.pseudo=pseudo;
                             
                             res.status(200).json({
                                 status: 200,
@@ -180,10 +181,8 @@ function init(usersDB, messagesDB) {
     router
         .route("/user/display/profile")
         .get(async (req, res) => {
-            const {pseudo} = req.body;
-            console.log(pseudo);
         try {
-            message.getMessagesByAuthor(pseudo).then((doc) => {            
+            message.getMessagesByAuthor(req.session.pseudo).then((doc) => {            
                 if (!doc)
                     res.sendStatus(404);
                 else{

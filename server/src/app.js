@@ -19,14 +19,12 @@ const session = require("express-session");
 app.use(session({
   
   genid: (req) => {
-    //console.log("inside the middleware session");
     var uuid_tmp=uuid()
-    //console.log("Session Id: ",uuid_tmp);
     return uuid_tmp;
   },
   secret: "Big Brother Is Watching You",
-  resave: false,
-  saveUninitialized: true
+  resave: true,
+  saveUninitialized: true,
 }))
 
 

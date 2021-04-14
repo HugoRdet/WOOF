@@ -1,7 +1,7 @@
 import React from 'react'
 import BannerTop from './BannerTop'
 import NavBarLeft from './NavBarLeft'
-import MessagesFeed from './MessagesFeed'
+import ProfileFeed from './ProfileFeed'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import HostPage from './HostPage'
@@ -50,14 +50,14 @@ class MainPage extends React.Component {
         </div>
       )
     }
-    else {
+    if(this.state.currentPage === 'profile'){
       return (
         <div className="MainPage">
           <BannerTop isConnected={this.state.isConnected} setLogout={this.setLogout}/>
           <main>
             <NavBarLeft/>
             <div>
-              <MessagesFeed currentPage={'messages'} />
+              <ProfileFeed/>
               <NewMessage parent_id={"-1"}/>
             </div>
           </main>

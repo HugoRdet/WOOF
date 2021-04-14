@@ -5,7 +5,7 @@ import MessagesFeed from './MessagesFeed'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import HostPage from './HostPage'
-import axios from 'axios'
+import NewMessage from './NewMessage'
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -56,10 +56,10 @@ class MainPage extends React.Component {
           <BannerTop isConnected={this.state.isConnected} setLogout={this.setLogout}/>
           <main>
             <NavBarLeft/>
-            {this.state.currentPage === 'messages' 
-            && 
-            <MessagesFeed api={this.api}/>
-          }
+            <div>
+              <MessagesFeed currentPage={'messages'} />
+              <NewMessage parent_id={"-1"}/>
+            </div>
           </main>
         </div>
       )
@@ -67,7 +67,7 @@ class MainPage extends React.Component {
   }
 
   getConnected() {
-    const nextPage = 'messages'; 
+    const nextPage = 'profile'; 
     const isConnected = true;
     this.setState({
       currentPage : nextPage,

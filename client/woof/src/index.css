@@ -26,4 +26,35 @@
 .searchButton {
 }
 
+.NewMessage {
+    display: table;
+    width: 100%;
+}
+
+.NewMessageBox {
+    display: table-cell;
+    text-align: right;
+}
+
+.NewMessageBox:first-child {
+    width: 100%;
+}
+
+.NewMessageInput {
+    box-sizing: border-box;
+    -webkit-transition: width 1s;
+    -moz-transition: width 1s;
+    transition: width 1s;
+    width: 10%;
+    height: 0.1em;
+}
+
+.NewMessageInput:focus {
+    width: 50%;
+}
+
+.NewMessageButton {
+}
+
+
 

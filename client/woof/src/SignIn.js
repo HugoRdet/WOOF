@@ -39,7 +39,7 @@ class SignIn extends React.Component {
 
   send() {
     const api = axios.create({
-    baseURL : '/api/',
+      baseURL : '/api/',
     timeout : 1000,
     headers : {'X-Custom-Header' : 'foobar'}
     });
@@ -49,7 +49,6 @@ class SignIn extends React.Component {
             })
     .then(response => {
       this.response_login(response);
-      this.props.getConnected();
     })
     .catch(err => {
       console.log(err)
@@ -85,7 +84,7 @@ class SignIn extends React.Component {
           </div>
           <div key={this.state.status}>
               {
-                (this.state.status == "error")
+                (this.state.status != "")
                 ? <span style={{color:"red"}}>{this.state.texterror}</span>
                 : <span></span>
               }

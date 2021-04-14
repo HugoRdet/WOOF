@@ -171,7 +171,6 @@ function init(usersDB, messagesDB) {
                         res.sendStatus(404);
                     else
                         res.status(201).send(doc);
-                    
                 });
                 
             }
@@ -179,23 +178,18 @@ function init(usersDB, messagesDB) {
         });
     
     router
-        .route("/user/display/:pseudo")
+        .route("/user/display/profile")
         .get(async (req, res) => {
+            const {pseudo} = req.body;
+            console.log(pseudo);
         try {
-            message.getMessagesByAuthor(req.params.pseudo).then((doc) => {            
+            message.getMessagesByAuthor(pseudo).then((doc) => {            
                 if (!doc)
                     res.sendStatus(404);
-                else
-                    //affiche les messages dans le terminal
-                    /*
-                    for (var k=0 ; k < doc.length ; k++){
-                        console.log("Autor : ",doc[k].author_id,"\n");
-                        console.log("content : ",doc[k].content,"\n");
-                        console.log("date : ",doc[k].date,"\n\n");
-                    }
-                    */
+                else{
+                    console.log(doc)
                     res.status(201).send(doc);
-            
+                }
             });
         }
         catch (e) {
@@ -222,7 +216,6 @@ function init(usersDB, messagesDB) {
             /*Dans le cas ou aucun utilisateur n'est connecté:*/
             res.status(400).send("a ghost can't tweet");
         }else{
-            
             //un utilisateur est connecté
             const { content , parent_id } = req.body;
             if (!content) {
@@ -230,22 +223,26 @@ function init(usersDB, messagesDB) {
             } else {
                 message.writeMessage(req.session.userpseudo, content, parent_id)
                 
-                .then((author_pseudo) => res.status(201).send({pseudo: author_pseudo}))
-                .catch((err) => res.status(500).send(err));
+                .then((author_pseudo) => 
+                    {
+                        res.status(201).send({pseudo: author_pseudo})
+                    })
+                    .catch((err) => {
+                        res.status(500).send(err);
+                    })
             }
         }
     });
 
     router.get("/user/display/newsfeed", (req, res) => {
+        const {number, multiplier} = req.body;  
         users.getFollowedUsers(req.session.userpseudo).then((doc) => {            
             if (!doc)
                 res.sendStatus(404);
             else{
                 console.log("jusqu'ici tout va bien ...");
-                let n = 2;
-                let m = 0;
                 let followedPseudoList = doc.map(({followedPseudo}) => followedPseudo);
-                message.getMessagesFromFollowed(followedPseudoList, n, m).then(
+                message.getMessagesFromFollowed(followedPseudoList, number, multiplier).then(
                     (data) => {
                         if(!data)
                             res.sendStatus(404);

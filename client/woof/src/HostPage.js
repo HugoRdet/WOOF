@@ -1,20 +1,32 @@
 import React from 'react'
 import SignUp from './SignUp'
 import SignIn from './SignIn'
+import './index.css'
 
 class HostPage extends React.Component {
   render() {
     return (
-      <div className="hostPage">
-        <h3>Already have an account ?</h3>
-        <button className="signInButton" onClick={this.props.setLogout}>
-          Sign In
-        </button>
-          <h3>Create one</h3>
-        <button className="signUpButton" onClick={this.props.getSignUp}>
-          Sign Up
-        </button>
+    
+      <main id="HostPage">
+        <div class="container">
+          <article id="log">
+            <section class="container">
+              <h2>Woof!</h2>
+      
+              <section class="button" onClick={this.props.setLogout}>
+                <h1> se connécter</h1>
+              </section> 
+      
+              <section class="button" onClick={this.props.getSignUp}>
+                <h1> s'inscrire</h1>
+              </section> 
+        
+            </section>
+          </article>
       </div>
+    </main>
+      
+      
     )
   }
 }

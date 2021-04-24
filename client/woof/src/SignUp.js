@@ -62,53 +62,50 @@ class SignUp extends React.Component {
   render(){
 
     return (
-          <div>
-          <div>
-              <span>
-                  <div>Login</div>
-                  <input
-                      type="text"
-                      name="login"
-                      onChange={this.handleChange}
-                      value={this.state.login}
-                  />
-              </span>
-              <span>
-                  <div>
-                      Username
-                  </div>
-                  <input
-                      type="text"
-                      name="pseudo"
-                      onChange={this.handleChange}
-                      value={this.state.pseudo}
-                  />
-              </span>
-              <span>
-                  <div>
-                      Password
-                  </div>
-                  <input
-                      type="password"
-                      name="password"
-                      onChange={this.handleChange}
-                      value={this.state.password}
-                  />
-              </span>
-          </div>
-          <div key={this.state.status}>
-              {
-                (this.state.status == "error")
-                ? <span style={{color:"red"}}>{this.state.texterror}</span>
-                : <span></span>
-              }
-              <button
-                onClick = { (event => this.send()) }
-              >
-              Create Account
-              </button>
-          </div>
-          </div>
+      <main id="loginPage">
+      <div class="container">
+      <article id="log">
+      <section class="container">
+      
+      <div class="login-box">
+      <label><h3>login</h3></label>
+      <input type="text" name="login" onChange={this.handleChange} value={this.state.login}/>
+      </div>
+      
+      <div class="login-box">
+      <label><h3>pseudo</h3></label>
+      <input type="text" name="pseudo" onChange={this.handleChange} value={this.state.pseudo}/>
+      </div>
+      
+      <div class="login-box">
+      <label><h3>Password</h3></label>
+      <input type="password" name="password" onChange={this.handleChange}value={this.state.password}/>
+      </div>
+      </section>
+      
+      <div key={this.state.status}>
+      {
+        
+        (this.state.status != "")
+        ? <span style={{color:"red"}}>{this.state.texterror}</span>
+        : <span></span>
+      }
+      
+      <section class="button" onClick = { (event => this.send()) }>
+      <h3> s'inscrire</h3>
+      </section> 
+
+      <section class="link" onClick={this.props.setLogout}>
+      <h3> Oops, se connécter </h3>
+      </section> 
+      
+      </div>
+      </article>
+      </div>
+      </main>
+      
+      
+      
       );
   };
 }
@@ -116,3 +113,4 @@ class SignUp extends React.Component {
 export default SignUp;
 
 
+  

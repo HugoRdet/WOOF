@@ -59,42 +59,46 @@ class SignIn extends React.Component {
   render(){
 
     return (
-          <div>
-          <div>
-              <span>
-                  <div>Login</div>
-                  <input
-                      type="text"
-                      name="login"
-                      onChange={this.handleChange}
-                      value={this.state.login}
-                  />
-              </span>
-              <span>
-                  <div>
-                      Password
-                  </div>
-                  <input
-                      type="password"
-                      name="password"
-                      onChange={this.handleChange}
-                      value={this.state.password}
-                  />
-              </span>
-          </div>
-          <div key={this.state.status}>
-              {
-                (this.state.status != "")
-                ? <span style={{color:"red"}}>{this.state.texterror}</span>
-                : <span></span>
-              }
-              <button
-                onClick = { (event => this.send()) }
-              >
-              Sign In
-              </button>
-          </div>
-          </div>
+          
+          
+      
+      <main id="loginPage">
+      <div class="container">
+      <article id="log">
+      <section class="container">
+      
+      <div class="login-box">
+      <label><h3>Username</h3></label>
+      <input type="text" name="login" onChange={this.handleChange}value={this.state.login}/>
+      </div>
+      
+      <div class="login-box">
+      <label><h3>Password</h3></label>
+      <input type="password" name="password" onChange={this.handleChange}value={this.state.password}/>
+      </div>
+      </section>
+      
+      <div key={this.state.status}>
+      {
+        
+        (this.state.status != "")
+        ? <span style={{color:"red"}}>{this.state.texterror}</span>
+        : <span></span>
+      }
+      
+      <section class="button" onClick = { (event => this.send()) }>
+      <h3> se connécter</h3>
+      </section> 
+      
+      <section class="link" onClick={this.props.getSignUp}>
+      <h3> Oops, s'inscrire </h3>
+      </section> 
+      
+      
+      </div>
+      </article>
+      </div>
+      </main>
       );
   };
 }

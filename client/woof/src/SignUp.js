@@ -96,7 +96,7 @@ class SignUp extends React.Component {
       </section> 
 
       <section class="link" onClick={this.props.setLogout}>
-      <h3> Oops, se connécter </h3>
+      <h3> Oops, se connecter </h3>
       </section> 
       
       </div>

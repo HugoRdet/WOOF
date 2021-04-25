@@ -13,13 +13,13 @@ class HostPage extends React.Component {
             <section class="container">
               <h1>Woof!</h1>
       
-              <section class="bigbutton" onClick={this.props.setLogout}>
-                <h1> se connécter</h1>
-              </section> 
+              <div class="bigbutton" onClick={this.props.setLogout}>
+                <h2> se connecter</h2>
+              </div> 
       
-              <section class="bigbutton" onClick={this.props.getSignUp}>
-                <h1> s'inscrire</h1>
-              </section> 
+              <div class="bigbutton" onClick={this.props.getSignUp}>
+                <h2> s'inscrire</h2>
+              </div> 
         
             </section>
           </article>

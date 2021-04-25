@@ -189,6 +189,7 @@ article .bigbutton :hover {
    color: var(--color-secondary);
    background: var(--color-primary);
    background-color: var(--color-primary);
+   
 }
 
 article .login-box{

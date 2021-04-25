@@ -87,7 +87,7 @@ class SignIn extends React.Component {
       }
       
       <section class="bigbutton" onClick = { (event => this.send()) }>
-      <h3> se connécter</h3>
+      <h3> se connecter</h3>
       </section> 
       
       <section class="link" onClick={this.props.getSignUp}>

@@ -86,7 +86,7 @@ class SignIn extends React.Component {
         : <span></span>
       }
       
-      <section class="button" onClick = { (event => this.send()) }>
+      <section class="bigbutton" onClick = { (event => this.send()) }>
       <h3> se connécter</h3>
       </section> 
       

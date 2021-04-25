@@ -40,26 +40,39 @@ html {
    overflow-x: hidden;
 }
 
-/*définition de la région centrale de la page*/
+
+
+input,
+button,
+textarea,
+select {
+   font: inherit;
+}
+
+strong {
+   font-weight: 600;
+}
+
 body {
-   min-height: 100vh;
-   font-size: 100%;
-   line-height: 1.5;
-   text-rendering: optimizeSpeed;
-   overflow-x: hidden;
-   font-family: var(--font-family-primary);
+   min-height: 100vh; /* hauteur minimale de l'element 100% (background sur toute la page)*/
+   font-size: 100%; /*taille de la police*/
+   line-height: 1.5; /*espacement entre les lignes*/
+   text-rendering: optimizeLegibility; /*optimise la lisibilté du texte https://developer.mozilla.org/fr/docs/Web/CSS/text-rendering*/
+   overflow-x: hidden; /*si un objet dépase sont contenant il sera caché*/
+   font-family: var(--font-family-primary); 
    font-size: var(--font-size-text);
    color: var(--color-primary);
-   background-image: -webkit-repeating-radial-gradient(
-      center center,
+   /* permet de dessiner les points en arrière plan*/
+   background-image: -webkit-repeating-radial-gradient( 
+      center center, 
       var(--color-primary),
       var(--color-primary) 1px,
       var(--color-secondary) 1px,
       var(--color-secondary) 100%
    );
-	
-	
+   /* espacecement entre les points*/
    background-size: 8px 8px;
+   /* défini l affichage des elements flex*/
    display: -webkit-box;
    display: -ms-flexbox;
    display: flex;
@@ -75,96 +88,32 @@ body {
    -webkit-box-direction: normal;
    -ms-flex-direction: column;
    flex-direction: column;
-}
-
-
-
-input,
-button,
-textarea,
-select {
-   font: inherit;
-}
-
-strong {
-   font-weight: 600;
-}
-
-body {
-   min-height: 100vh;
-   font-size: 100%;
-   line-height: 1.5;
-   text-rendering: optimizeSpeed;
-   overflow-x: hidden;
-   font-family: var(--font-family-primary);
-   font-size: var(--font-size-text);
-   color: var(--color-primary);
-   background-image: -webkit-repeating-radial-gradient(
-      center center,
-      var(--color-primary),
-      var(--color-primary) 1px,
-      var(--color-secondary) 1px,
-      var(--color-secondary) 100%
-   );
-   background-size: 8px 8px;
   
 }
 
-
-@media all and (min-width: 1300px) {
-   body {
-      padding-top: 8rem;
-   }
-}
-
+/*permet de définir */
 h1,
 h2,
 h3,
 h4 {
-   font-weight: 700;
+   font-weight: 700; /*ecriture en gras*/
 }
 h1 {
-   line-height: 1.125;
+   line-height: 1.125;/*taille du saut a la ligne après h1*/
    font-size: var(--font-size-h1);
-   font-size: clamp(2rem, 4vw, var(--font-size-h1));
 }
 h2 {
-   line-height: 1.25;
+   line-height: 1.25;/*taille du saut a la ligne après h2*/
    font-size: var(--font-size-h2);
-   font-size: clamp(2rem, 4vw, var(--font-size-h2));
 }
 
 
-
-#main > .container {
-   display: -webkit-box;
-   display: -ms-flexbox;
-   display: flex;
-   -webkit-box-orient: vertical;
-   -webkit-box-direction: normal;
-   -ms-flex-direction: column;
-   flex-direction: column;
-   -ms-flex-wrap: wrap;
-   flex-wrap: wrap;
-}
-
+/*espace entre deux articles*/
 #main article + article {
    margin-top: 10rem;
 }
 
 
-
-#styles > .container,
-#main,
-.profile {
-   width: 95%;
-   margin-left: auto;
-   margin-right: auto;
-   max-width: 800px;
-}
-
-
-#styles > .container,
 article {
    border: 4px solid var(--color-primary);
    box-shadow: 12px 12px 0 0 var(--color-primary);
@@ -223,10 +172,10 @@ aside .container ol li + li {
 }
 
 
-article .button{
+article .bigbutton{
    display:inline-block;
    border: 4px solid var(--color-primary);
-   box-shadow: 12px 12px 0 0 var(--color-primary);
+   box-shadow: 12px 12px  var(--color-primary);
   /* espace a l interieur du bouton */
    padding: 1rem 1rem 1rem 1rem;
    position: relative;
@@ -234,14 +183,12 @@ article .button{
    margin-top:1em;
    margin-bottom:1em;
    margin-right: 3em;
-   
 }
 
-article .button :hover {
+article .bigbutton :hover {
    color: var(--color-secondary);
    background: var(--color-primary);
-   
-   
+   background-color: var(--color-primary);
 }
 
 article .login-box{

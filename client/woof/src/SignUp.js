@@ -91,7 +91,7 @@ class SignUp extends React.Component {
         : <span></span>
       }
       
-      <section class="button" onClick = { (event => this.send()) }>
+      <section class="bigbutton" onClick = { (event => this.send()) }>
       <h3> s'inscrire</h3>
       </section> 
 

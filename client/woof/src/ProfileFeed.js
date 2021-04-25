@@ -24,7 +24,7 @@ export default function ProfileFeed() {
   }, []);
 
   const getAllMessages = () => {
-    api.get('/user/display/profile')
+    api.get('/user/display/Hugo_babe')
     .then( response => {
       const messages = response.data;
       getMessages(messages);

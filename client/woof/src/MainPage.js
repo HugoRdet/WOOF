@@ -23,6 +23,7 @@ class MainPage extends React.Component {
 
 
   render() {
+    
     if(this.state.currentPage === 'host') {
       return (
         <div className='MainPage'>
@@ -32,6 +33,7 @@ class MainPage extends React.Component {
         </div>
       )
     }
+    
     if(this.state.currentPage === 'signIn') {
       return (
         <div className='MainPage'>
@@ -41,6 +43,7 @@ class MainPage extends React.Component {
         </div>
       )
     }
+    
     if(this.state.currentPage === 'signUp') {
       return (
         <div className='MainPage'>
@@ -50,16 +53,16 @@ class MainPage extends React.Component {
         </div>
       )
     }
+    
     if(this.state.currentPage === 'profile'){
       return (
         <div className="MainPage">
-          <BannerTop isConnected={this.state.isConnected} setLogout={this.setLogout}/>
-            <main>
-              <NavBarLeft/>
-                <div>
-                  <ProfileFeed/>
-                <NewMessage parent_id={"-1"}/>
-              </div>
+          <main>
+            <NavBarLeft/>
+            <div>
+              <ProfileFeed/>
+              <NewMessage parent_id={"-1"}/>
+            </div>
           </main>
         </div>
       )

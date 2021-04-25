@@ -9,16 +9,26 @@ export default function MessageList(props) {
       return (
         messages.map( (message, index) => {
           return (
-            <div className="Message" key={message._id}>
-              <h4 className="MessageHeader">{message.author_id}</h4>
-              <p className="MessageBody">{message.content}</p>
-              <span className="MessageFooter">{message.likes.length}</span>
-            </div>
+            <article key={message._id}>
+              <div className="title">
+                <h3>@{message.author_id}</h3>
+              </div>
+              
+              <section className="content">
+                {message.content}
+                
+                {message.likes.length}
+              </section>
+            </article>
           )
         })
       )
     } else { 
-      return (<h4>Pas encore de messages</h4>)
+      return (
+        <article>
+        <h3>Pas encore de messages</h3>
+        </article>
+      )
     }
   }
   return (

@@ -185,18 +185,12 @@ function init(usersDB, messagesDB) {
         .route("/user/display/:pseudo")
         .get(async (req, res) => {
         try {
+            console.log(req.params.pseudo);
             message.getMessagesByAuthor(req.params.pseudo).then((doc) => {            
                 if (!doc)
                     res.sendStatus(404);
                 else
-                    //affiche les messages dans le terminal
-                    /*
-                    for (var k=0 ; k < doc.length ; k++){
-                        console.log("Autor : ",doc[k].author_id,"\n");
-                        console.log("content : ",doc[k].content,"\n");
-                        console.log("date : ",doc[k].date,"\n\n");
-                    }
-                    */
+                    
                     res.status(201).send(doc);
             
             });

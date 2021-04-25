@@ -49,7 +49,6 @@ class SignIn extends React.Component {
             })
     .then(response => {
       this.response_login(response);
-      console.log("HAHAHHA");
     })
     .catch(err => {
       console.log(err)
@@ -64,7 +63,7 @@ class SignIn extends React.Component {
       <main id="loginPage">
         <article id="log">
           <div class="login-box">
-            <label><h3>Username</h3></label>
+            <label><h3>Login</h3></label>
             <input type="text" name="login" onChange={this.handleChange}value={this.state.login}/>
           </div>
       

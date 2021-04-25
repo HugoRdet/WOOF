@@ -8,9 +8,8 @@ class HostPage extends React.Component {
     return (
     
       <main id="HostPage">
-        <div class="container">
           <article id="log">
-            <section class="container">
+            
               <h1>Woof!</h1>
       
               <div class="bigbutton" onClick={this.props.setLogout}>
@@ -20,10 +19,7 @@ class HostPage extends React.Component {
               <div class="bigbutton" onClick={this.props.getSignUp}>
                 <h2> s'inscrire</h2>
               </div> 
-        
-            </section>
           </article>
-      </div>
     </main>
       
       

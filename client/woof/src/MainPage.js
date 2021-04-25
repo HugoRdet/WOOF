@@ -54,12 +54,12 @@ class MainPage extends React.Component {
       return (
         <div className="MainPage">
           <BannerTop isConnected={this.state.isConnected} setLogout={this.setLogout}/>
-          <main>
-            <NavBarLeft/>
-            <div>
-              <ProfileFeed/>
-              <NewMessage parent_id={"-1"}/>
-            </div>
+            <main>
+              <NavBarLeft/>
+                <div>
+                  <ProfileFeed/>
+                <NewMessage parent_id={"-1"}/>
+              </div>
           </main>
         </div>
       )

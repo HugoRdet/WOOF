@@ -2,6 +2,7 @@
 :root {
    --color-primary: #000;
    --color-primary-alt: #ddd;
+   --color-primary-pushed: #666;
    --color-secondary: #fff;
    --font-family-primary: "Sora", sans-serif;
    --font-family-secondary: "Inter", "Sora", sans-serif;
@@ -185,15 +186,21 @@ article .bigbutton{
    margin-right: 3em;
 }
 
-article .bigbutton :hover {
+article .bigbutton:hover {
    color: var(--color-secondary);
    background: var(--color-primary);
-   background-color: var(--color-primary);
+   box-shadow: 12px 12px  var(--color-primary-pushed);
    
 }
 
 article .login-box{
    position: relative;
+}
+
+article .title{
+   position: relative;
+   top : -5.5em;
+   display: inline-block;
 }
 
  article .login-box input {

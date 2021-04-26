@@ -19,9 +19,12 @@ export default function MessageList(props) {
               
               <section className="content">
                 {message.content}
-                
-                {message.likes.length}
               </section>
+              
+            <section className="reactions">
+              <h4>{message.likes.length} j'aime</h4> 
+            </section>
+              
             </article>
           )
         })

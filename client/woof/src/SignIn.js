@@ -69,9 +69,8 @@ class SignIn extends React.Component {
           
           <div className="content_form">
           
-          
+          <label><h3>Login</h3></label>
           <div class="login-box">
-            <label><h3>Login</h3></label>
             <input type="text" name="login" onChange={this.handleChange}value={this.state.login}/>
           </div>
       

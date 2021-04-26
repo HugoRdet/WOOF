@@ -63,45 +63,52 @@ class SignUp extends React.Component {
 
     return (
       <main id="loginPage">
-      <div class="container">
-      <article id="log">
-      <section class="container">
+        <article id="log">
+          <div className="title">
+            <h2>@Woof</h2>
+          </div>
+          
+      <div className="content_form">
+        <div class="login-box">
+        <label><h3>login</h3></label>
+        <input type="text" name="login" onChange={this.handleChange} value={this.state.login}/>
+        </div>
       
-      <div class="login-box">
-      <label><h3>login</h3></label>
-      <input type="text" name="login" onChange={this.handleChange} value={this.state.login}/>
-      </div>
       
-      <div class="login-box">
-      <label><h3>pseudo</h3></label>
-      <input type="text" name="pseudo" onChange={this.handleChange} value={this.state.pseudo}/>
-      </div>
       
-      <div class="login-box">
-      <label><h3>Password</h3></label>
-      <input type="password" name="password" onChange={this.handleChange}value={this.state.password}/>
-      </div>
-      </section>
+        <div class="login-box">
+        <h3>pseudo</h3>
+        <input type="text" name="pseudo" onChange={this.handleChange} value={this.state.pseudo}/>
+        </div>
       
-      <div key={this.state.status}>
-      {
-        
-        (this.state.status != "")
-        ? <span style={{color:"red"}}>{this.state.texterror}</span>
-        : <span></span>
-      }
+        <div class="login-box">
+        <h3>Password</h3>
+        <input type="password" name="password" onChange={this.handleChange}value={this.state.password}/>
       
-      <section class="bigbutton" onClick = { (event => this.send()) }>
-      <h3> s'inscrire</h3>
-      </section> 
+        <div key={this.state.status}>
+        {
+          (this.state.status != "")
+          ? <span style={{color:"red"}}>{this.state.texterror}</span>
+          : <span></span>
+        }
+      
+      
+        </div>
+        <section class="bigbutton" onClick = { (event => this.send()) }>
+        <h3> s'inscrire</h3>
+        </section> 
+            
 
-      <section class="link" onClick={this.props.setLogout}>
-      <h3> Oops, se connecter </h3>
-      </section> 
+        <section class="link" onClick={this.props.setLogout}>
+        <h3> Oops, se connecter </h3>
+        </section> 
+      </div>
       
-      </div>
-      </article>
-      </div>
+      
+      
+          </div>
+          
+        </article>
       </main>
       
       

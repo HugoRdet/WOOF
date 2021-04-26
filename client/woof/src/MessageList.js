@@ -11,8 +11,11 @@ export default function MessageList(props) {
           return (
             <article key={message._id}>
               <div className="title">
-                <h3>@{message.author_id}</h3>
+                <h2>@{message.author_id}</h2>
               </div>
+              
+              
+            
               
               <section className="content">
                 {message.content}

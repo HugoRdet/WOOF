@@ -62,6 +62,14 @@ class SignIn extends React.Component {
           
       <main id="loginPage">
         <article id="log">
+          
+      <div className="title">
+      <h2>@Woof</h2>
+      </div>
+          
+          <div className="content_form">
+          
+          
           <div class="login-box">
             <label><h3>Login</h3></label>
             <input type="text" name="login" onChange={this.handleChange}value={this.state.login}/>
@@ -86,6 +94,7 @@ class SignIn extends React.Component {
             <section class="link" onClick={this.props.getSignUp}>
               <h3> Oops, s'inscrire </h3>
             </section> 
+          </div>
           </div>
         </article>
       </main>

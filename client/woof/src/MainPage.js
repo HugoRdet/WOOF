@@ -2,10 +2,13 @@ import React from 'react'
 import BannerTop from './BannerTop'
 import NavBarLeft from './NavBarLeft'
 import ProfileFeed from './ProfileFeed'
+import InfosProfilNbTweets from './InfosProfilNbTweets'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import HostPage from './HostPage'
 import NewMessage from './NewMessage'
+import InfosProfilNbFollowers from './InfosProfilNbFollowers'
+import InfosProfilNbFollows from './InfosProfilNbFollows'
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -61,12 +64,35 @@ class MainPage extends React.Component {
         <h3>Woof!</h3>
         </header>
         
-          <main>
-            <NavBarLeft/>
-            <div>
-              <ProfileFeed/>
-              <NewMessage parent_id={"-1"}/>
-            </div>
+        
+        
+        <main>
+        <div className="baniere">
+        <div className="nom">
+        <h1>Nom du Profil</h1>
+        </div>
+        
+        <div className="content_b">
+          <InfosProfilNbTweets/>
+        </div>
+        
+        <div className="content_b">
+        <InfosProfilNbFollowers/>
+        </div>
+        <div className="content_b">
+        <InfosProfilNbFollows/>
+        </div>
+        </div>
+        
+        
+        <NavBarLeft/>
+        <ProfileFeed/>
+        
+        
+        <div className="espace_tweet">
+          <NewMessage parent_id={"-1"}/>
+        </div>
+        
           </main>
         </div>
       )

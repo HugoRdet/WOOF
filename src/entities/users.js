@@ -140,6 +140,7 @@ class Users {
   logout() {
   }
   
+  
   delete(login, password) {
     return new Promise( (resolve, reject) => {
       checkpassword(login, password).then( 
@@ -233,7 +234,7 @@ class Users {
   getCountFollowers(pseudo){
     return new Promise( (resolve, reject) => {
         let req = this.db.prepare(
-        `SELECT COUNT(followerPseudo) FROM follow WHERE followedPseudo=?;`
+        `SELECT COUNT (*) AS FollowersCount FROM follow WHERE followedPseudo=?;`
       );
       req.get([pseudo], (err, res) => {
         if(err) 
@@ -243,6 +244,23 @@ class Users {
       });
     });
   }
+
+
+  getCountFollowedUsers(pseudo){
+    return new Promise ( (resolve, reject) => {
+      
+      let req = this.db.prepare(
+        `SELECT COUNT (*) AS FollowsCount FROM follow where followerPseudo==?; `
+      );
+      req.get([pseudo], (err, res) => {
+        if(err) 
+          reject(err);
+        else 
+          resolve(res);
+      });
+    });
+  }
+
 
   deleteUser(userId){
     return new Promise( (resolve, reject) => {

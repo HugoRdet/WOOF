@@ -323,6 +323,26 @@ function init(usersDB, messagesDB) {
         }
     });
     
+        router
+        .route("/user/display/count/follows/:pseudo")
+        .get(async (req, res) => {
+            try {
+                
+                users.getCountFollowedUsers(req.params.pseudo).then((count) => {  
+                    console.log("count :",count);
+                    if (count==undefined)
+                        res.sendStatus(404);
+                    else
+                        res.status(201).send(count);
+                    
+                });
+            }
+            catch (e) {
+                res.status(500).send(e);
+            }
+        });
+    
+    
     router
         .route("/user/display/count/messages/:pseudo")
         .get(async (req, res) => {

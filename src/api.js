@@ -138,7 +138,7 @@ function init(usersDB, messagesDB) {
                 if ( !pseudo ) {
                     res.status(400).send("Missing fields");
                 } else {
-                    users.follow(pseudo,req.session.pseudo)
+                    users.follow(pseudo,req.session.userpseudo)
                     .then((doc) => res.status(201).send(doc))
                     .catch((err) => res.status(500).send(err));
                 }
@@ -156,7 +156,7 @@ function init(usersDB, messagesDB) {
                 if ( !pseudo ) {
                     res.status(400).send("Missing fields");
                 } else {
-                    users.unfollow(pseudo,req.session.pseudo)
+                    users.unfollow(pseudo,req.session.userpseudo)
                     .then(() => res.status(201).send({response:" unfollowed OK "}))
                     .catch((err) => res.status(500).send(err));
                 }
@@ -190,9 +190,7 @@ function init(usersDB, messagesDB) {
                 if (!doc)
                     res.sendStatus(404);
                 else
-                    
                     res.status(201).send(doc);
-            
             });
         }
         catch (e) {

@@ -7,7 +7,7 @@ export default function MessageList(props) {
 
     if (messages.length > 0) {
       return (
-        messages.map( (message, index) => {
+        messages.slice(0).reverse().map( (message, index) => {
           return (
             <article key={message._id}>
               <div className="title">

@@ -57,6 +57,10 @@ class MainPage extends React.Component {
     if(this.state.currentPage === 'profile'){
       return (
         <div className="MainPage">
+        <header>
+        <h3>Woof!</h3>
+        </header>
+        
           <main>
             <NavBarLeft/>
             <div>

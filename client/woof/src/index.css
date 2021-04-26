@@ -35,9 +35,7 @@ blockquote {
    margin: 0;
 }
 
-/* si du contenu dépasse il ne sera pas rogné / pratique 
-pour le debuggage*/
-html {
+* {
    overflow-x: hidden;
 }
 
@@ -54,42 +52,28 @@ strong {
    font-weight: 600;
 }
 
+main{
+   margin-top: 5em;
+}
+
 body {
-   min-height: 100vh; /* hauteur minimale de l'element 100% (background sur toute la page)*/
-   font-size: 100%; /*taille de la police*/
-   line-height: 1.5; /*espacement entre les lignes*/
-   text-rendering: optimizeLegibility; /*optimise la lisibilté du texte https://developer.mozilla.org/fr/docs/Web/CSS/text-rendering*/
-   overflow-x: hidden; /*si un objet dépase sont contenant il sera caché*/
-   font-family: var(--font-family-primary); 
+   min-height: 100vh;
+   font-size: 100%;
+   line-height: 1.15;
+   text-rendering: optimizeSpeed;
+   overflow-x: hidden;
+   font-family: var(--font-family-primary);
    font-size: var(--font-size-text);
    color: var(--color-primary);
-   /* permet de dessiner les points en arrière plan*/
-   background-image: -webkit-repeating-radial-gradient( 
-      center center, 
+   background-image: -webkit-repeating-radial-gradient(
+      center center,
       var(--color-primary),
       var(--color-primary) 1px,
       var(--color-secondary) 1px,
       var(--color-secondary) 100%
    );
-   /* espacecement entre les points*/
    background-size: 8px 8px;
-   /* défini l affichage des elements flex*/
-   display: -webkit-box;
-   display: -ms-flexbox;
-   display: flex;
-   -webkit-box-align: center;
-   -ms-flex-align: center;
-   align-items: center;
-   -webkit-box-pack: center;
-   -ms-flex-pack: center;
-   justify-content: center;
-   -ms-flex-wrap: wrap;
-   flex-wrap: wrap;
-   -webkit-box-orient: vertical;
-   -webkit-box-direction: normal;
-   -ms-flex-direction: column;
-   flex-direction: column;
-  
+   
 }
 
 /*permet de définir */
@@ -117,6 +101,8 @@ article {
    position: relative;
    margin-top:3em;
    margin-bottom:3em;
+   margin-left: auto;
+   margin-right: auto;
    background: 
 		 /*second rond a droite en haut des tweets*/
 		 repeating-radial-gradient(
@@ -149,6 +135,10 @@ article {
    background-size: 50px 50px, 50px 50px, 100% 64px;
 	/* pour garder le fond blanc derriere le background ne se repete pas*/
    background-repeat: no-repeat;
+   overflow-wrap: break-word;
+   max-width: 800px;
+   min-width: 300px;
+   width: 50%;
 }
 
 
@@ -187,7 +177,7 @@ article .login-box{
 
 article .title{
    position: relative;
-   top : -0.75em;
+   top : -0.0em;
    display: inline-block;
 }
 
@@ -215,7 +205,29 @@ article .link :hover{
    border-bottom: 3px solid var(--color-primary);
 }
 
+
+article .content{
+   padding-top: 1.5rem;
+   text-align: left;
+}
+
 article .content_form{
    padding-top: 1.5rem;
    text-align: left;
+}
+
+article .discussion_space{
+   border-top: dashed 3px  ;
+}
+
+header{
+   position: fixed;
+   z-index:1;
+   top:0%;
+   width: 100%;
+   background:var(--color-secondary)  ;
+   border-bottom: solid 3px var(--color-primary)  ;
+   padding-top:1em;
+   padding-bottom:1em;
+   text-align: center;
 }

@@ -62,7 +62,7 @@ class SignUp extends React.Component {
   render(){
 
     return (
-      <main id="loginPage">
+      <div id="loginPage">
         <article id="log">
           <div className="title">
             <h2>@Woof</h2>
@@ -109,7 +109,7 @@ class SignUp extends React.Component {
           </div>
           
         </article>
-      </main>
+      </div>
       
       
       

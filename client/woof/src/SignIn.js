@@ -60,7 +60,7 @@ class SignIn extends React.Component {
 
     return (
           
-      <main id="loginPage">
+      <div id="loginPage">
         <article id="log">
           
       <div className="title">
@@ -97,7 +97,7 @@ class SignIn extends React.Component {
           </div>
           </div>
         </article>
-      </main>
+      </div>
       );
   };
 }

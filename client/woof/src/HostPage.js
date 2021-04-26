@@ -7,7 +7,7 @@ class HostPage extends React.Component {
   render() {
     return (
     
-      <main id="HostPage">
+      <div id="HostPage">
           <article id="log">
             
             <div className="title">
@@ -24,7 +24,7 @@ class HostPage extends React.Component {
               </div> 
           </div>
         </article>
-    </main>
+    </div>
       
       
     )

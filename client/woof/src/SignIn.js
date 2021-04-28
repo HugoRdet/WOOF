@@ -14,7 +14,8 @@ class SignIn extends React.Component {
     this.state = {
       login : "",
       password : "",
-      status : ""
+      status : "",
+      pseudo: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -32,8 +33,10 @@ class SignIn extends React.Component {
           const message = response.data["message"];
           this.setState({status:"error", texterror:message})
       } else {
-          this.setState({status:""})
-          this.props.getConnected();
+        const pseudo = response.data["pseudo"];
+        this.setState({status:"", pseudo: pseudo})
+        this.props.setPseudo(this.state.pseudo);
+        this.props.getConnected();
       }
   }
 

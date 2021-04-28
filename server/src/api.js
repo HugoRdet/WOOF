@@ -3,7 +3,6 @@ const Users = require("./entities/users.js");
 const Messages = require("./entities/messages.js");
 
 function init(usersDB, messagesDB) {
-    console.log
     
     const router = express.Router();
     router.use(express.json());
@@ -17,8 +16,6 @@ function init(usersDB, messagesDB) {
         !
         */
         
-        //console.log('API: method %s, path %s', req.method, req.path);
-        //console.log('Body', req.body);
         next();
     });
 
@@ -49,7 +46,6 @@ function init(usersDB, messagesDB) {
             
             
             let userid = await users.checkpassword(login, password);
-            console.log(userid) ;
             
             if (userid) {
                 req.session.regenerate(function (err) {
@@ -61,20 +57,16 @@ function init(usersDB, messagesDB) {
                     }
                     else {
                         req.session.userid = userid;
-                        
                         users.get_login(userid).then((pseudo) => {
-                            req.session.pseudo=pseudo;
+                            req.session.userpseudo=pseudo;
                             
                             res.status(200).json({
                                 status: 200,
-                                message: "Login et mot de passe accepté"
+                                message: "Login et mot de passe accepté",
+                                pseudo: pseudo 
                             });
                             
                         });
-                        
-        
-                        
-                        
                     }
                 });
                 return;
@@ -100,7 +92,6 @@ function init(usersDB, messagesDB) {
         .route("/user/:user_id(\\d+)")
         .get(async (req, res) => {
         try {
-            console.log("userid: ",req.session.userid);
             const user = await users.get(req.params.user_id);
             if (!user)
                 res.sendStatus(404);
@@ -136,7 +127,7 @@ function init(usersDB, messagesDB) {
                 if ( !pseudo ) {
                     res.status(400).send("Missing fields");
                 } else {
-                    users.follow(pseudo,req.session.pseudo)
+                    users.follow(pseudo,req.session.userpseudo)
                     .then((doc) => res.status(201).send(doc))
                     .catch((err) => res.status(500).send(err));
                 }
@@ -154,7 +145,7 @@ function init(usersDB, messagesDB) {
                 if ( !pseudo ) {
                     res.status(400).send("Missing fields");
                 } else {
-                    users.unfollow(pseudo,req.session.pseudo)
+                    users.unfollow(pseudo,req.session.userpseudo)
                     .then(() => res.status(201).send({response:" unfollowed OK "}))
                     .catch((err) => res.status(500).send(err));
                 }
@@ -179,14 +170,14 @@ function init(usersDB, messagesDB) {
         });
     
     router
-        .route("/user/display/profile")
+        .route("/user/display/profile/:pseudo&:loadNumber&:loadMultiplier")
         .get(async (req, res) => {
+            console.log(req.params)
         try {
-            message.getMessagesByAuthor(req.session.pseudo).then((doc) => {            
+            message.getMessagesByAuthor(req.params.pseudo, req.params.loadNumber, req.params.loadMultiplier).then((doc) => {            
                 if (!doc)
                     res.sendStatus(404);
                 else{
-                    console.log(doc)
                     res.status(201).send(doc);
                 }
             });
@@ -239,7 +230,6 @@ function init(usersDB, messagesDB) {
             if (!doc)
                 res.sendStatus(404);
             else{
-                console.log("jusqu'ici tout va bien ...");
                 let followedPseudoList = doc.map(({followedPseudo}) => followedPseudo);
                 message.getMessagesFromFollowed(followedPseudoList, number, multiplier).then(
                     (data) => {
@@ -311,7 +301,6 @@ function init(usersDB, messagesDB) {
         try {
             
             users.getCountFollowers(req.params.pseudo).then((count) => {  
-                console.log("count :",count);
                 if (count==undefined)
                     res.sendStatus(404);
                 else
@@ -372,7 +361,6 @@ function init(usersDB, messagesDB) {
                             res.status(200).send({message_delete:0});                            
                         }else{
                             if(msg[0].author_id != req.session.userpseudo){
-                                console.log("Erreur d'authentification");
                                 res.sendStatus(401).send({message_delete:0});
                             }else {
                                 message.deleteMessage(req.params.messageid)
@@ -403,7 +391,6 @@ function init(usersDB, messagesDB) {
             }
         }
         catch (e) {
-            console.log(e);
             res.status(500).send(e);
         }
     });

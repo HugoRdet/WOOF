@@ -41,15 +41,18 @@ class Messages {
     });
   }
   
-  getMessagesByAuthor(author) {
-    return new Promise( (resolve, reject) => {
-      this.db.find({author_id: author}, (err, data) => {
-        if(err){
-          reject(err);
-        }
-        resolve(data);
+  getMessagesByAuthor(author, loadNumber, loadMultiplier) {
+    return new Promise ( (resolve, reject) => {
+      this.db.find({ author_id : author})
+      .sort({ date: -1 })
+        .skip(loadNumber * loadMultiplier)
+        .limit(loadNumber)
+        .exec((err, data) => {
+          if (err)
+            reject();
+          resolve(data);
+        })
       });
-    });
   }
   
   getMessagesByDate(hours) {
@@ -86,14 +89,14 @@ class Messages {
   getMessagesFromFollowed(followedPseudoList, loadNumber, loadMultiplier) {
     return new Promise ( (resolve, reject) => {
       this.db.find({ author_id : { $in: followedPseudoList }})
-      .sort({ date: -1 } // modifiable
+        .sort({ date: -1 } )// modifiable
         .skip(loadNumber*loadMultiplier)
         .limit(loadNumber)
         .exec(function (err, data){
           if (err)
             reject();
           resolve(data);
-        }));
+        })
     });
   }
   

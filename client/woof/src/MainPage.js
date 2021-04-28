@@ -1,7 +1,7 @@
 import React from 'react'
 import BannerTop from './BannerTop'
 import NavBarLeft from './NavBarLeft'
-import ProfileFeed from './ProfileFeed'
+import Feed from './Feed'
 import InfosProfilNbTweets from './InfosProfilNbTweets'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
@@ -9,6 +9,7 @@ import HostPage from './HostPage'
 import NewMessage from './NewMessage'
 import InfosProfilNbFollowers from './InfosProfilNbFollowers'
 import InfosProfilNbFollows from './InfosProfilNbFollows'
+import Cookies from 'js-cookie'
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -16,17 +17,15 @@ class MainPage extends React.Component {
     this.state = {
       currentPage : 'host',
       isConnected : false,
+      pseudo: '',
     }
     this.getConnected = this.getConnected.bind(this);
     this.setLogout = this.setLogout.bind(this);
     this.getSignUp = this.getSignUp.bind(this);
+    this.setPseudo = this.setPseudo.bind(this);
   }
 
-
-
-
   render() {
-    
     if(this.state.currentPage === 'host') {
       return (
         <div className='MainPage'>
@@ -41,7 +40,7 @@ class MainPage extends React.Component {
       return (
         <div className='MainPage'>
           <main>
-            <SignIn getConnected={this.getConnected} getSignUp={this.getSignUp}/>
+            <SignIn getConnected={this.getConnected} setPseudo={this.setPseudo} getSignUp={this.getSignUp}/>
           </main>
         </div>
       )
@@ -64,18 +63,17 @@ class MainPage extends React.Component {
         <h3>Woof!</h3>
         </header>
         
-        
-        
         <main>
         <div className="baniere">
         <div className="nom">
-        <h1>Nom du Profil</h1>
-        </div>
         
+        <h1>{this.state.pseudo}</h1>
+
+
+        </div>
         <div className="content_b">
           <InfosProfilNbTweets/>
         </div>
-        
         <div className="content_b">
         <InfosProfilNbFollowers/>
         </div>
@@ -84,16 +82,33 @@ class MainPage extends React.Component {
         </div>
         </div>
         
+        <Feed page={this.state.currentPage} pseudo={this.state.pseudo}/>
+        <div className="menu">
         
-        <NavBarLeft/>
-        <ProfileFeed/>
-        
-        
-        <div className="espace_tweet">
-          <NewMessage parent_id={"-1"}/>
+        <div className="petitbouton">
+        <h3>Home</h3>
         </div>
         
-          </main>
+        <div className="petitbouton">
+        <h3>Profil</h3>
+        </div>
+
+        <div className="petitbouton">
+        <h3>Options</h3>
+        </div>
+        
+        <div className="petitbouton" onClick = { event => {this.setLogout()} } >
+        <h3>deconnexion</h3>
+        </div>
+        </div >
+        
+        <div className="espace_tweet">
+          <div className="contenu_animation">
+            <NewMessage parent_id={"-1"} page={this.state.currentPage} />
+          </div>
+        </div>
+        
+        </main>
         </div>
       )
     }
@@ -102,6 +117,7 @@ class MainPage extends React.Component {
   getConnected() {
     const nextPage = 'profile'; 
     const isConnected = true;
+    this.setPseudo();
     this.setState({
       currentPage : nextPage,
       isConnected : isConnected,        
@@ -122,6 +138,17 @@ class MainPage extends React.Component {
       currentPage : nextPage,
       isConnected : isConnected,
     });
+  }
+
+  setPseudo( pseudo ) {
+    if(pseudo) {
+      this.setState( { pseudo: pseudo } )
+    }
+    else {
+      let defaultPseudo = Cookies.get('userpseudo');
+      this.setState( {pseudo : defaultPseudo} );
+    }
+    this.setState( {currentPage : 'profile'} );
   }
 }
 

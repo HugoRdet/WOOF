@@ -27,16 +27,26 @@ class Messages {
     });
   }
 
+  
+  getMessagelike(messageId, userId){
+    return new Promise( (resolve, reject) => {
+      this.db.count({$and :[{_id:messageId},{likes: userId}]}, (err, data) => {
+        if(err){
+          reject(err);
+        }
+        resolve(data);
+      });
+    });
+  }
 
   likeMessage(messageId, userId) {
-    let newLike = {user_id: userId, date: new Date()};
-    this.db.update({_id: messageId}, {$push : { likes: newLike}}, {}, function(err, numAffected){
+    this.db.update({_id: messageId}, {$push : { likes: userId}}, {}, function(err, numAffected){
       console.log(numAffected);
     });
   }
 
   unlikeMessage(messageId, userId) {
-    this.db.update({_id: messageId}, {$pull : { likes: {user_id: userId}} }, {}, function(err, numAffected){
+    this.db.update({_id: messageId}, {$pull : { likes: userId} }, {}, function(err, numAffected){
       console.log(numAffected);
     });
   }

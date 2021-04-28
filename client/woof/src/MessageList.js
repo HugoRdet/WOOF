@@ -1,5 +1,11 @@
 import React from 'react'
 
+import Message from './Message'
+
+
+
+
+
 export default function MessageList(props) {
 
   const displayMessages = (props) => {
@@ -9,23 +15,7 @@ export default function MessageList(props) {
       return (
         messages.slice(0).reverse().map( (message, index) => {
           return (
-            <article key={message._id}>
-              <div className="title">
-                <h2>@{message.author_id}</h2>
-              </div>
-              
-              
-            
-              
-              <section className="content">
-                {message.content}
-              </section>
-              
-            <section className="reactions">
-              <h4>{message.likes.length} j'aime</h4> 
-            </section>
-              
-            </article>
+            <Message message_={message}/> 
           )
         })
       )

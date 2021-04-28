@@ -1,6 +1,5 @@
 import React from 'react'
 import BannerTop from './BannerTop'
-import NavBarLeft from './NavBarLeft'
 import Feed from './Feed'
 import InfosProfilNbTweets from './InfosProfilNbTweets'
 import SignIn from './SignIn'
@@ -67,10 +66,7 @@ class MainPage extends React.Component {
         <main>
         <div className="baniere">
         <div className="nom">
-        
         <h1>{this.state.pseudo}</h1>
-
-
         </div>
         <div className="content_b">
           <InfosProfilNbTweets/>
@@ -97,8 +93,6 @@ class MainPage extends React.Component {
         <div className="petitbouton" onClick = { event => {this.setLogout()} } >
         <h3>deconnexion</h3>
         </div>
-        </div>
-
         </div>
         <div className="espace_tweet">
           <div className="contenu_animation">

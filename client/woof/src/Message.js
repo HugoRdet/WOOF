@@ -37,16 +37,17 @@ function Init_like_button(args) {
 	
 	if (statuslike==0){
 		return (
-			
+			<>
 			<h5> 🖤 </h5>
 			<h5> j aime pas</h5>
+			</>
 		)
 	}else{
 		return (
-			
+			<>	
 			<h5> ❤️ </h5>
 			<h5> j aime </h5>
-			
+			</>
 		)
 	}
 	

@@ -217,7 +217,7 @@ function init(usersDB, messagesDB) {
             /*Dans le cas ou aucun utilisateur n'est connecté:*/
             res.status(400).send("a ghost can't tweet");
         }else{
-            
+            console.log(req.body)
             //un utilisateur est connecté
             const { content , parent_id } = req.body;
             if (!content) {
@@ -286,6 +286,25 @@ function init(usersDB, messagesDB) {
             }
         }
     });
+        
+        router.get("/message/getlike/:messageId", (req, res) => {
+            
+            if(req.session.userid == undefined) {
+                /*Dans le cas ou aucun utilisateur n'est connecté:*/
+                res.status(201).send({"like" : 0});
+            }else{
+                
+                if (!req.params.messageId) {
+                    res.status(400).send("Message not found");
+                } else {
+                    message.getMessagelike(req.params.messageId, req.session.userid).then((count)=>{
+                        
+                        res.status(201).send({"like" : count});
+                    });
+                    
+                }
+            }
+        });
 
     router.put("/message/unlike", (req, res) => {
         
@@ -298,8 +317,8 @@ function init(usersDB, messagesDB) {
             if (!messageId) {
                 res.status(400).send("Message not found");
             } else {
-            message.unlikeMessage(messageId, req.session.userid);
-            res.status(201).send({"unlike" : 1});
+                message.unlikeMessage(messageId, req.session.userid);
+                res.status(201).send({"unlike" : 1});
             }
         }
     });
@@ -310,7 +329,7 @@ function init(usersDB, messagesDB) {
         try {
             
             users.getCountFollowers(req.params.pseudo).then((count) => {  
-                console.log("count :",count);
+                
                 if (count==undefined)
                     res.sendStatus(404);
                 else
@@ -329,7 +348,7 @@ function init(usersDB, messagesDB) {
             try {
                 
                 users.getCountFollowedUsers(req.params.pseudo).then((count) => {  
-                    console.log("count :",count);
+                    
                     if (count==undefined)
                         res.sendStatus(404);
                     else

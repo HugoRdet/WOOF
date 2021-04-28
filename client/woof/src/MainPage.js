@@ -11,6 +11,7 @@ import InfosProfilNbFollowers from './InfosProfilNbFollowers'
 import InfosProfilNbFollows from './InfosProfilNbFollows'
 import Cookies from 'js-cookie'
 
+
 class MainPage extends React.Component {
   constructor(props) {
     super(props);
@@ -84,24 +85,21 @@ class MainPage extends React.Component {
         
         <Feed page={this.state.currentPage} pseudo={this.state.pseudo}/>
         <div className="menu">
-        
         <div className="petitbouton">
         <h3>Home</h3>
         </div>
-        
         <div className="petitbouton">
         <h3>Profil</h3>
         </div>
-
         <div className="petitbouton">
         <h3>Options</h3>
         </div>
-        
         <div className="petitbouton" onClick = { event => {this.setLogout()} } >
         <h3>deconnexion</h3>
         </div>
-        </div >
-        
+        </div>
+
+        </div>
         <div className="espace_tweet">
           <div className="contenu_animation">
             <NewMessage parent_id={"-1"} page={this.state.currentPage} />
@@ -153,3 +151,4 @@ class MainPage extends React.Component {
 }
 
 export default MainPage
+  

@@ -39,12 +39,13 @@ function Init_like_button(args) {
 		return (
 			
 			<h5> 🖤 </h5>
-			
+			<h5> j aime pas</h5>
 		)
 	}else{
 		return (
 			
 			<h5> ❤️ </h5>
+			<h5> j aime </h5>
 			
 		)
 	}
@@ -80,7 +81,7 @@ export default function Message(props) {
 			</article>
 						
 					)
-		}
+	}
 	return (
 		<>
 		{displayMessage(props)}

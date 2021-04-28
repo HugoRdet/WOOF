@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
+
 const serveur_config = {
   headers: {
     'Access-Control-Allow-Origin': "*",
@@ -13,7 +14,7 @@ class NewMessage extends React.Component {
     super(props);
     this.state = {
       content : "",
-      parent_id : this.props.parent_id,
+      parent_id : this.props.parent_id
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -48,21 +49,22 @@ class NewMessage extends React.Component {
 
   render() {
     return (
-      <div className="NewMessage">
-        <div class="NewMessageBox">
+      <div >
+        
           <input type="text"
-            class="NewMessageInput"
+            class="espace_tweet_form"
             name="content"
             id="input"
-            placeholder="Woof ?"
+            placeholder="écrire.."
             onChange={this.handleChange}
             value={this.state.content}
           />
+          
           <button class="NewMessageButton" 
             onClick = { (event => this.send()) }>
-            Bark
+            Poster
           </button>
-        </div>
+        
       </div>
     )
 

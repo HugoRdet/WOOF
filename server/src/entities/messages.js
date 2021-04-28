@@ -65,14 +65,19 @@ class Messages {
     });
   }
 
-  getMessagesByContent(content) {
-    return new Promise( (resolve, reject) => {
+  getMessagesByContent(content, loadNumber, loadMultiplier ) {
+    return new Promise ( (resolve, reject) => {
       this.db.find({content: new RegExp(content)}, (err, data) => {
-        if(err)
-          reject();
-        resolve(data);
+      .sort({ date: -1 })
+        .skip(loadNumber * loadMultiplier)
+        .limit(loadNumber)
+        .exec((err, data) => {
+          if (err)
+            reject();
+          resolve(data);
+        })
       });
-    });
+    }
   }
   
   getParentMessageFromComment(messageId, parentId) {

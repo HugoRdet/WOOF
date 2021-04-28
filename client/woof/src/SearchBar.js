@@ -18,9 +18,7 @@ class SearchBar extends React.Component {
 
   search() {
     let input = document.getElementById("search");
-    console.log("OUIII")
-    /*connexion au serveur*/
-    /* renvoie le résultat des recherches avec input*/
+    this.props.profileSearch(input);
   }
 }
 

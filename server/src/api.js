@@ -87,7 +87,25 @@ function init(usersDB, messagesDB) {
         }
     });
 
-
+    router
+        .route("/user/search/:pseudo")
+        .get(async (req, res) => {
+            const {pseudo} = req.params
+            try {
+                let user = await users.existsPseudo(pseudo)
+                if(user) {
+                    res.send(pseudo);
+                }
+                else { res.send('') }
+            }
+            catch(e) {
+                res.status(500).json({
+                    status: 500,
+                    message: "erreur interne",
+                    details: (e || "Erreur inconnue").toString()
+                });
+            }
+        })
     router
         .route("/user/:user_id(\\d+)")
         .get(async (req, res) => {
@@ -101,7 +119,7 @@ function init(usersDB, messagesDB) {
         catch (e) {
             res.status(500).send(e);
         }
-    }).delete((req, res, next) => res.send(`delete user ${req.params.user_id}`)); // ??????
+    })//.delete((req, res, next) => res.send(`delete user ${req.params.user_id}`)); // ??????
 
     
         
@@ -223,8 +241,8 @@ function init(usersDB, messagesDB) {
         }
     });
 
-    router.get("/user/display/newsfeed", (req, res) => {
-        const {number, multiplier} = req.body;  
+    router.get("/user/display/newsfeed&:loadNumber&:loadMultiplier", (req, res) => {
+        const {number, multiplier} = req.params;  
         users.getFollowedUsers(req.session.userpseudo).then((doc) => {            
             if (!doc)
                 res.sendStatus(404);
@@ -244,10 +262,11 @@ function init(usersDB, messagesDB) {
     );
 
     router
-        .route("/message/search/:content")
+        .route("/message/search/:content&:loadNumber&:loadMultiplier")
+        const {content, number, multiplier} = req.params
         .get(async (req, res) => {
         try {
-            message.getMessagesByContent(req.params.content).then((doc) => {            
+            message.getMessagesByContent(content, number, multiplier).then((doc) => {            
                 if (!doc)
                     res.sendStatus(404);
                 else

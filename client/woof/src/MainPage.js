@@ -9,6 +9,8 @@ import NewMessage from './NewMessage'
 import InfosProfilNbFollowers from './InfosProfilNbFollowers'
 import InfosProfilNbFollows from './InfosProfilNbFollows'
 import Cookies from 'js-cookie'
+import SearchBar from './SearchBar'
+import ProfileSearch from './ProfileSearch'
 
 
 class MainPage extends React.Component {
@@ -18,11 +20,13 @@ class MainPage extends React.Component {
       currentPage : 'host',
       isConnected : false,
       pseudo: '',
+      searchInput: ''
     }
     this.getConnected = this.getConnected.bind(this);
     this.setLogout = this.setLogout.bind(this);
     this.getSignUp = this.getSignUp.bind(this);
     this.setPseudo = this.setPseudo.bind(this);
+    this.profileSearch = this.profileSearch.bind(this);
   }
 
   render() {
@@ -55,12 +59,12 @@ class MainPage extends React.Component {
         </div>
       )
     }
-    
-    if(this.state.currentPage === 'profile'){
+
+    // PAGES USUELLES
       return (
         <div className="MainPage">
         <header>
-        <h3>Woof!</h3>
+          <SearchBar profileSearch={this.profileSearch}/>
         </header>
         
         <main>
@@ -78,20 +82,24 @@ class MainPage extends React.Component {
         <InfosProfilNbFollows/>
         </div>
         </div>
-        
-        <Feed page={this.state.currentPage} pseudo={this.state.pseudo}/>
+        {this.state.currentPage === 'search' &&
+          <ProfileSearch input={this.searchInput} setPseudo={this.setPseudo}/>
+          }
+        {this.state.currentPage === 'profile' || this.state.currentPage === 'home' || this.state.currentPage === 'search' &&
+          <Feed page={this.state.currentPage} pseudo={this.state.pseudo} input={this.state.searchInput}/>
+          }
         <div className="menu">
         <div className="petitbouton">
         <h3>Home</h3>
         </div>
-        <div className="petitbouton">
-        <h3>Profil</h3>
+          <div className="petitbouton" onClick={event => {this.setPseudo}}>
+        <h3>Profile</h3>
         </div>
         <div className="petitbouton">
         <h3>Options</h3>
         </div>
         <div className="petitbouton" onClick = { event => {this.setLogout()} } >
-        <h3>deconnexion</h3>
+        <h3>Sign Out</h3>
         </div>
         </div>
         <div className="espace_tweet">
@@ -104,10 +112,10 @@ class MainPage extends React.Component {
         </div>
       )
     }
-  }
+  
 
   getConnected() {
-    const nextPage = 'profile'; 
+    const nextPage = 'home'; 
     const isConnected = true;
     this.setPseudo();
     this.setState({
@@ -141,6 +149,11 @@ class MainPage extends React.Component {
       this.setState( {pseudo : defaultPseudo} );
     }
     this.setState( {currentPage : 'profile'} );
+  }
+
+  profileSearch( input ) {
+    const currentPage = 'search'
+    this.setState({ currentPage: currentPage, searchInput: input })
   }
 }
 

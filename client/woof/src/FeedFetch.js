@@ -7,7 +7,7 @@ const serveur_config = {
     'Content-Type': 'application/json:charset=UTF-8',
   }
 }
-export default function FeedFetch(number, multiplier, page, pseudo) {
+export default function FeedFetch(number, multiplier, page, pseudo, input) {
 
 
   const [loading, setLoading] = useState(true);
@@ -19,8 +19,10 @@ export default function FeedFetch(number, multiplier, page, pseudo) {
       return '/user/display/profile/'+pseudo+'&'+number+'&'+multiplier
     }
     if (page === 'home') {
-      return 'user/display/newsfeed'+number+'&'+multiplier
+      return '/user/display/newsfeed'+number+'&'+multiplier
     }
+    if (page === 'search' && input !='')
+      return '/message/search/'+input
   }
 
   useEffect( () => {

@@ -85,10 +85,24 @@ class Users {
   }
   
 
+  async existsPseudo(pseudo) {
+    return new Promise((resolve, reject) => {
+      const req = this.db.prepare(`
+        SELECT pseudo FROM users WHERE pseudo=?;
+      `);
+      req.get([login], (err, row) => {
+        if(err) {
+          console.log('Erreur SQL: ', err);
+          reject();
+        } else {
+          resolve(row != undefined);
+        }
+      });
+    });
+  }
+  
   async exists(login) {
     return new Promise((resolve, reject) => {
-      
-
       const req = this.db.prepare(`
         SELECT login FROM users WHERE login=?;
       `);

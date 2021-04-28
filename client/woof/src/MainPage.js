@@ -113,7 +113,9 @@ class MainPage extends React.Component {
         
         </div>
         <div className="espace_tweet">
-          <NewMessage parent_id={"-1"}/>
+          <div className="contenu_animation">
+            <NewMessage parent_id={"-1"} page={this.state.currentPage} />
+          </div>
         </div>
         
           </main>

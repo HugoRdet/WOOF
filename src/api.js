@@ -217,7 +217,7 @@ function init(usersDB, messagesDB) {
             /*Dans le cas ou aucun utilisateur n'est connecté:*/
             res.status(400).send("a ghost can't tweet");
         }else{
-            
+            console.log(req.body)
             //un utilisateur est connecté
             const { content , parent_id } = req.body;
             if (!content) {

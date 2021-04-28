@@ -172,7 +172,6 @@ function init(usersDB, messagesDB) {
     router
         .route("/user/display/profile/:pseudo&:loadNumber&:loadMultiplier")
         .get(async (req, res) => {
-            console.log(req.params)
         try {
             message.getMessagesByAuthor(req.params.pseudo, req.params.loadNumber, req.params.loadMultiplier).then((doc) => {            
                 if (!doc)

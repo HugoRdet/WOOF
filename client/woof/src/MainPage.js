@@ -1,5 +1,4 @@
 import React from 'react'
-import BannerTop from './BannerTop'
 import Feed from './Feed'
 import InfosProfilNbTweets from './InfosProfilNbTweets'
 import SignIn from './SignIn'

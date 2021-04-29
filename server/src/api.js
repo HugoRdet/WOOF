@@ -288,6 +288,7 @@ function init(usersDB, messagesDB) {
                 res.status(400).send("Message not found");
             } else {
                 message.likeMessage(messageId, req.session.userid);
+                
                 res.status(201).send({"like" : 1});
             }
         }
@@ -305,10 +306,34 @@ function init(usersDB, messagesDB) {
                 res.status(400).send("Message not found");
             } else {
             message.unlikeMessage(messageId, req.session.userid);
-            res.status(201).send({"unlike" : 1});
+            res.status(201).send({"unlike" : 0});
             }
         }
     });
+        
+        
+        router.get("/message/getlike/:message_id", (req, res) => {
+                
+            const  messageId = req.params.message_id;
+
+            if (!messageId) {
+                res.status(400).send("Message not found");
+            } else {
+                message.getLikeMessage(messageId,req.session.userid).then((data) => {
+                    if (data==undefined){
+                        res.status(400).send("Non trouvé BD");
+                    }else{
+                        res.status(201).send({likestatus:data});
+                    }
+                        
+                            
+                    }
+                );
+            }
+        }
+    );
+    
+
 
     router
         .route("/user/display/count/followers/:pseudo")

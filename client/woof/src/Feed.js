@@ -3,7 +3,6 @@ import FeedFetch from './FeedFetch'
 import Message from './Message'
 
 export default function Feed(props) {
-  console.log('AAAAAAAAAAAAAAAAAAAAAAAA')
   
   const [number, setNumber] = useState(3);
   const [multiplier, setMultiplier] = useState(0);
@@ -15,6 +14,7 @@ export default function Feed(props) {
     messages,
     hasMore
   } = FeedFetch(number, multiplier, page, pseudo);
+
   const observer = useRef();
   const lastMessageRef = useCallback(node => {
     if(loading)

@@ -8,14 +8,6 @@ function init(usersDB, messagesDB) {
     router.use(express.json());
     router.use((req, res, next) => {
         
-        /*
-        !
-        !
-        ! OPTIONS PRATIQUES POUR LE DEBUGGAGE
-        !
-        !
-        */
-        
         next();
     });
 
@@ -87,7 +79,7 @@ function init(usersDB, messagesDB) {
         }
     });
 
-    router
+        router
         .route("/user/search/:pseudo")
         .get(async (req, res) => {
             const {pseudo} = req.params
@@ -106,6 +98,7 @@ function init(usersDB, messagesDB) {
                 });
             }
         })
+        
     router
         .route("/user/:user_id(\\d+)")
         .get(async (req, res) => {
@@ -119,7 +112,7 @@ function init(usersDB, messagesDB) {
         catch (e) {
             res.status(500).send(e);
         }
-    })//.delete((req, res, next) => res.send(`delete user ${req.params.user_id}`)); // ??????
+    }).delete((req, res, next) => res.send(`delete user ${req.params.user_id}`)); // ??????
 
     
         
@@ -142,9 +135,11 @@ function init(usersDB, messagesDB) {
             }else{
                 
                 const { pseudo } = req.body;
+                
                 if ( !pseudo ) {
                     res.status(400).send("Missing fields");
                 } else {
+                    
                     users.follow(pseudo,req.session.userpseudo)
                     .then((doc) => res.status(201).send(doc))
                     .catch((err) => res.status(500).send(err));
@@ -232,16 +227,18 @@ function init(usersDB, messagesDB) {
                 
                 .then((author_pseudo) => 
                     {
+                        console.log("message bien reçu : ", req.body);
                         res.status(201).send({pseudo: author_pseudo})
                     })
                     .catch((err) => {
+                        console.log(req.body);
                         res.status(500).send(err);
                     })
             }
         }
     });
 
-    router.get("/user/display/newsfeed&:loadNumber&:loadMultiplier", (req, res) => {
+        router.get("/user/display/newsfeed&:loadNumber&:loadMultiplier", (req, res) => {
         const {number, multiplier} = req.params;  
         users.getFollowedUsers(req.session.userpseudo).then((doc) => {            
             if (!doc)
@@ -261,7 +258,7 @@ function init(usersDB, messagesDB) {
         }
     );
 
-    router
+        router
         .route("/message/search/:content&:loadNumber&:loadMultiplier")
         .get(async (req, res) => {
         const {content, number, multiplier} = req.params
@@ -322,6 +319,7 @@ function init(usersDB, messagesDB) {
                 if (count==undefined)
                     res.sendStatus(404);
                 else
+                    console.log("OK");
                     res.status(201).send(count);
             
             });
@@ -330,6 +328,26 @@ function init(usersDB, messagesDB) {
             res.status(500).send(e);
         }
     });
+    
+        
+        router
+        .route("/user/display/count/follows/:pseudo")
+        .get(async (req, res) => {
+            try {
+                
+                users.getCountFollowedUsers(req.params.pseudo).then((count) => {  
+                    
+                    if (count==undefined)
+                        res.sendStatus(404);
+                    else
+                        res.status(201).send(count);
+                    
+                });
+            }
+            catch (e) {
+                res.status(500).send(e);
+            }
+        });
     
     router
         .route("/user/display/count/messages/:pseudo")
@@ -369,7 +387,7 @@ function init(usersDB, messagesDB) {
         });
 
 
-    router
+        router
         .route("/message/delete/:messageid")
         .get(async (req, res) => {
             try {

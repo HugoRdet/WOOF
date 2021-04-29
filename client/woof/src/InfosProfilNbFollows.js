@@ -23,18 +23,16 @@ export default function InfosProfilNbFollows(props) {
   }, []);
 
   const getALLnb_follows = () => {
-    var chemin='/user/display/count/follows/'+props.pseudo;
-    api.get(chemin)
+    api.get('/user/display/count/follows/'+props.pseudo
+    )
     .then( response => {
       const nb_follows = response.data.FollowsCount;
       getnb_follows(nb_follows);
     })
     .catch(err => {
-      console.log(err);
+      return( <></> )
     });
   }
-  
-  
   
     return (
       <div>

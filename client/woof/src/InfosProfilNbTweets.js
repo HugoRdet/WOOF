@@ -23,8 +23,7 @@ export default function InfosProfilNbTweets(props) {
   }, []);
 
   const getALLnb_tweets = () => {
-    var chemin='/user/display/count/messages/'+props.pseudo;
-    api.get(chemin)
+    api.get('/user/display/count/messages/'+props.pseudo)
     .then( response => {
       const nb_tweets = response.data.nb_tweets;
       getnb_tweets(nb_tweets);

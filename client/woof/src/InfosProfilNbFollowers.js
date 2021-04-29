@@ -23,8 +23,7 @@ export default function InfosProfilNbFollowers(props) {
   }, []);
 
   const getALLnb_followers = () => {
-    var chemin='/user/display/count/followers/'+props.pseudo;
-    api.get(chemin)
+    api.get('/user/display/count/followers/'+props.pseudo)
     .then( response => {
       const nb_followers = response.data.FollowersCount;
       getnb_followers(nb_followers);

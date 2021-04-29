@@ -6,7 +6,7 @@ class Messages {
     this.db.loadDatabase();
   }
 
-    writeMessage(author, content, parent_id) {
+  writeMessage(author, content, parent_id) {
     return new Promise ((resolve, reject) => {
       let message = {
         parent_id: parent_id,
@@ -29,7 +29,7 @@ class Messages {
   }
 
 
-    likeMessage(messageId, userId) {
+  likeMessage(messageId, userId) {
     let newLike = {user_id: userId, date: new Date()};
     this.db.update({_id: messageId}, {$push : { likes: newLike}}, {}, function(err, numAffected){
       console.log(numAffected);
@@ -66,7 +66,7 @@ class Messages {
     });
   }
 
-    getMessagesByContent(content, loadNumber, loadMultiplier ) {
+  getMessagesByContent(content, loadNumber, loadMultiplier ) {
     return new Promise ( (resolve, reject) => {
       this.db.find({content: new RegExp(content)})
       .sort({ date: -1 })
@@ -91,7 +91,7 @@ class Messages {
     );
   }
   
-    getMessagesFromFollowed(followedPseudoList, loadNumber, loadMultiplier) {
+  getMessagesFromFollowed(followedPseudoList, loadNumber, loadMultiplier) {
     return new Promise ( (resolve, reject) => {
       this.db.find({ author_id : { $in: followedPseudoList }})
         .sort({ date: -1 } )// modifiable
@@ -149,4 +149,3 @@ class Messages {
 }
 
 exports.default = Messages
-

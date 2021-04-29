@@ -9,7 +9,7 @@ const serveur_config = {
   }
 }
 
-export default function InfosProfilNbFollowers() {
+export default function InfosProfilNbFollowers(props) {
 
   const [nb_followers, getnb_followers] = useState('');
   const api = axios.create({
@@ -23,7 +23,7 @@ export default function InfosProfilNbFollowers() {
   }, []);
 
   const getALLnb_followers = () => {
-    api.get('/user/display/count/followers/Hugo_babe')
+    api.get('/user/display/count/followers/'+props.pseudo)
     .then( response => {
       const nb_followers = response.data.FollowersCount;
       getnb_followers(nb_followers);

@@ -9,7 +9,7 @@ const serveur_config = {
   }
 }
 
-export default function InfosProfilNbTweets() {
+export default function InfosProfilNbTweets(props) {
 
   const [nb_tweets, getnb_tweets] = useState('');
   const api = axios.create({
@@ -23,7 +23,7 @@ export default function InfosProfilNbTweets() {
   }, []);
 
   const getALLnb_tweets = () => {
-    api.get('/user/display/count/messages/Hugo_babe')
+    api.get('/user/display/count/messages/'+props.pseudo)
     .then( response => {
       const nb_tweets = response.data.nb_tweets;
       getnb_tweets(nb_tweets);

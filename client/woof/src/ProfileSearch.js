@@ -9,11 +9,12 @@ const serveur_config = {
 }
 export default function ProfileSearch(props) {
 
-
+  const input = props.input
   const [profiles, setProfiles] = useState([]);
 
 
   useEffect( () => {
+    if(input && input != ''){
     const api = axios.create({
       baseURL : '/api',
       timeout : 1000,
@@ -26,6 +27,7 @@ export default function ProfileSearch(props) {
       .catch(e => {
       })
     )
+    }
   }, [input]);
 
   return (

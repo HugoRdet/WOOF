@@ -263,8 +263,8 @@ function init(usersDB, messagesDB) {
 
     router
         .route("/message/search/:content&:loadNumber&:loadMultiplier")
-        const {content, number, multiplier} = req.params
         .get(async (req, res) => {
+        const {content, number, multiplier} = req.params
         try {
             message.getMessagesByContent(content, number, multiplier).then((doc) => {            
                 if (!doc)

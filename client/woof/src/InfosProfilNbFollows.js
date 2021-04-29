@@ -9,7 +9,7 @@ const serveur_config = {
   }
 }
 
-export default function InfosProfilNbFollows() {
+export default function InfosProfilNbFollows(props) {
 
   const [nb_follows, getnb_follows] = useState('');
   const api = axios.create({
@@ -23,17 +23,16 @@ export default function InfosProfilNbFollows() {
   }, []);
 
   const getALLnb_follows = () => {
-    api.get('/user/display/count/follows/Hugo_babe')
+    api.get('/user/display/count/follows/'+props.pseudo
+    )
     .then( response => {
       const nb_follows = response.data.FollowsCount;
       getnb_follows(nb_follows);
     })
     .catch(err => {
-      console.log(err);
+      return( <></> )
     });
   }
-  
-  
   
     return (
       <div>

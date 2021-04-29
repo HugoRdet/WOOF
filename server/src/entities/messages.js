@@ -17,12 +17,13 @@ class Messages {
         comments: [],
       } 
       if(parent_id == -1)
-        this.db.insert(message, function(){});
-      else{
-        this.db.update({_id: parent_id}, {$push : {comments: newComment}},{} , function(err, numAffected, affectedDocuments){
-          console.log(numAffected, "commentaire ajouté");
+        this.db.insert(message, function(err, newDoc){
+          if(parent_id != -1){
+            this.db.update({_id: parent_id}, {$push : {comments: newDoc._id}}, {}, function(err, numAffected){
+              console.log(numAffected, "comment added");
+            })
+          }
         });
-      }
       resolve(author);
     });
   }
@@ -67,7 +68,7 @@ class Messages {
 
   getMessagesByContent(content, loadNumber, loadMultiplier ) {
     return new Promise ( (resolve, reject) => {
-      this.db.find({content: new RegExp(content)}, (err, data) => {
+      this.db.find({content: new RegExp(content)})
       .sort({ date: -1 })
         .skip(loadNumber * loadMultiplier)
         .limit(loadNumber)
@@ -77,7 +78,6 @@ class Messages {
           resolve(data);
         })
       });
-    }
   }
   
   getParentMessageFromComment(messageId, parentId) {

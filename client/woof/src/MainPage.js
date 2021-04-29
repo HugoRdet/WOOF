@@ -20,13 +20,14 @@ class MainPage extends React.Component {
       currentPage : 'host',
       isConnected : false,
       pseudo: '',
+      selfPseudo: '',
       searchInput: ''
     }
     this.getConnected = this.getConnected.bind(this);
     this.setLogout = this.setLogout.bind(this);
     this.getSignUp = this.getSignUp.bind(this);
     this.setPseudo = this.setPseudo.bind(this);
-    this.profileSearch = this.profileSearch.bind(this);
+    this.setSelfPseudo = this.setSelfPseudo.bind(this);
   }
 
   render() {
@@ -44,7 +45,7 @@ class MainPage extends React.Component {
       return (
         <div className='MainPage'>
           <main>
-            <SignIn getConnected={this.getConnected} setPseudo={this.setPseudo} getSignUp={this.getSignUp}/>
+            <SignIn getConnected={this.getConnected} setPseudo={this.setSelfPseudo} getSignUp={this.getSignUp}/>
           </main>
         </div>
       )
@@ -64,7 +65,7 @@ class MainPage extends React.Component {
       return (
         <div className="MainPage">
         <header>
-          <SearchBar profileSearch={this.profileSearch}/>
+          <h1>Woof</h1>
         </header>
         
         <main>
@@ -73,26 +74,23 @@ class MainPage extends React.Component {
         <h1>{this.state.pseudo}</h1>
         </div>
         <div className="content_b">
-          <InfosProfilNbTweets/>
+          <InfosProfilNbTweets pseudo={this.state.pseudo}/>
         </div>
         <div className="content_b">
-        <InfosProfilNbFollowers/>
+        <InfosProfilNbFollowers pseudo={this.state.pseudo}/>
         </div>
         <div className="content_b">
-        <InfosProfilNbFollows/>
+        <InfosProfilNbFollows pseudo={this.state.pseudo}/>
         </div>
         </div>
-        {this.state.currentPage === 'search' &&
-          <ProfileSearch input={this.searchInput} setPseudo={this.setPseudo}/>
-          }
-        {this.state.currentPage === 'profile' || this.state.currentPage === 'home' || this.state.currentPage === 'search' &&
-          <Feed page={this.state.currentPage} pseudo={this.state.pseudo} input={this.state.searchInput}/>
-          }
+        {this.state.currentPage === 'profile' &&
+        <Feed page={this.state.currentPage} pseudo={this.state.pseudo}/>
+        }
         <div className="menu">
-        <div className="petitbouton">
+          <div className="petitbouton" onClick={event => {this.getConnected()}}>
         <h3>Home</h3>
         </div>
-          <div className="petitbouton" onClick={event => {this.setPseudo}}>
+          <div className="petitbouton" onClick={event => {this.setPseudo()}}>
         <h3>Profile</h3>
         </div>
         <div className="petitbouton">
@@ -140,13 +138,16 @@ class MainPage extends React.Component {
     });
   }
 
+  setSelfPseudo( pseudo ) {
+    this.setState( { selfPseudo: pseudo, currentPage: 'home'} )
+  }
+
   setPseudo( pseudo ) {
     if(pseudo) {
       this.setState( { pseudo: pseudo } )
     }
     else {
-      let defaultPseudo = Cookies.get('userpseudo');
-      this.setState( {pseudo : defaultPseudo} );
+      this.setState( {pseudo : this.state.selfPseudo} );
     }
     this.setState( {currentPage : 'profile'} );
   }

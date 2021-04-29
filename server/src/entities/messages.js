@@ -6,7 +6,7 @@ class Messages {
     this.db.loadDatabase();
   }
 
-  writeMessage(author, content, parent_id) {
+    writeMessage(author, content, parent_id) {
     return new Promise ((resolve, reject) => {
       let message = {
         parent_id: parent_id,
@@ -17,18 +17,19 @@ class Messages {
         comments: [],
       } 
       if(parent_id == -1)
-        this.db.insert(message, function(){});
-      else{
-        this.db.update({_id: parent_id}, {$push : {comments: newComment}},{} , function(err, numAffected, affectedDocuments){
-          console.log(numAffected, "commentaire ajouté");
+        this.db.insert(message, function(err, newDoc){
+          if(parent_id != -1){
+            this.db.update({_id: parent_id}, {$push : {comments: newDoc._id}}, {}, function(err, numAffected){
+              console.log(numAffected, "comment added");
+            })
+          }
         });
-      }
       resolve(author);
     });
   }
 
 
-  likeMessage(messageId, userId) {
+    likeMessage(messageId, userId) {
     let newLike = {user_id: userId, date: new Date()};
     this.db.update({_id: messageId}, {$push : { likes: newLike}}, {}, function(err, numAffected){
       console.log(numAffected);
@@ -65,14 +66,18 @@ class Messages {
     });
   }
 
-  getMessagesByContent(content) {
-    return new Promise( (resolve, reject) => {
-      this.db.find({content: new RegExp(content)}, (err, data) => {
-        if(err)
-          reject();
-        resolve(data);
+    getMessagesByContent(content, loadNumber, loadMultiplier ) {
+    return new Promise ( (resolve, reject) => {
+      this.db.find({content: new RegExp(content)})
+      .sort({ date: -1 })
+        .skip(loadNumber * loadMultiplier)
+        .limit(loadNumber)
+        .exec((err, data) => {
+          if (err)
+            reject();
+          resolve(data);
+        })
       });
-    });
   }
   
   getParentMessageFromComment(messageId, parentId) {
@@ -86,7 +91,7 @@ class Messages {
     );
   }
   
-  getMessagesFromFollowed(followedPseudoList, loadNumber, loadMultiplier) {
+    getMessagesFromFollowed(followedPseudoList, loadNumber, loadMultiplier) {
     return new Promise ( (resolve, reject) => {
       this.db.find({ author_id : { $in: followedPseudoList }})
         .sort({ date: -1 } )// modifiable
@@ -144,3 +149,4 @@ class Messages {
 }
 
 exports.default = Messages
+

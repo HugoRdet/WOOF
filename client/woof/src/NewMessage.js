@@ -26,10 +26,13 @@ class NewMessage extends React.Component {
   }
 
   response_new_message(response){
+     this.props.setPage_("");
      document.getElementById("input").value = "";
   }
+  
 
   send() {
+    
     const api = axios.create({
       baseURL : '/api',
       timeout : 1000,
@@ -40,6 +43,7 @@ class NewMessage extends React.Component {
       "parent_id": this.state.parent_id,
     })
       .then( response => {
+        
         this.response_new_message(response);
       })
       .catch( err => {
@@ -51,8 +55,9 @@ class NewMessage extends React.Component {
     return (
       <div >
         
-          <input type="text"
-            class="espace_tweet_form"
+        
+          <textarea type="text"
+            className="espace_tweet_form"
             name="content"
             id="input"
             placeholder="écrire.."
@@ -60,11 +65,19 @@ class NewMessage extends React.Component {
             value={this.state.content}
           />
           
-          <button class="NewMessageButton" 
+          <div>
+          <button class="petitbouton_message" 
             onClick = { (event => this.send()) }>
             Poster
           </button>
-        
+          
+      <button class="petitbouton_message" 
+      onClick = { (event => this.response_new_message()) }>
+      Annuler
+      </button>
+          
+          </div>
+      
       </div>
     )
 
@@ -72,3 +85,4 @@ class NewMessage extends React.Component {
 }
 
 export default NewMessage
+  

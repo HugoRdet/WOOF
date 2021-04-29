@@ -8,7 +8,7 @@ export default function Feed(props) {
   const [multiplier, setMultiplier] = useState(0);
   const [pseudo, setPseudo] = useState(props.pseudo);
   const [page, setPage] = useState(props.page);
-
+  
   const {
     loading,
     messages,
@@ -35,14 +35,14 @@ export default function Feed(props) {
         if (messages.length == index+1){
             return (
               <div ref={lastMessageRef}>
-              <Message message_={message}/>
+              <Message message_={message} setPage_={props.setPage_}/>
               </div>
             )
           
           } else {
             return (
               <>
-              <Message message_={message}/>
+              <Message message_={message} setPage_={props.setPage_} />
               </> 
             )
           }

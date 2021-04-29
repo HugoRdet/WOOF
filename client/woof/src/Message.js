@@ -73,10 +73,15 @@ export default function Message(props) {
 				</section>
 						
 				<section className="reactions">
-				<h2>{
-					Init_like_button(message_._id)
-				}
-				</h2>
+				
+				<section class="reations_elem" onClick = { (event => console.log("a faire") ) }> 
+				<h4> 🖤 Aimer </h4>
+				</section>
+				
+				<section class="reations_elem" onClick = { (event => props.setPage_("message",message_._id) ) }> 
+				<h4> 📣 Commenter</h4>
+				</section>
+				
 				</section>
 						
 			</article>

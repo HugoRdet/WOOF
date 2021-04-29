@@ -9,9 +9,9 @@ const serveur_config = {
   }
 }
 
-export default function InfosProfilNbFollows(props) {
+export default function NewMessage(props) {
 
-  const [nb_follows, getnb_follows] = useState('');
+  const [nb_followers, getnb_followers] = useState('');
   const api = axios.create({
     baseURL : '/api/',
     timeout : 1000,
@@ -19,15 +19,14 @@ export default function InfosProfilNbFollows(props) {
   });
   
   useEffect(() => {
-    getALLnb_follows();
+    getALLnb_followers();
   }, []);
 
-  const getALLnb_follows = () => {
-    var chemin='/user/display/count/follows/'+props.pseudo;
-    api.get(chemin)
+  const getALLnb_followers = () => {
+    api.get('/user/display/count/followers/Hugo_babe')
     .then( response => {
-      const nb_follows = response.data.FollowsCount;
-      getnb_follows(nb_follows);
+      const nb_followers = response.data.FollowersCount;
+      getnb_followers(nb_followers);
     })
     .catch(err => {
       console.log(err);
@@ -38,7 +37,7 @@ export default function InfosProfilNbFollows(props) {
   
     return (
       <div>
-      <h2> {nb_follows} abonnements</h2>
+      <h2> {nb_followers} abonnés</h2>
       </div>
     )
 

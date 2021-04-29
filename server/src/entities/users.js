@@ -85,10 +85,24 @@ class Users {
   }
   
 
+  async existsPseudo(pseudo) {
+    return new Promise((resolve, reject) => {
+      const req = this.db.prepare(`
+        SELECT pseudo FROM users WHERE pseudo=?;
+      `);
+      req.get([login], (err, row) => {
+        if(err) {
+          console.log('Erreur SQL: ', err);
+          reject();
+        } else {
+          resolve(row != undefined);
+        }
+      });
+    });
+  }
+  
   async exists(login) {
     return new Promise((resolve, reject) => {
-      
-
       const req = this.db.prepare(`
         SELECT login FROM users WHERE login=?;
       `);
@@ -232,8 +246,24 @@ class Users {
   
   getCountFollowers(pseudo){
     return new Promise( (resolve, reject) => {
-        let req = this.db.prepare(
-        `SELECT COUNT(followerPseudo) FROM follow WHERE followedPseudo=?;`
+      let req = this.db.prepare(
+        `SELECT COUNT (*) AS FollowersCount FROM follow WHERE followedPseudo=?;`
+      );
+      req.get([pseudo], (err, res) => {
+        if(err) 
+          reject(err);
+        else 
+          resolve(res);
+      });
+    });
+  }
+  
+  
+  getCountFollowedUsers(pseudo){
+    return new Promise ( (resolve, reject) => {
+      
+      let req = this.db.prepare(
+        `SELECT COUNT (*) AS FollowsCount FROM follow where followerPseudo==?; `
       );
       req.get([pseudo], (err, res) => {
         if(err) 

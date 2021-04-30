@@ -49,11 +49,13 @@ class Messages {
   }
   
   getMessagesByParentId(parentId, loadNumber, loadMultiplier) {
+    let loadNumber_ = parseInt(loadNumber)
+    let loadMultiplier_ = parseInt(loadMultiplier)
     return new Promise ( (resolve, reject) => {
       this.db.find({ parent_id : parentId})
       .sort({ date: -1 })
-        .skip(loadNumber * loadMultiplier)
-        .limit(loadNumber)
+        .skip(loadNumber_ * loadMultiplier_)
+        .limit(loadNumber_)
         .exec((err, data) => {
           if (err)
             reject();
@@ -63,11 +65,13 @@ class Messages {
   }
  
   getMessagesByAuthor(author, loadNumber, loadMultiplier) {
+    let loadNumber_ = parseInt(loadNumber)
+    let loadMultiplier_ = parseInt(loadMultiplier)
     return new Promise ( (resolve, reject) => {
       this.db.find({ author_id : author})
       .sort({ date: -1 })
-        .skip(loadNumber * loadMultiplier)
-        .limit(loadNumber)
+        .skip(loadNumber_ * loadMultiplier_)
+        .limit(loadNumber_)
         .exec((err, data) => {
           if (err)
             reject();
@@ -88,11 +92,13 @@ class Messages {
 
 
   getMessagesByContent(content, loadNumber, loadMultiplier ) {
+    let loadNumber_ = parseInt(loadNumber)
+    let loadMultiplier_ = parseInt(loadMultiplier)
   return new Promise ( (resolve, reject) => {
     this.db.find({content: new RegExp(content)})
     .sort({ date: -1 })
-      .skip(loadNumber * loadMultiplier)
-      .limit(loadNumber)
+      .skip(loadNumber_ * loadMultiplier_)
+      .limit(loadNumber_)
       .exec((err, data) => {
         if (err)
           reject();
@@ -103,11 +109,13 @@ class Messages {
   
   
     getMessagesFromFollowed(followedPseudoList, loadNumber, loadMultiplier) {
+    let loadNumber_ = parseInt(loadNumber)
+    let loadMultiplier_ = parseInt(loadMultiplier)
     return new Promise ( (resolve, reject) => {
       this.db.find({ author_id : { $in: followedPseudoList }})
-        .sort({ date: -1 } )// modifiable
-        .skip(loadNumber*loadMultiplier)
-        .limit(loadNumber)
+        .sort({ date: -1 } )
+        .skip(loadNumber_*loadMultiplier_)
+        .limit(loadNumber_)
         .exec(function (err, data){
           if (err)
             reject();

@@ -28,7 +28,7 @@ export default function Feed(props) {
           setNumber(prevNumber => prevNumber);
           setMultiplier(prevMultiplier => prevMultiplier + 1);
         }
-      } );
+      }, {threshold : 0.95} );
       if(node) observer.current.observe(node);
     }, [loading, hasMore]);
     return (

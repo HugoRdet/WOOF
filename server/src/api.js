@@ -276,20 +276,22 @@ function init(usersDB, messagesDB) {
         }
     });
 
-        router.get("/user/display/newsfeed&:loadNumber&:loadMultiplier", (req, res) => {
+        router.get("/user/display/newsfeed/:loadNumber&:loadMultiplier", (req, res) => {
         const {number, multiplier} = req.params;  
         users.getFollowedUsers(req.session.userpseudo).then((doc) => {            
             if (!doc)
                 res.sendStatus(404);
             else{
-                doc.push(req.session.userpseudo);
-                let followedPseudoList = doc.map(({followedPseudo}) => followedPseudo);
+                doc.push({'pseudo' : req.session.userpseudo});
+                let followedPseudoList = doc.map((followedPseudo) => followedPseudo.pseudo);
                 message.getMessagesFromFollowed(followedPseudoList, number, multiplier).then(
                     (data) => {
                         if(!data)
                             res.sendStatus(404);
-                        else
+                        else{
+                            console.log(data)
                             res.status(201).send(data);
+                        }
                     }
                 );
             }

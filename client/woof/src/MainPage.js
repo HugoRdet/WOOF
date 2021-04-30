@@ -115,6 +115,9 @@ class MainPage extends React.Component {
           </>
         : <></>
         }
+        {this.state.currentPage === 'home' &&
+          <Feed page={this.state.currentPage} setPage_={this.setPage_}/>
+        }
         {this.state.currentPage === 'comments' &&
           <Feed page={this.state.currentPage} setPage_={this.setPage_} setPseudo={this.setPseudo} id={this.state.messageId}/>
         }

@@ -19,7 +19,7 @@ export default function FeedFetch(number, multiplier, page, pseudo, id, input) {
       return '/user/display/profile/'+pseudo+'&'+number+'&'+multiplier
     }
     if (page === 'home') {
-      return '/user/display/newsfeed'+number+'&'+multiplier
+      return '/user/display/newsfeed/'+number+'&'+multiplier
     }
     if (page === 'search' && input !='')
       return '/message/search/'+input+'&'+number+'&'+multiplier
@@ -38,7 +38,10 @@ export default function FeedFetch(number, multiplier, page, pseudo, id, input) {
     api.get(getUrl())
       .then( res => {
         setMessages(prevMessages => {
-          return [...prevMessages, ...res.data].slice(0, number*(multiplier+1));
+          if(page == 'profile')
+            return [...prevMessages, ...res.data]
+          return [...prevMessages, ...res.data.slice(multiplier*number, multiplier*number+number)]
+          
         });
         setHasMore(res.data.length > 0);
         setLoading(false);

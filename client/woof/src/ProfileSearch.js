@@ -9,7 +9,7 @@ const serveur_config = {
 }
 export default function ProfileSearch(props) {
 
-  const [profile, setProfile] = useState('');
+  const [profiles, setProfiles] = useState([]);
 
   console.log(props.input)
 
@@ -23,7 +23,7 @@ export default function ProfileSearch(props) {
     });
     api.get( '/user/search/'+props.input)
       .then( res => {
-        setProfile(props.input)
+        setProfiles( [...res.data] )
         })
       .catch(e => {
       })
@@ -32,10 +32,18 @@ export default function ProfileSearch(props) {
 
   return (
     <div className="profileSearch">
+      {profiles.map( profile => {
+        return(
+          <>
+          <h2>Profile</h2>
           <div className='profileResult' onClick = {event => props.setPseudo(props.input)}>
-          <h3>{profile}</h3>  
+          <h3>{profile.login} @{props.input}</h3>  
           </div>
-      {profile === '' && 
+          </>
+        )
+        } 
+      )}
+      {profiles === [] && 
           <h3>No Matching Profile</h3>
       }
     </div>

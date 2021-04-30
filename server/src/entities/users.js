@@ -84,18 +84,17 @@ class Users {
     });
   }
   
-
-  async existsPseudo(pseudo) {
+  async retrieveFromPseudo(pseudo) {
     return new Promise((resolve, reject) => {
       const req = this.db.prepare(`
-        SELECT pseudo FROM users WHERE pseudo=?;
+        SELECT login FROM users WHERE pseudo=?;
       `);
-      req.get([pseudo], (err, row) => {
+      req.all([pseudo], (err, rows) => {
         if(err) {
           console.log('Erreur SQL: ', err);
           reject();
         } else {
-          resolve(row != undefined);
+          resolve(rows);
         }
       });
     });

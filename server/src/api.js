@@ -84,11 +84,13 @@ function init(usersDB, messagesDB) {
         .get(async (req, res) => {
             const {pseudo} = req.params
             try {
-                if(! await users.existsPseudo(pseudo)) {
-                    res.send('')
-                }
+
+                const logins = await users.retrieveFromPseudo(pseudo)
+                console.log(logins)
+                if (!logins)
+                    res.sendStatus(404);
                 else {
-                    res.send(pseudo)
+                    res.send(logins)
                 }
             }
             catch(e) {

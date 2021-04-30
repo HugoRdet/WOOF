@@ -24,7 +24,7 @@ class SearchBar extends React.Component {
           <div className="searchInput">
             <input type="text" name="searchInput" onChange={this.handleChange}value={this.state.searchInput}/>
           </div>
-        <section className="petitbouton" onClick={ event => this.props.search(this.state.searchInput) }>
+        <section className="petitbouton-search" onClick={ event => this.props.search(this.state.searchInput) }>
           Search
         </section>
       </div>

@@ -140,7 +140,7 @@ class Messages {
 
   deleteMessage(messageId) {
   
-    this.db.remove({ $or: [{_id: messageId}, {parent_id: messageId}]}, {multi: true}, (err, numRemoved) => {
+    this.db.remove({_id: messageId}, {multi: true}, (err, numRemoved) => {
       console.log(numRemoved, "message(s) supprimé(s).");
       return numRemoved;
       

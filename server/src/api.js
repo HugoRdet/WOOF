@@ -126,6 +126,20 @@ function init(usersDB, messagesDB) {
                 .catch((err) => res.status(500).send(err));
         }
     });
+        
+    router.put("/user/delete", (req, res) => {
+        if (req.session.userid==undefined) {
+            res.status(400).send("A ghost is already invisible");
+        } else {
+            users.deleteUser(req.session.userid)
+                .then(() => res.status(201).send({ confirmation : 1}))
+                .catch((err) => res.status(500).send(err));
+            
+            users.unfollowALL(req.session.userpseudo);
+            users.DeleteFollowersALL(req.session.userpseudo);
+            message.deleteAllMessagesByAuthor(req.session.userpseudo);
+        }
+    });
     
         router.put("/user/follow", (req, res) => {
             

@@ -154,23 +154,22 @@ class Users {
   logout() {
   }
   
-  delete(login, password) {
+  delete(userid) {
     return new Promise( (resolve, reject) => {
-      checkpassword(login, password).then( 
-        (id) => {
           req = this.db.prepare(
           `DELETE FROM users WHERE rowid = ?;`
           );
-          req.gt([id], (err) => {
+      console.log("je suis ")
+          req.run([userid], (err) => {
             if(err) {
               console.log('Erreur lors de la suppression');
               reject();
             }
             else {
+              console.log("OK supress")
               resolve();
             }
           });
-        });
     });
   }
 
@@ -273,11 +272,37 @@ class Users {
       });
     });
   }
-
+  
+  unfollowALL(userPseudo){
+    return new Promise( (resolve, reject) => {
+      let req = this.db.prepare(
+        `DELETE FROM follow WHERE followerPseudo=?;`
+      );
+      req.run([userPseudo], (err) => {
+        if(err)
+          reject();
+        resolve();
+      });
+    })
+  }
+  
+  DeleteFollowersALL(userPseudo){
+    return new Promise( (resolve, reject) => {
+      let req = this.db.prepare(
+        `DELETE FROM follow WHERE followedPseudo=?;`
+      );
+      req.run([userPseudo], (err) => {
+        if(err)
+          reject();
+        resolve();
+      });
+    })
+  }
+  
   deleteUser(userId){
     return new Promise( (resolve, reject) => {
       let req = this.db.prepare(
-        `DELETE FROM user WHERE rowid=?;`
+        `DELETE FROM users WHERE rowid=?;`
       );
       req.run([userId], (err) => {
         if(err)

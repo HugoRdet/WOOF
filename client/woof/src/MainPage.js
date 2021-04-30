@@ -9,6 +9,7 @@ import InfosProfilNbFollowers from './InfosProfilNbFollowers'
 import InfosProfilNbFollows from './InfosProfilNbFollows'
 import SearchBar from './SearchBar'
 import ProfileSearch from './ProfileSearch'
+import SuppressAccount from './SuppressAccount'
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class MainPage extends React.Component {
     this.getSignUp = this.getSignUp.bind(this);
     this.setPseudo = this.setPseudo.bind(this);
     this.setPage_   = this.setPage_.bind(this);
+    this.setPageOptions   = this.setPageOptions.bind(this);
     this.setSelfPseudo = this.setSelfPseudo.bind(this);
   }
   
@@ -59,6 +61,12 @@ class MainPage extends React.Component {
             <SignUp setLogout={this.setLogout}/>
           </main>
         </div>
+      )
+    }
+    
+    if(this.state.currentPage === 'options') {
+      return (
+          <SuppressAccount setLogout={this.setLogout} setPageOptions={this.setPageOptions} />
       )
     }
     
@@ -123,7 +131,7 @@ class MainPage extends React.Component {
             <h3>Profile</h3>
           </div>
           
-          <div className="petitbouton">
+          <div className="petitbouton" onClick = { event => {this.setPageOptions(1)}}>
             <h3>Options</h3>
           </div>
           
@@ -163,7 +171,21 @@ class MainPage extends React.Component {
       currentPage : nextPage,
     });
   }
-
+  
+  setPageOptions(arg){
+    if (arg==1){
+      this.setState({
+        sendMessage: -1,
+        currentPage : 'options'
+      })
+    }else{
+        this.setState({
+        sendMessage: -1,
+      })
+      this.getConnected()
+    }
+  }
+  
   setPage_(PageToSet,idmessage) {
     const nextPage = PageToSet;
     

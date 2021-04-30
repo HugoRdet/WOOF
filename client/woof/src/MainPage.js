@@ -72,17 +72,9 @@ class MainPage extends React.Component {
     
     if(this.state.currentPage === 'message') {
       return (
-        <div className='MainPage'>
-          <main>
-            <div className='article_tweet'>
-              <div className="title">
-              <h2>Envoyer un nouveau message</h2>
-              </div>
+        
               <NewMessage parent_id={this.state.sendMessage} setPage_={this.setPage_} />
-            </div>
-          </main>
-        </div>
-      )
+              )
     }
     
     // PAGES USUELLES
@@ -122,13 +114,13 @@ class MainPage extends React.Component {
         }
         {this.state.currentPage === 'profile' &&
           <Feed page={this.state.currentPage} pseudo={this.state.pseudo}
-            setPage_={this.setPage_}
+            setPage_={this.setPage_} setPseudo={this.setPseudo}
           />
         
         
         }
         {this.state.currentPage === 'comments' &&
-          <Feed page={this.state.currentPage} setPage_={this.setPage_} id={this.state.messageId}/>
+          <Feed page={this.state.currentPage} setPage_={this.setPage_} setPseudo={this.setPseudo} id={this.state.messageId}/>
         }
         
         <div className="menu">

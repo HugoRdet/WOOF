@@ -35,20 +35,19 @@ export default function Feed(props) {
           if (messages.length == index+1){
               return (
                 <div ref={lastMessageRef}>
-                <Message message_={message} setPage_={props.setPage_}/>
+                <Message message_={message} setPage_={props.setPage_} setPseudo={props.setPseudo}/>
                 </div>
               )
             
             } else {
               return (
                 <>
-                <Message message_={message} setPage_={props.setPage_} />
+                <Message message_={message} setPage_={props.setPage_} setPseudo={props.setPseudo}/>
                 </> 
               )
             }
         }
       )}
-        <span>{loading && '...Loading'}</span>
       </div>
       
     );

@@ -26,8 +26,8 @@ export default function InfosProfilNbFollows(props) {
     var chemin='/user/display/count/follows/'+props.pseudo;
     api.get(chemin)
     .then( response => {
-      const nb_follows = response.data.FollowsCount;
-      getnb_follows(nb_follows);
+      const nb_follows__ = response.data.FollowsCount;
+      getnb_follows(nb_follows__);
     })
     .catch(err => {
       console.log(err);

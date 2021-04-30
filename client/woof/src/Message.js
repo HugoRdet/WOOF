@@ -73,8 +73,10 @@ export default function Message(props) {
 		
 		return (
 			<article key={message_._id}>
-				<div className="title">
+				<div className="title" >
+				<section className="link_pseudo" onClick = { (event => props.setPseudo(message_.author_id) ) } >
 				<h2>@{message_.author_id}</h2>
+				</section>
 				</div>
 				
 				<section className="content">

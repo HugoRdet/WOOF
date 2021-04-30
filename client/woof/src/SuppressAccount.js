@@ -46,7 +46,7 @@ export default function SupressAcount(props) {
               <h3>Supprimer son compte</h3>
               </div>
               
-              <section class="bigbutton_options" onClick = { (event => props.setPageOptions(0)) }>
+              <section className="bigbutton_options" onClick = { (event => props.setPageOptions(0)) }>
               <h3> retour </h3>
               </section>
               

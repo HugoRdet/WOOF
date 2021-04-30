@@ -52,9 +52,13 @@ class NewMessage extends React.Component {
 
   render() {
     return (
-      <div >
-        
-        
+        <div className='MainPage'>
+          <main>
+            <div className='article_tweet'>
+              <div className="title">
+              <h2>Envoyer un nouveau message</h2>
+              </div>
+      
           <textarea type="text"
             className="espace_tweet_form"
             name="content"
@@ -65,19 +69,21 @@ class NewMessage extends React.Component {
           />
           
           <div>
-          <button class="petitbouton_message" 
+          <div className="bigbutton_options" 
+          onClick = { (event => this.response_new_message()) }>
+          Annuler
+          </div>
+          
+          <div className="bigbutton_options" 
             onClick = { (event => this.send()) }>
             Poster
-          </button>
-          
-      <button class="petitbouton_message" 
-      onClick = { (event => this.response_new_message()) }>
-      Annuler
-      </button>
-          
           </div>
-      
+          
+            </div>
+          </div>
+        </main>
       </div>
+
     )
 
   }

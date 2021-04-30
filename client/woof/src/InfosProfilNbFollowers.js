@@ -11,7 +11,7 @@ const serveur_config = {
 
 export default function InfosProfilNbFollowers(props) {
 
-  const [nb_followers, getnb_followers] = useState('');
+  const [nb_followers, getnb_followers] = useState(0);
   const api = axios.create({
     baseURL : '/api/',
     timeout : 1000,
@@ -21,7 +21,7 @@ export default function InfosProfilNbFollowers(props) {
   useEffect(() => {
     getALLnb_followers();
   }, []);
-
+  
   const getALLnb_followers = () => {
     var chemin='/user/display/count/followers/'+props.pseudo;
     api.get(chemin)

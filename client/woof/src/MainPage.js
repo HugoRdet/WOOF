@@ -95,28 +95,37 @@ class MainPage extends React.Component {
         </header>
         
         <main>
+        
+        {
+          (this.state.currentPage === 'profile')?
           <div className="baniere">
-            <div className="nom">
-              <h1>{this.state.pseudo}</h1>
-            </div>
-            
-            <div className="content_b">
-              <InfosProfilNbTweets  pseudo={this.state.pseudo}/>
-            </div>
-        
-            <div className="content_b">
-              <InfosProfilNbFollowers pseudo={this.state.pseudo}/>
-            </div>
-        
-            <div className="content_b">
-              <InfosProfilNbFollows pseudo={this.state.pseudo}/>
-            </div>
+          <div className="nom">
+          <h1>{this.state.pseudo}</h1>
           </div>
-        
+          
+          <div className="content_b">
+          <InfosProfilNbTweets  pseudo={this.state.pseudo}/>
+          </div>
+          
+          <div className="content_b">
+          <InfosProfilNbFollowers pseudo={this.state.pseudo}/>
+          </div>
+          
+          <div className="content_b">
+          <InfosProfilNbFollows pseudo={this.state.pseudo}/>
+          </div>
+          </div>
+          
+          :
+          
+          <></>
+        }
         {this.state.currentPage === 'profile' &&
           <Feed page={this.state.currentPage} pseudo={this.state.pseudo}
             setPage_={this.setPage_}
           />
+        
+        
         }
         {this.state.currentPage === 'comments' &&
           <Feed page={this.state.currentPage} setPage_={this.setPage_} id={this.state.messageId}/>

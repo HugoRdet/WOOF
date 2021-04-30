@@ -11,7 +11,7 @@ const serveur_config = {
 
 export default function InfosProfilNbTweets(props) {
 
-  const [nb_tweets, getnb_tweets] = useState('');
+  const [nb_tweets_state, getnb_tweets] = useState(0);
   const api = axios.create({
     baseURL : '/api/',
     timeout : 1000,
@@ -19,15 +19,15 @@ export default function InfosProfilNbTweets(props) {
   });
   
   useEffect(() => {
-    getALLnb_tweets();
+    get_nb_tweets();
   }, []);
 
-  const getALLnb_tweets = () => {
+  const get_nb_tweets = () => {
     var chemin='/user/display/count/messages/'+props.pseudo;
     api.get(chemin)
     .then( response => {
-      const nb_tweets = response.data.nb_tweets;
-      getnb_tweets(nb_tweets);
+      const nb_tweets_ = response.data.nb_tweets;
+      getnb_tweets(nb_tweets_);
     })
     .catch(err => {
       console.log(err);
@@ -35,7 +35,7 @@ export default function InfosProfilNbTweets(props) {
   }
     return (
       <div>
-      <h2>{nb_tweets} posts</h2>
+      <h2>{nb_tweets_state} posts</h2>
       </div>
     )
 

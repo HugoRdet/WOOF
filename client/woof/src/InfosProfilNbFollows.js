@@ -11,7 +11,7 @@ const serveur_config = {
 
 export default function InfosProfilNbFollows(props) {
 
-  const [nb_follows, getnb_follows] = useState('');
+  const [nb_follows, getnb_follows] = useState(0);
   const api = axios.create({
     baseURL : '/api/',
     timeout : 1000,

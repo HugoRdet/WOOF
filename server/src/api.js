@@ -385,7 +385,6 @@ function init(usersDB, messagesDB) {
                 if (count==undefined)
                     res.sendStatus(404);
                 else
-                    console.log("OK");
                     res.status(201).send(count);
             
             });

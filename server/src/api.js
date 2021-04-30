@@ -132,12 +132,18 @@ function init(usersDB, messagesDB) {
             res.status(400).send("A ghost is already invisible");
         } else {
             users.deleteUser(req.session.userid)
-                .then(() => res.status(201).send({ confirmation : 1}))
-                .catch((err) => res.status(500).send(err));
+                
             
-            users.unfollowALL(req.session.userpseudo);
-            users.DeleteFollowersALL(req.session.userpseudo);
-            message.deleteAllMessagesByAuthor(req.session.userpseudo);
+            const promise1 =users.unfollowALL(req.session.userpseudo);
+            const promise2 =users.DeleteFollowersALL(req.session.userpseudo);
+            const promise3 =message.deleteAllMessagesByAuthor(req.session.userpseudo);
+            
+            Promise.all([promise1, promise2, promise3]).then((values) => {
+                 res.status(201).send({ confirmation : 1})
+            }).catch((err) => res.status(500).send(err));
+        
+                
+            
         }
     });
     

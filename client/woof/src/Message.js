@@ -8,9 +8,13 @@ const serveur_config = {
 	}
 }
 
-function Init_like_button(args) {
+
+export default function Message(props) {
 	
-	const [statuslike, getstatuslike] = useState('');
+	const [statuslike, getstatuslike] = useState(0);
+	
+	const {message_} = props;
+	
 	
 	const api = axios.create({
 		baseURL : '/api/',
@@ -24,44 +28,49 @@ function Init_like_button(args) {
 	
 	const get_like_s = () => {
 	
-		var chemin='/message/getlike/'+args;
+		var chemin='/message/getlike/'+message_._id;
 		api.get(chemin)
 		.then( response => {
-			const statuslike= response.data.like
-			getstatuslike(statuslike);
+			const statuslike_= response.data.likestatus;
+			getstatuslike(statuslike_);
 		})
 		.catch(err => {
 			console.log(err);
 		});
 	}
 	
-	if (statuslike==0){
-		return (
-			<>
-			<h5> 🖤 </h5>
-			<h5> j aime pas</h5>
-			</>
-		)
-	}else{
-		return (
-			<>	
-			<h5> ❤️ </h5>
-			<h5> j aime </h5>
-			</>
-		)
+	const set_like_s = () => {
+		
+		if (statuslike==0){
+			var chemin='/message/like';
+			api.put(chemin,{messageId:message_._id})
+		.then( response => {
+			const statuslike_= response.data.like;
+			getstatuslike(statuslike_);
+		})
+		.catch(err => {
+			console.log(err);
+		});
+			
+			
+		}else{
+			
+		var chemin='/message/unlike';
+			api.put(chemin,{messageId:message_._id})
+		.then( response => {
+			const statuslike_= response.data.unlike;
+			getstatuslike(statuslike_);
+		})
+		.catch(err => {
+			console.log(err);
+		});
+			
+		}
+		
 	}
 	
-	
-}
-
-
-
-
-
-export default function Message(props) {
-	
 	const displayMessage = (props) => {
-		const {message_} = props;
+		
 		return (
 			<article key={message_._id}>
 				<div className="title">
@@ -74,10 +83,17 @@ export default function Message(props) {
 						
 				<section className="reactions">
 				
-				<section class="reations_elem" onClick = { (event => console.log("a faire") ) }> 
+			{
+				(statuslike==0)?
+				<section class="reations_elem" onClick = { (event => set_like_s() ) }> 
 				<h4> 🖤 Aimer </h4>
 				</section>
+				:
+				<section class="reations_elem" onClick = { (event => set_like_s() ) }> 
 				
+				<h4> ❤️ J aime </h4>
+				</section>
+			}
 				<section class="reations_elem" onClick = { (event => props.setPage_("message",message_._id) ) }> 
 				<h4> 📣 Commenter</h4>
 				</section>

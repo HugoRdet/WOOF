@@ -21,13 +21,26 @@ class Messages {
     });
   }
 
-
+    
+  
+    
     likeMessage(messageId, userId) {
     let newLike = {user_id: userId, date: new Date()};
     this.db.update({_id: messageId}, {$push : { likes: newLike}}, {}, function(err, numAffected){
       console.log(numAffected);
     });
   }
+
+    getLikeMessage(messageId, userId) {
+    return new Promise( (resolve, reject) => {
+      this.db.count({$and: [{_id: messageId},{likes: { $elemMatch: {user_id: userId}}}]}, (err, data) => {
+        if(err)
+          reject();
+        resolve(data);
+      });
+    });
+  }
+
 
   unlikeMessage(messageId, userId) {
     this.db.update({_id: messageId}, {$pull : { likes: {user_id: userId}} }, {}, function(err, numAffected){

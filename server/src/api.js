@@ -84,11 +84,12 @@ function init(usersDB, messagesDB) {
         .get(async (req, res) => {
             const {pseudo} = req.params
             try {
-                let user = await users.existsPseudo(pseudo)
-                if(user) {
-                    res.send(pseudo);
+                if(! await users.existsPseudo(pseudo)) {
+                    res.send('')
                 }
-                else { res.send('') }
+                else {
+                    res.send(pseudo)
+                }
             }
             catch(e) {
                 res.status(500).json({
@@ -132,12 +133,9 @@ function init(usersDB, messagesDB) {
             res.status(400).send("A ghost is already invisible");
         } else {
             users.deleteUser(req.session.userid)
-                
-            
             const promise1 =users.unfollowALL(req.session.userpseudo);
             const promise2 =users.DeleteFollowersALL(req.session.userpseudo);
             const promise3 =message.deleteAllMessagesByAuthor(req.session.userpseudo);
-            
             Promise.all([promise1, promise2, promise3]).then((values) => {
                  res.status(201).send({ confirmation : 1})
             }).catch((err) => res.status(500).send(err));
@@ -206,7 +204,6 @@ function init(usersDB, messagesDB) {
         .route("/message/display/comments/:id&:loadNumber&:loadMultiplier")
         .get(async (req, res) => {
           const { id , loadNumber , loadMultiplier } = req.params
-          console.log('ID  : '+id)
         try {
             message.getMessagesByParentId( id , loadNumber , loadMultiplier ).then((doc) => {            
                 if (!doc){
@@ -268,11 +265,9 @@ function init(usersDB, messagesDB) {
                 
                 .then((author_pseudo) => 
                     {
-                        console.log("message bien reçu : ", req.body);
                         res.status(201).send({pseudo: author_pseudo})
                     })
                     .catch((err) => {
-                        console.log(req.body);
                         res.status(500).send(err);
                     })
             }
@@ -285,6 +280,7 @@ function init(usersDB, messagesDB) {
             if (!doc)
                 res.sendStatus(404);
             else{
+                doc.push(req.session.userpseudo);
                 let followedPseudoList = doc.map(({followedPseudo}) => followedPseudo);
                 message.getMessagesFromFollowed(followedPseudoList, number, multiplier).then(
                     (data) => {

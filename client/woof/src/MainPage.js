@@ -31,6 +31,7 @@ class MainPage extends React.Component {
     this.setPage_   = this.setPage_.bind(this);
     this.setPageOptions   = this.setPageOptions.bind(this);
     this.setSelfPseudo = this.setSelfPseudo.bind(this);
+    this.search = this.search.bind(this);
   }
   
   render() {
@@ -84,12 +85,13 @@ class MainPage extends React.Component {
         
         <header>
           <h3>Woof!</h3>
+            <SearchBar search={this.search}/>
         </header>
         
         <main>
-        
-        {
+        { 
           (this.state.currentPage === 'profile')?
+          <>
           <div className="baniere">
           <div className="nom">
           <h1>{this.state.pseudo}</h1>
@@ -107,20 +109,20 @@ class MainPage extends React.Component {
           <InfosProfilNbFollows pseudo={this.state.pseudo}/>
           </div>
           </div>
-          
-          :
-          
-          <></>
-        }
-        {this.state.currentPage === 'profile' &&
           <Feed page={this.state.currentPage} pseudo={this.state.pseudo}
             setPage_={this.setPage_} setPseudo={this.setPseudo}
           />
-        
-        
+          </>
+        : <></>
         }
         {this.state.currentPage === 'comments' &&
           <Feed page={this.state.currentPage} setPage_={this.setPage_} setPseudo={this.setPseudo} id={this.state.messageId}/>
+        }
+        {this.state.currentPage === 'search' && 
+          <>
+          <ProfileSearch input={this.state.searchInput} setPseudo={this.setPseudo}/>
+          <Feed page={this.state.currentPage} setPage_={this.setPage_} input={this.state.searchInput}/>
+          </>
         }
         
         <div className="menu">
@@ -192,6 +194,7 @@ class MainPage extends React.Component {
     
     if (nextPage==""){
       this.setState({
+        searchInput: '',
         currentPage : this.state.precPage
       }); 
     }else{
@@ -222,6 +225,7 @@ class MainPage extends React.Component {
       }  
       else{
         this.setState({
+          searchInput: '',
           precPage: this.state.currentPage,
           currentPage : nextPage
         });
@@ -252,9 +256,18 @@ class MainPage extends React.Component {
     this.setState( {currentPage : 'profile'} );
   }
   
-  profileSearch( input ) {
-    const currentPage = 'search'
-    this.setState({ currentPage: currentPage, searchInput: input })
+  search( input ) {
+    if(this.state.currentPage==='search'){
+      this.setState({currentPage : '', searchInput: ''}, () => {
+        this.setState({
+          currentPage:'search',
+          searchInput: input
+        })
+     })
+    }
+    else{
+    this.setState({ currentPage: 'search', searchInput: input })
+    }
   }
   
 }

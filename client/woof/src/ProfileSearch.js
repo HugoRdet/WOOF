@@ -9,35 +9,34 @@ const serveur_config = {
 }
 export default function ProfileSearch(props) {
 
-  const input = props.input
-  const [profiles, setProfiles] = useState([]);
+  const [profile, setProfile] = useState('');
+
+  console.log(props.input)
 
 
   useEffect( () => {
-    if(input && input != ''){
+    if(props.input && props.input != ''){
     const api = axios.create({
       baseURL : '/api',
       timeout : 1000,
       headers : {'X-Custom-Header' : 'foobar'}
     });
-    api.get( '/user/search/'+input
+    api.get( '/user/search/'+props.input)
       .then( res => {
-          setProfiles([input])
+        setProfile(props.input)
         })
       .catch(e => {
       })
-    )
     }
-  }, [input]);
+  }, [props.input]);
 
   return (
     <div className="profileSearch">
-      {profiles != [] && 
-      <div className='profileResult' onClick = {event => props.setPseudo(input)}>
-      </div>
-      }
-      {profiles === [] && 
-      <h3>No Matching Profile</h3>
+          <div className='profileResult' onClick = {event => props.setPseudo(props.input)}>
+          <h3>{profile}</h3>  
+          </div>
+      {profile === '' && 
+          <h3>No Matching Profile</h3>
       }
     </div>
   )

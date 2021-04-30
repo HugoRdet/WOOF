@@ -152,8 +152,6 @@ class Messages {
       return numRemoved;
     });
   }
-  
-  
 }
 
 exports.default = Messages

@@ -16,6 +16,8 @@ export default function Feed(props) {
       messages,
       hasMore
     } = FeedFetch(number, multiplier, page, pseudo, id, input);
+    let ids = new Set();
+    
     const observer = useRef();
     const lastMessageRef = useCallback(node => {
       if(loading)
@@ -32,6 +34,8 @@ export default function Feed(props) {
     return (
       <div className="feed">
         {messages.map( (message,index) => {
+          if( !ids.has(message._id) ) {
+            ids.add(message._id);
           if (messages.length == index+1){
               return (
                 <div ref={lastMessageRef}>
@@ -46,6 +50,7 @@ export default function Feed(props) {
                 </> 
               )
             }
+        }
         }
       )}
       </div>

@@ -90,7 +90,7 @@ class Users {
       const req = this.db.prepare(`
         SELECT pseudo FROM users WHERE pseudo=?;
       `);
-      req.get([login], (err, row) => {
+      req.get([pseudo], (err, row) => {
         if(err) {
           console.log('Erreur SQL: ', err);
           reject();

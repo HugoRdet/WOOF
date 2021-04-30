@@ -1,25 +1,37 @@
-import React from 'react'
+import React from 'react';
+import axios from 'axios';
+
 
 class SearchBar extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.search = this.search.bind(this);
-  }
-  render() {
-    return (
-      <div class="searchBar">
-        <input type="text" id="searchInput" class="searchBarInput" placeholder="Search Here ..." />
-        <button class="searchButton" onClick={this.search()}>
-          <i class="fa fa-search"></i>
-        </button>
-      </div>
-    )
+    this.state = {
+      searchInput : "",
+    };
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  search() {
-    let input = document.getElementById("search");
-    this.props.profileSearch(input);
+
+  handleChange(event = {}) {
+    const name = event.target && event.target.name;
+    const value = event.target && event.target.value;
+    this.setState({[name]:value});
   }
+
+  render(){
+    return (
+      <div className="searchbar">
+          <div className="searchInput">
+            <input type="text" name="searchInput" onChange={this.handleChange}value={this.state.searchInput}/>
+          </div>
+        <section className="petitbouton" onClick={ event => this.props.search(this.state.searchInput) }>
+          Search
+        </section>
+      </div>
+    )    
+  };
 }
 
-export default SearchBar
+export default SearchBar;
+
+

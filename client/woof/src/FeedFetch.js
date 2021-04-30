@@ -22,7 +22,7 @@ export default function FeedFetch(number, multiplier, page, pseudo, id, input) {
       return '/user/display/newsfeed'+number+'&'+multiplier
     }
     if (page === 'search' && input !='')
-      return '/message/search/'+input
+      return '/message/search/'+input+'&'+number+'&'+multiplier
     if (page === 'comments'){
       return 'message/display/comments/'+id+'&'+number+'&'+multiplier
     }

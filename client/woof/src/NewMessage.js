@@ -26,7 +26,7 @@ class NewMessage extends React.Component {
   }
 
   response_new_message(response){
-     this.props.setPage_("");
+     this.props.setPage_('');
      document.getElementById("input").value = "";
   }
   
@@ -43,7 +43,6 @@ class NewMessage extends React.Component {
       "parent_id": this.state.parent_id,
     })
       .then( response => {
-        
         this.response_new_message(response);
       })
       .catch( err => {

@@ -8,10 +8,8 @@ import HostPage from './HostPage'
 import NewMessage from './NewMessage'
 import InfosProfilNbFollowers from './InfosProfilNbFollowers'
 import InfosProfilNbFollows from './InfosProfilNbFollows'
-import Cookies from 'js-cookie'
 import SearchBar from './SearchBar'
 import ProfileSearch from './ProfileSearch'
-
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -21,9 +19,10 @@ class MainPage extends React.Component {
       precPage: 'profile',
       isConnected : false,
       pseudo: '',
-      sendMessage:-1,
+      sendMessage:'',
       selfPseudo: '',
-      searchInput: ''
+      searchInput: '',
+      messageId: '',
     }
     this.getConnected = this.getConnected.bind(this);
     this.setLogout = this.setLogout.bind(this);
@@ -72,10 +71,7 @@ class MainPage extends React.Component {
               <div className="title">
               <h2>Envoyer un nouveau message</h2>
               </div>
-              
-              
               <NewMessage parent_id={this.state.sendMessage} setPage_={this.setPage_} />
-              
             </div>
           </main>
         </div>
@@ -115,6 +111,9 @@ class MainPage extends React.Component {
             setPage_={this.setPage_}
           />
         }
+        {this.state.currentPage === 'comments' &&
+          <Feed page={this.state.currentPage} setPage_={this.setPage_} id={this.state.messageId}/>
+        }
         
         <div className="menu">
           <div className="petitbouton" onClick={event => {this.getConnected()}}>
@@ -150,7 +149,7 @@ class MainPage extends React.Component {
   }
 
   getConnected() {
-    const nextPage = 'profile'; 
+    const nextPage = 'home'; 
     const isConnected = true;
     this.setPseudo();
     this.setState({
@@ -172,20 +171,35 @@ class MainPage extends React.Component {
     if (nextPage==""){
       this.setState({
         currentPage : this.state.precPage
-      });
-      
+      }); 
     }else{
       if (nextPage=="message"){
-        
         this.setState({
           sendMessage: idmessage,
           precPage: this.state.currentPage,
           currentPage : nextPage
-        });
-        
-      }else{
+        })
+      }
+      if (nextPage=='comments'){
+        if(this.state.currentPage==='comments'){
+          this.setState({currentPage : ''}, () => {
+            this.setState({
+              precPage:this.state.precPage,
+              messageId:idmessage,
+              currentPage:'comments'
+            })
+            
+          })
+        }else{
+          this.setState({
+            precPage: this.state.currentPage,
+            messageId: idmessage,
+            currentPage: nextPage
+          })
+        }
+      }  
+      else{
         this.setState({
-          sendMessage: -1,
           precPage: this.state.currentPage,
           currentPage : nextPage
         });

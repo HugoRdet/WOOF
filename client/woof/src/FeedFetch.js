@@ -7,7 +7,7 @@ const serveur_config = {
     'Content-Type': 'application/json:charset=UTF-8',
   }
 }
-export default function FeedFetch(number, multiplier, page, pseudo, input) {
+export default function FeedFetch(number, multiplier, page, pseudo, id, input) {
 
 
   const [loading, setLoading] = useState(true);
@@ -23,6 +23,9 @@ export default function FeedFetch(number, multiplier, page, pseudo, input) {
     }
     if (page === 'search' && input !='')
       return '/message/search/'+input
+    if (page === 'comments'){
+      return 'message/display/comments/'+id+'&'+number+'&'+multiplier
+    }
   }
 
   useEffect( () => {

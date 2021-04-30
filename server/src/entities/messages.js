@@ -14,17 +14,10 @@ class Messages {
         content: content,
         date: new Date(),
         likes: [],
-        comments: [],
       } 
-      if(parent_id == -1)
-        this.db.insert(message, function(err, newDoc){
-          if(parent_id != -1){
-            this.db.update({_id: parent_id}, {$push : {comments: newDoc._id}}, {}, function(err, numAffected){
-              console.log(numAffected, "comment added");
-            })
-          }
-        });
+      this.db.insert(message)
       resolve(author);
+
     });
   }
 
@@ -42,6 +35,20 @@ class Messages {
     });
   }
   
+  getMessagesByParentId(parentId, loadNumber, loadMultiplier) {
+    return new Promise ( (resolve, reject) => {
+      this.db.find({ parent_id : parentId})
+      .sort({ date: -1 })
+        .skip(loadNumber * loadMultiplier)
+        .limit(loadNumber)
+        .exec((err, data) => {
+          if (err)
+            reject();
+          resolve(data);
+        })
+      });
+  }
+ 
   getMessagesByAuthor(author, loadNumber, loadMultiplier) {
     return new Promise ( (resolve, reject) => {
       this.db.find({ author_id : author})
@@ -66,30 +73,21 @@ class Messages {
     });
   }
 
-    getMessagesByContent(content, loadNumber, loadMultiplier ) {
-    return new Promise ( (resolve, reject) => {
-      this.db.find({content: new RegExp(content)})
-      .sort({ date: -1 })
-        .skip(loadNumber * loadMultiplier)
-        .limit(loadNumber)
-        .exec((err, data) => {
-          if (err)
-            reject();
-          resolve(data);
-        })
-      });
+
+  getMessagesByContent(content, loadNumber, loadMultiplier ) {
+  return new Promise ( (resolve, reject) => {
+    this.db.find({content: new RegExp(content)})
+    .sort({ date: -1 })
+      .skip(loadNumber * loadMultiplier)
+      .limit(loadNumber)
+      .exec((err, data) => {
+        if (err)
+          reject();
+        resolve(data);
+      })
+    });
   }
   
-  getParentMessageFromComment(messageId, parentId) {
-    if (parentId == -1){
-      return;
-    }
-    let parentMessage = getMessageById(parentId).then(
-      this.db.update({_id: messageId}, {parent_message: parentMessage}, {upsert:true}, function(err, numAffected){
-        console.log(numAffected, "message commenté ajouté");
-      })
-    );
-  }
   
     getMessagesFromFollowed(followedPseudoList, loadNumber, loadMultiplier) {
     return new Promise ( (resolve, reject) => {

@@ -82,6 +82,10 @@ export default function Message(props) {
 				<h4> 📣 Commenter</h4>
 				</section>
 				
+				<section class="reations_elem" onClick = { (event => props.setPage_("comments",message_._id) ) }> 
+				<h4> Voir les réponses </h4>
+				</section>
+
 				</section>
 						
 			</article>

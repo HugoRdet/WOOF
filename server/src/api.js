@@ -183,6 +183,27 @@ function init(usersDB, messagesDB) {
         });
     
     router
+        .route("/message/display/comments/:id&:loadNumber&:loadMultiplier")
+        .get(async (req, res) => {
+          const { id , loadNumber , loadMultiplier } = req.params
+          console.log('ID  : '+id)
+        try {
+            message.getMessagesByParentId( id , loadNumber , loadMultiplier ).then((doc) => {            
+                if (!doc){
+                    res.sendStatus(404);
+                }
+                else{
+                    res.status(201).send(doc);
+                }
+            });
+        }
+        catch (e) {
+            console.log(e)
+            res.status(500).send(e);
+        }
+        });
+
+    router
         .route("/user/display/profile/:pseudo&:loadNumber&:loadMultiplier")
         .get(async (req, res) => {
         try {

@@ -7,7 +7,7 @@ export default function Feed(props) {
 
   const [number, setNumber] = useState(3);
   const [multiplier, setMultiplier] = useState(0);
-  const [id, setId] = useState(new Set()) 
+  const [id, setId] = useState(new Set())
   
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState([]);
@@ -21,6 +21,7 @@ export default function Feed(props) {
   
   useEffect(() => {
     setMessages([])
+    setId(new Set())
     setMultiplier(0)
   }, [props.pseudo,props.page, props.id, props.input])
 
@@ -47,14 +48,19 @@ export default function Feed(props) {
     setLoading(true);
     api.get(url)
       .then( res => {
-        console.log(res)
-        const prev= messages
-        const currMessages = [...prev, ...res.data]
-        console.log("HAHA",currMessages,"   ",messages);
-        setMessages(currMessages);
-        console.log("OHO",currMessages,"   ",messages);
-        
-        setLoading(false)
+       setHasMore(false)
+       res.data.map( (message, index) => {
+         if( index >= number )
+           return;
+         if(! id.has(message._id)){
+           id.add(message._id)
+           setHasMore(true)
+           setMessages(prevState => {
+              return [...prevState,message]
+            })
+         }
+        }) 
+      setLoading(false)
       })
       .catch(e => {}) 
   }
@@ -65,41 +71,39 @@ export default function Feed(props) {
     const observer = useRef();
     const lastMessageRef = useCallback(node => {
       if(loading)
-        return null;
+        return
       if(observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver(entries => {
         if(entries[0].isIntersecting && hasMore){
-          setMultiplier(prevMultiplier => prevMultiplier + 1);
+          setMultiplier(prevMultiplier =>{
+            return prevMultiplier + 1});
         }
-      }, {threshold : 0.95} );
+      }, {threshold : 0.95});
       if(node) observer.current.observe(node);
-    }, [loading, hasMore]);
+    }, [loading]);
 
     if (messages.length!=0){
     return (
+      <>
       <div className="feed">
-        
         {messages.map( (message,index) => {
-          if( !id.has(message._id) ) {
-            id.add(message._id);
-          if (messages.length == index+1){
+            if (messages.length == index+1){
               return (
-                <div ref={lastMessageRef}>
+                <div key={message._id} ref={lastMessageRef}>
                 <Message message_={message} setPage_={props.setPage_} setPseudo={props.setPseudo}/>
                 </div>
               )
             } else {
               return (
-                <>
+                <div key={message._id}>
                 <Message message_={message} setPage_={props.setPage_} setPseudo={props.setPseudo}/>
-                </> 
+                </div> 
               )
             }
         }
-        }
       )}
       </div>
-      
+      </>
     );
   }
   }
@@ -107,7 +111,6 @@ export default function Feed(props) {
 
   return (
     <>
-      { console.log(messages)}
       {DisplayFeed(props)}
     </>
   )

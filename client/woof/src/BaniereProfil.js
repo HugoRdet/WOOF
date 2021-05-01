@@ -93,15 +93,19 @@ export default function Baniere(props) {
       }
   
     Promise.all([getALLnb_followers, getALLnb_follows, get_nb_tweets]).then((values) => {
-          getnb_followers(values[0]);
-          getnb_follows(values[1]);
-          getnb_tweets(values[2]);
+        const follows=values[0];
+        const followe=values[1];
+        const nb_messages=values[2];
+        
+          getnb_followers(follows);
+          getnb_follows(followe);
+          getnb_tweets(nb_messages);
     });
   
   
  }
-  
-    return (
+    const display_Baniere=(props) => {
+          return (
           <div className="baniere">
             <div className="nom">
               <h1>{props.pseudo}</h1>
@@ -123,7 +127,7 @@ export default function Baniere(props) {
         (followable)?
         <div className="petitbouton_follow" onClick = { (event => follow_button_maj() ) } >
         <div>
-        { 
+        {        
           (follow_button_state==0)?
           <>
           Suivre
@@ -140,5 +144,14 @@ export default function Baniere(props) {
       }
           </div>
     )
+    }
+  
+    return (
+      <>
+      {display_Baniere(props)}
+      </>
+    )
+  
+    
 
 }

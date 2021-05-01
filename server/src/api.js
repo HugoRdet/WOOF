@@ -417,6 +417,7 @@ function init(usersDB, messagesDB) {
                 if (count==undefined)
                     res.sendStatus(404);
                 else
+                    console.log("count ", req.params.pseudo)
                     res.status(201).send(count);
             
             });

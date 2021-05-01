@@ -11,9 +11,6 @@ export default function ProfileSearch(props) {
 
   const [profiles, setProfiles] = useState([]);
 
-  console.log(props.input)
-
-
   useEffect( () => {
     if(props.input && props.input != ''){
     const api = axios.create({
@@ -30,10 +27,8 @@ export default function ProfileSearch(props) {
     }
   }, [props.input]);
 
-  if (profiles.length!=0){
-    
-  }else {
-        <div className="baniere">
+  return(
+      <div className="baniere">
       {profiles.map( profile => {
         return(
           <>
@@ -46,13 +41,10 @@ export default function ProfileSearch(props) {
         } 
       )}
       {profiles === [] && 
-          <h3>No Matching Profile</h3>
+        <div className="baniere">
+          <h2>No Matching Profile</h2>
+        </div>
       }
-    </div>
-  }
-  return (
-    <div className="baniere">
-    <h2>Pas de nom d'utilisateur correspondant</h2>
     </div>
   )
 }

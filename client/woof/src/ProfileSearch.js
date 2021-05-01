@@ -30,8 +30,10 @@ export default function ProfileSearch(props) {
     }
   }, [props.input]);
 
-  return (
-    <div className="profileSearch">
+  if (profiles.length!=0){
+    
+  }else {
+        <div className="baniere">
       {profiles.map( profile => {
         return(
           <>
@@ -46,6 +48,11 @@ export default function ProfileSearch(props) {
       {profiles === [] && 
           <h3>No Matching Profile</h3>
       }
+    </div>
+  }
+  return (
+    <div className="baniere">
+    <h2>Pas de nom d'utilisateur correspondant</h2>
     </div>
   )
 }

@@ -1,3 +1,5 @@
 {"parent_id":-1,"author_id":"Hugo_babe","content":"bonsoir","date":{"$$date":1619896682206},"likes":[],"_id":"152rc9RfWs0BWwe1"}
 {"parent_id":-1,"author_id":"Mathieu","content":"bonsoir","date":{"$$date":1619896724437},"likes":[],"_id":"Yjmc403b9yJWzqjA"}
 {"parent_id":-1,"author_id":"Hugo_babe","content":"ok","date":{"$$date":1619898116170},"likes":[],"_id":"zbaSwK5vgQPNKVCs"}
+{"parent_id":-1,"author_id":"Hugo_babe","content":"ok","date":{"$$date":1619898116170},"likes":[{"user_id":1,"date":{"$$date":1619899800937}}],"_id":"zbaSwK5vgQPNKVCs"}
+{"parent_id":-1,"author_id":"Hugo_babe","content":"ok","date":{"$$date":1619898116170},"likes":[],"_id":"zbaSwK5vgQPNKVCs"}

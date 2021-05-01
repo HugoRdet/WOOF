@@ -188,13 +188,12 @@ function init(usersDB, messagesDB) {
             }else{
                 
                 const { pseudo } = req.body;
+                
                 if ( !pseudo ) {
                     res.status(400).send("Missing fields");
                 } else {
                     users.follow(pseudo,req.session.userpseudo)
-                        .then((doc) => {
-                            res.status(201).send(doc)
-                        })
+                    .then((doc) => res.status(201).send(doc))
                     .catch((err) => res.status(500).send(err));
                 }
             }
@@ -251,6 +250,7 @@ function init(usersDB, messagesDB) {
             });
         }
         catch (e) {
+            console.log(e)
             res.status(500).send(e);
         }
         });
@@ -322,6 +322,7 @@ function init(usersDB, messagesDB) {
                         if(!data)
                             res.sendStatus(404);
                         else{
+                            console.log(data)
                             res.status(201).send(data);
                         }
                     }
@@ -417,6 +418,7 @@ function init(usersDB, messagesDB) {
                 if (count==undefined)
                     res.sendStatus(404);
                 else
+                    console.log("count ", req.params.pseudo)
                     res.status(201).send(count);
             
             });
@@ -463,25 +465,7 @@ function init(usersDB, messagesDB) {
         });
     
         
-        router
-        .route("/user/follow/:pseudo")
-        .get(async (req, res) => {
-            try {
-                const { pseudo } = req.params
-                users.existsFollow(pseudo, req.params.pseudo).then((res) => {  
-                    
-                    if (!res)
-                        res.sendStatus(404);
-                    else
-                        res.status(201).send(res);
-                    
-                });
-            }
-            catch (e) {
-                res.status(500).send(e);
-            }
-        });
-
+    
         router
         .route("/user/display/followers/:pseudo")
         .get(async (req, res) => {

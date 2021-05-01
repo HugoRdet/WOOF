@@ -1,5 +1,6 @@
 class Users {
   constructor(db) {
+    this.db = db;
     const req_create_tab = `
       CREATE TABLE IF NOT EXISTS users(
         login VARCHAR(256) NOT NULL PRIMARY KEY,
@@ -44,7 +45,7 @@ class Users {
     });
   }
 
-   
+
   
   get(userid) {
     return new Promise((resolve, reject) => {
@@ -52,6 +53,7 @@ class Users {
                                         FROM users
                                         WHERE rowid==(?)
                                        `);
+      
       req_insert_user.get([userid],(err,row) => {
         if(err) {
           //throw err;
@@ -233,7 +235,7 @@ class Users {
       let req = this.db.prepare(
         `SELECT followerPseudo FROM follow WHERE followedPseudo=?;`
       );
-      req.all([pseudo], (err, res) => {
+      req.get([pseudo], (err, res) => {
         if(err) 
           reject(err);
         else 
@@ -242,16 +244,6 @@ class Users {
     });
   }
   
-  existsFollow(followedPseudo, followerPseudo){
-    let req = this.db.prepare(`SELECT * FROM follow WHERE followedPseudo=? AND followerPseudo=?;`);
-    req.get([followedPseudo, followerPseudo], (err, res) => {
-      if(err)
-        reject(err)
-      else
-        resolve(res != undefined)
-    })
-  }
-
   getCountFollowers(pseudo){
     return new Promise( (resolve, reject) => {
       let req = this.db.prepare(

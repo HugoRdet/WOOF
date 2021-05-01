@@ -24,7 +24,6 @@ class MainPage extends React.Component {
       selfPseudo: '',
       searchInput: '',
       messageId: '',
-      followable: false,
     }
     this.getConnected = this.getConnected.bind(this);
     this.setLogout = this.setLogout.bind(this);
@@ -93,7 +92,7 @@ class MainPage extends React.Component {
         {
           (this.state.currentPage === 'profile')?
           <>
-          <BaniereProfil pseudo={this.state.pseudo} followable={this.state.followable}/>
+          <BaniereProfil pseudo={this.state.pseudo} selfPseudo={this.state.selfPseudo}/>
           <Feed page={this.state.currentPage} pseudo={this.state.pseudo}
             setPage_={this.setPage_} setPseudo={this.setPseudo}
           />
@@ -236,10 +235,10 @@ class MainPage extends React.Component {
 
   setPseudo( pseudo ) {
     if(pseudo) {
-      this.setState( { pseudo: pseudo, followable:true } )
+      this.setState( { pseudo: pseudo } )
     }
     else {
-      this.setState( {pseudo : this.state.selfPseudo, followable:false} );
+      this.setState( {pseudo : this.state.selfPseudo} );
     }
     this.setState( {currentPage : 'profile'} );
   }

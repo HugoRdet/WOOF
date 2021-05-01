@@ -10,8 +10,6 @@ export default function Baniere(props) {
   const [follow_button_state, getfollow_button_state] = useState(0);
   const [pseudo,getpseudo]=useState(props.pseudo);
   
-  
-  
   const api = axios.create({
     baseURL : '/api/',
     timeout : 1000,
@@ -121,7 +119,7 @@ export default function Baniere(props) {
             </div>
             
       {
-        (props.selfPseudo!=pseudo)?
+        (followable)?
         <div className="petitbouton_follow" onClick = { (event => follow_button_maj() ) } >
         <div>
         {        

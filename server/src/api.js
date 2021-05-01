@@ -192,7 +192,6 @@ function init(usersDB, messagesDB) {
                 if ( !pseudo ) {
                     res.status(400).send("Missing fields");
                 } else {
-                    console.log("follow done.")
                     users.follow(pseudo,req.session.userpseudo)
                     .then((doc) => res.status(201).send(doc))
                     .catch((err) => res.status(500).send(err));

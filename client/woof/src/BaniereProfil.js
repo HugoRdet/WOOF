@@ -124,15 +124,15 @@ export default function Baniere(props) {
         (props.selfPseudo!=pseudo)?
         <div className="petitbouton_follow" onClick = { (event => follow_button_maj() ) } >
         <div>
-        
-        (follow_button_state==0)?
-        <>
-        Suivre
-        </>
-        :
-        <>
-        Ne plus suivre
-        </>
+        {        
+          (follow_button_state==0)?
+          <>
+          Suivre
+          </>
+          :
+          <>
+          Ne plus suivre
+          </>
         }
         </div>
         </div>

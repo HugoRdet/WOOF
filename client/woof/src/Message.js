@@ -109,7 +109,6 @@ export default function Message(props) {
 						
 					)
 	}
-	
 	return (
 		<>
 		{displayMessage(props)}

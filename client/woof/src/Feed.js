@@ -23,6 +23,8 @@ export default function Feed(props) {
     setMessages([])
     setId(new Set())
     setMultiplier(0)
+    let url = getUrl()
+    feedFetch(url)
   }, [props.pseudo,props.page, props.id, props.input])
 
   useEffect(() => {

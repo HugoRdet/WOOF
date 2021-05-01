@@ -248,7 +248,7 @@ class Users {
       if(err)
         reject(err)
       else
-        resolve(res)
+        resolve(res != undefined)
     })
   }
 

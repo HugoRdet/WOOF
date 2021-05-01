@@ -92,7 +92,6 @@ export default function Message(props) {
 				</section>
 				:
 				<section class="reations_elem" onClick = { (event => set_like_s() ) }> 
-				
 				<h4> ❤️ J aime </h4>
 				</section>
 			}

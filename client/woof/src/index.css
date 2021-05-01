@@ -199,15 +199,24 @@ article .login-box{
    position: relative;
 }
 
+article .login-box_erreur{
+   color: #8a2424 ;
+   position: relative;
+}
+
 article .title{
    position: relative;
    top : -0.0em;
    display: inline-block;
 }
 
+article .texte_erreur{
+   float: right;
+}
+
 article .login-box input {
    width: 100%;
-   color: var(--font-family-primary);
+   color: var(--color-primary);
    margin-bottom: 2em;
    margin-right: 3em;
    border: none;
@@ -216,12 +225,23 @@ article .login-box input {
    background: transparent;
 }
 
+article .login-box_erreur input {
+   width: 100%;
+   color: var(--font-family-primary);
+   margin-bottom: 2em;
+   margin-right: 3em;
+   border: none;
+   border-bottom: 2px solid #8a2424;
+   outline: none;
+   background: transparent;
+}
 
 
 
 article .link{
    display:inline-block;
    border-bottom: 2px solid var(--color-primary);
+   margin-bottom: 30px;
    
 }
 
@@ -268,8 +288,8 @@ header{
    width: 100%;
    background:var(--color-secondary)  ;
    border-bottom: solid 3px var(--color-primary)  ;
-   padding-top:1em;
-   padding-bottom:1em;
+   padding-top:5px;
+   padding-bottom:5px;
    text-align: center;
 }
 
@@ -394,7 +414,7 @@ main .petitbouton:hover {
 body .menu{
    
    
-   padding: 2rem 2rem 1rem 2rem;
+   padding: 30px 30px 30px 30px;
    text-align: center;
    min-width: 200px;
    width: 20%;
@@ -427,17 +447,13 @@ body .menu{
 main .article_tweet {
    
    width: 50%;
-   height: 75vh;
-   
-   padding: 2rem 2rem 1rem 2rem;
+   padding: 2rem 2rem 2rem 2rem;
    position: relative;
-   margin-top:3em;
-   margin-bottom:3em;
    margin-left: auto;
    margin-right: auto;
    margin-top: auto;
    margin-bottom: auto;
-   
+   min-width: 450px;
    border: 4px solid var(--color-primary);
    box-shadow: 12px 12px 0 0 var(--color-primary);
    background: 
@@ -504,8 +520,8 @@ main .espace_tweet {
 main .espace_tweet_form{
    position: relative;
    display: inline-block;
-   height: 50vh;
    width: 95%;
+   height: 30vh;
    overflow-wrap: break-word;
    display: block;
    border: 2px dashed var(--color-primary);
@@ -552,4 +568,159 @@ body .contenu_animation{
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
    }
+}
+
+@media only screen and (max-width: 800px) {
+   
+body{
+   background-color: var(--color-primary);
+}
+main .menu{
+   display: flex;
+   padding: 2rem 2rem 1rem 2rem;
+   text-align: center;
+   min-width: 200px;
+   width: 100%;
+   max-width: 800px;
+   left:0%;
+   top: 95%;
+   margin-left: auto;
+   margin-right: auto;
+   z-index:1;
+   background-color: #aaa;
+   
+   background-color: var(--color-primary) ;
+   border: solid 3px var(--color-primary)  ;
+   padding-top:0px;
+   padding-bottom:0px;
+   position: fixed;
+   
+}
+   
+main .petitbouton{
+   display: inline-flex;
+   flex-wrap: wrap;
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: auto;
+   margin-bottom: auto;
+   text-align: center;
+   background-color: var(--color-primary) ;
+   border: 2px solid var(--color-primary);
+   box-shadow: inset 0 0   var(--color-primary-alt);
+   color: var(--color-secondary);
+  /* espace a l interieur du bouton */
+   padding: 5px 2rem 5px 2rem;
+   
+   position: relative;
+  /* espace a l exeterieur du bouton */
+   max-width: 250px;
+   
+}
+   
+main .petitbouton:hover {
+   color: var(--color-primary-pushed);
+   background: var(--color-primary);
+   box-shadow: inset -4px -4px   var(--color-primary);
+   
+}
+
+main .espace_tweet {
+   display: block;
+   border: 4px solid;
+   padding: 0.5rem;
+   font-size: 1rem;
+   background: linear-gradient(
+      -45deg,
+      var(--color-secondary), /*trick qui permet de pas avoir un dégradé*/
+      var(--color-secondary) 25%,
+      var(--color-primary) 25%,
+      var(--color-primary) 50%,
+      var(--color-secondary) 50%,
+      var(--color-secondary) 75%,
+      var(--color-primary) 75%,
+      var(--color-primary) 100%
+   );
+   background-size: 40px 40px;
+   -webkit-animation: scrolling-gradient 2s linear infinite;
+   animation: scrolling-gradient 2s linear infinite;
+   
+   padding: 3px 3px 3px 3px;
+   position: fixed;
+   z-index:1;
+   right:4%;
+   bottom:7%;
+}
+
+main .petitbouton_tweet{
+   
+   margin-left: 3px;
+   margin-right: 3px;
+   text-align: center;
+   border: 4px solid var(--color-primary);
+   box-shadow: inset -4px -4px   var(--color-primary-alt);
+   background-color: var(--color-secondary);
+  /* espace a l interieur du bouton */
+   padding-top: 1em;
+   padding-bottom: 1em;
+   position: relative;
+   padding: 5px 3rem 5px 3rem;
+  /* espace a l exeterieur du bouton */
+   margin: 3px 3px 3px 3px;
+   max-width: 250px;
+   
+}
+
+
+article {
+   border: 4px solid var(--color-primary);
+   box-shadow: 12px 12px 0 0 var(--color-primary);
+   padding: 2rem 2rem 1rem 2rem;
+   position: relative;
+   margin-top:3em;
+   margin-bottom:3em;
+   margin-left: auto;
+   margin-right: auto;
+   background: 
+		 /*second rond a droite en haut des tweets*/
+		 repeating-radial-gradient(
+         var(--color-secondary),
+         var(--color-secondary) 6px,
+         var(--color-primary) 6px,
+         var(--color-primary) 10px,
+         transparent 0%,
+         transparent 100%
+      ),
+		 /*premier rond a droite en haut des tweets*/
+      repeating-radial-gradient(
+         var(--color-secondary),
+         var(--color-secondary) 6px,
+         var(--color-primary) 6px,
+         var(--color-primary) 10px,
+         transparent 0%,
+         transparent 100%
+      ),
+		 /*en tete grise*/
+      linear-gradient(
+         var(--color-primary-alt),
+         var(--color-primary-alt) 60px,
+         var(--color-primary) 60px,
+         var(--color-primary) 60px
+      );
+   background-color: var(--color-secondary);
+	 /*position des points*/
+   background-position: right 5px, right 30px top 5px, 0 0;
+   background-size: 50px 50px, 50px 50px, 100% 64px;
+	/* pour garder le fond blanc derriere le background ne se repete pas*/
+   background-repeat: no-repeat;
+   overflow-wrap: break-word;
+   max-width: 800px;
+   min-width: 300px;
+   width: 80%;
+}
+   
+h3{
+   font-size: 100;
+}
+
 }

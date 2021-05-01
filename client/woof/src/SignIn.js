@@ -29,14 +29,15 @@ class SignIn extends React.Component {
   }
 
   response_login(response) {
-      if(response.data["status"] == 401) {
-          const message = response.data["message"];
-          this.setState({status:"error", texterror:message})
-      } else {
+      if (response.data["status"] == 200) {
+          
         const pseudo = response.data["pseudo"];
         this.setState({status:"", pseudo: pseudo})
         this.props.setPseudo(this.state.pseudo);
         this.props.getConnected();
+      } else {
+          const message = response.data["message"];
+          this.setState({status:"error", texterror:message})
       }
   }
 
@@ -54,6 +55,10 @@ class SignIn extends React.Component {
       this.response_login(response);
     })
     .catch(err => {
+      
+    const message = err.data["message"];
+    this.setState({status:"error", texterror:message})
+      
       console.log(err)
     })
     
@@ -72,28 +77,51 @@ class SignIn extends React.Component {
           
           <div className="content_form">
           
-          <label><h3>Login</h3></label>
-          <div class="login-box">
-            <input type="text" name="login" onChange={this.handleChange}value={this.state.login}/>
-          </div>
-      
-          <div class="login-box">
-            <label><h3>Password</h3></label>
-            <input type="password" name="password" onChange={this.handleChange}value={this.state.password}/>
-          </div>
+          
           
           <div key={this.state.status}>
           {
-            (this.state.status != "")
-            ? <span style={{color:"red"}}>{this.state.texterror}</span>
-            : <span></span>
+            (this.state.status != "")?
+            
+            <div>
+            
+                        
+          <div className="login-box_erreur">
+            <label><h3>Login</h3></label>
+            <input type="text" name="login" onChange={this.handleChange}value={this.state.login}/>
+          </div>
+      
+          <div className="login-box_erreur">
+            <label><h3>Password</h3></label>
+            <input type="password" name="password"  onChange={this.handleChange}value={this.state.password}/>
+          </div>
+            
+            <div className="texte_erreur">
+            <h3>{this.state.texterror}</h3>
+            </div>
+            </div>
+            : 
+            <div>
+            
+                      
+          <div className="login-box">
+            <label><h3>Login</h3></label>
+            <input type="text" name="login" onChange={this.handleChange}value={this.state.login}/>
+          </div>
+      
+          <div className="login-box">
+            <label><h3>Password</h3></label>
+            <input type="password" name="password"  onChange={this.handleChange}value={this.state.password}/>
+          </div>
+          
+            </div>
           }    
       
-            <section class="bigbutton" onClick = { (event => this.send()) }>
+            <section className="bigbutton" onClick = { (event => this.send()) }>
               <h3> se connecter</h3>
             </section> 
         
-            <section class="link" onClick={this.props.getSignUp}>
+            <section className="link" onClick={this.props.getSignUp}>
               <h3> Oops, s'inscrire </h3>
             </section> 
           </div>

@@ -19,17 +19,20 @@ function init(usersDB, messagesDB) {
         
         
         try {
+            
             const { login, password } = req.body;
             if (!login || !password) {
-                res.status(400).json({
+                console.log("Requête invalide , login et password nécessaires")
+                res.status(201).send({
                     status: 400,
-                    "message": "Requête invalide : login et password nécessaires"
+                    message: "login et password nécessaires"
                 });
                 return;
             }
             
             if(! await users.exists(login)) {
-                res.status(401).json({
+                console.log("Utilisateur inconnu")
+                res.status(201).send({
                     status: 401,
                     message: "Utilisateur inconnu"
                 });
@@ -42,7 +45,8 @@ function init(usersDB, messagesDB) {
             if (userid) {
                 req.session.regenerate(function (err) {
                     if (err) {
-                        res.status(500).json({
+                        console.log("Erreur interne")
+                        res.status(201).send({
                             status: 500,
                             message: "Erreur interne"
                         });
@@ -52,7 +56,7 @@ function init(usersDB, messagesDB) {
                         users.get_login(userid).then((pseudo) => {
                             req.session.userpseudo=pseudo;
                             
-                            res.status(200).json({
+                            res.status(200).send({
                                 status: 200,
                                 message: "Login et mot de passe accepté",
                                 pseudo: pseudo 
@@ -63,15 +67,17 @@ function init(usersDB, messagesDB) {
                 });
                 return;
             }
+            console.log("login et/ou le mot de passe invalide(s)")
             req.session.destroy((err) => { });
-            res.status(403).json({
+            res.status(201).send({
                 status: 403,
-                message: "login et/ou le mot de passe invalide(s)"
+                message: "login et/ou mot de passe invalide(s)"
             });
             return;
         }
         catch (e) {
-            res.status(500).json({
+            console.log("erreur interne")
+            res.status(201).send({
                 status: 500,
                 message: "erreur interne",
                 details: (e || "Erreur inconnue").toString()
@@ -122,11 +128,37 @@ function init(usersDB, messagesDB) {
     router.put("/user/create", (req, res) => {
         const { login, password, pseudo } = req.body;
         if (!login || !password || !pseudo) {
-            res.status(400).send("Missing fields");
+            console.log("erreur interne");
+            res.status(200).send({
+                status: 400,
+                message: "Champs manquants",
+            });
         } else {
-            users.create(login, password, pseudo)
-                .then((user_id) => res.status(201).send({ id: user_id }))
-                .catch((err) => res.status(500).send(err));
+            
+            
+            if (pseudo=="" || pseudo.length>=32){
+                res.status(200).send({
+                status: 400,
+                message: "Entrez un pseudo de moins de 32 caractères",
+                });
+            }else{
+                if (password.length<8){
+                    res.status(200).send({
+                    status: 400,
+                    message: "Entrez un mot de passe d'au moins 8 caractères",
+                });
+
+                }else{
+                    users.create(login, password, pseudo)
+                    .then((user_id) => res.status(201).send({ id: user_id }))
+                    .catch((err) => res.status(200).send({status: 500 ,message :"Login déjà utilisé"}));
+                }
+            }
+            
+            
+            
+            
+            
         }
     });
         

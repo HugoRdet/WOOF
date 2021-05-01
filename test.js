@@ -1,0 +1,34 @@
+import React from 'react'
+import SignUp from './SignUp'
+import SignIn from './SignIn'
+import './index.css'
+
+class HostPage extends React.Component {
+  render() {
+    return (
+    
+      <div id="HostPage">
+          <article id="log">
+            
+            <div className="title">
+            <h2>@Woof</h2>
+            </div>
+          
+            <div className="content">
+              <div class="bigbutton" onClick={console.log(haha)}>
+                <h2> se connecter</h2>
+              </div> 
+      
+              <div class="bigbutton" onClick={console.log(haha)}>
+                <h2> s'inscrire</h2>
+              </div> 
+          </div>
+        </article>
+    </div>
+      
+      
+    )
+  }
+}
+
+export default HostPage

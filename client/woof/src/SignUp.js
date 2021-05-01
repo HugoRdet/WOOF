@@ -30,11 +30,13 @@ class SignUp extends React.Component {
   }
 
   response_sign_up(response) {
-      if(response.data["status"] == 401) {
+      if(response.data["status"] != 201) {
           const message = response.data["message"];
           this.setState({status:"error", texterror:message})
+          
       } else {
           this.setState({status:""})
+          this.props.getConnected();
           this.props.setLogout();
       }
   }
@@ -52,11 +54,10 @@ class SignUp extends React.Component {
             })
     .then(response => {
       this.response_sign_up(response);
-      this.props.getConnected();
     })
     .catch(err => {
       console.log(err)
-      })
+    })
     
   }
 
@@ -68,13 +69,43 @@ class SignUp extends React.Component {
           <div className="title">
             <h2>@Woof</h2>
           </div>
-          
+        
+        
+                
+        
       <div className="content_form">
-        <div class="login-box">
+      
+        {
+          (this.state.status != "")? 
+          
+        <div>
+        <div class="login-box_erreur">
         <label><h3>login</h3></label>
         <input type="text" name="login" onChange={this.handleChange} value={this.state.login}/>
         </div>
       
+      
+        <div class="login-box_erreur">
+        <h3>pseudo</h3>
+        <input type="text" name="pseudo" onChange={this.handleChange} value={this.state.pseudo}/>
+        </div>
+      
+        <div class="login-box_erreur">
+        <h3>Password</h3>
+        <input type="password" name="password" onChange={this.handleChange}value={this.state.password}/>
+        </div>
+          
+        <div className="texte_erreur">
+        <h3>{this.state.texterror}</h3>
+        </div>
+        
+        </div>
+        : 
+          <div>
+        <div class="login-box">
+        <label><h3>login</h3></label>
+        <input type="text" name="login" onChange={this.handleChange} value={this.state.login}/>
+        </div>
       
       
         <div class="login-box">
@@ -85,16 +116,13 @@ class SignUp extends React.Component {
         <div class="login-box">
         <h3>Password</h3>
         <input type="password" name="password" onChange={this.handleChange}value={this.state.password}/>
-      
-        <div key={this.state.status}>
-        {
-          (this.state.status != "")
-          ? <span style={{color:"red"}}>{this.state.texterror}</span>
-          : <span></span>
+        </div>  
+        </div>
+          
         }
       
       
-        </div>
+        
         <section class="bigbutton" onClick = { (event => this.send()) }>
         <h3> s'inscrire</h3>
         </section> 
@@ -103,7 +131,7 @@ class SignUp extends React.Component {
         <section class="link" onClick={this.props.setLogout}>
         <h3> Oops, se connecter </h3>
         </section> 
-      </div>
+      
       
       
       

@@ -84,12 +84,11 @@ class MainPage extends React.Component {
         <div className="MainPage">
         
         <header>
-          <h3>Woof!</h3>
-            <SearchBar search={this.search}/>
+            <SearchBar className="contenu" search={this.search}/>
         </header>
         
         <main>
-        { 
+        {
           (this.state.currentPage === 'profile')?
           <>
           <div className="baniere">
@@ -116,7 +115,7 @@ class MainPage extends React.Component {
         : <></>
         }
         {this.state.currentPage === 'home' &&
-          <Feed page={this.state.currentPage} setPage_={this.setPage_}/>
+          <Feed page={this.state.currentPage} setPage_={this.setPage_} setPseudo={this.setPseudo}/>
         }
         {this.state.currentPage === 'comments' &&
           <Feed page={this.state.currentPage} setPage_={this.setPage_} setPseudo={this.setPseudo} id={this.state.messageId}/>
@@ -124,7 +123,7 @@ class MainPage extends React.Component {
         {this.state.currentPage === 'search' && 
           <>
           <ProfileSearch input={this.state.searchInput} setPseudo={this.setPseudo}/>
-          <Feed page={this.state.currentPage} setPage_={this.setPage_} input={this.state.searchInput}/>
+          <Feed page={this.state.currentPage} setPage_={this.setPage_} input={this.state.searchInput} setPseudo={this.setPseudo}/>
           </>
         }
         
@@ -147,12 +146,12 @@ class MainPage extends React.Component {
         </div>
         
         <div className="espace_tweet">
-          <div className="contenu_animation">
+          
             <section class="petitbouton_tweet" onClick = { (event => this.setPage_("message",-1) ) 
             }> 
             <h4> 🖍 New Post </h4>
             </section>
-          </div>
+          
         </div>
         
       </main>

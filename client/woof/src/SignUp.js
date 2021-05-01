@@ -36,7 +36,6 @@ class SignUp extends React.Component {
           
       } else {
           this.setState({status:""})
-          this.props.getConnected();
           this.props.setLogout();
       }
   }

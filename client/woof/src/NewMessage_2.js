@@ -9,7 +9,7 @@ const serveur_config = {
   }
 }
 
-export default function NewMessage(props) {
+export default function BaniereProfil(props) {
 
   const [nb_followers, getnb_followers] = useState('');
   const api = axios.create({

@@ -10,6 +10,7 @@ import InfosProfilNbFollows from './InfosProfilNbFollows'
 import SearchBar from './SearchBar'
 import ProfileSearch from './ProfileSearch'
 import SuppressAccount from './SuppressAccount'
+import BaniereProfil from './BaniereProfil'
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -91,23 +92,7 @@ class MainPage extends React.Component {
         {
           (this.state.currentPage === 'profile')?
           <>
-          <div className="baniere">
-          <div className="nom">
-          <h1>{this.state.pseudo}</h1>
-          </div>
-          
-          <div className="content_b">
-          <InfosProfilNbTweets  pseudo={this.state.pseudo}/>
-          </div>
-          
-          <div className="content_b">
-          <InfosProfilNbFollowers pseudo={this.state.pseudo}/>
-          </div>
-          
-          <div className="content_b">
-          <InfosProfilNbFollows pseudo={this.state.pseudo}/>
-          </div>
-          </div>
+          <BaniereProfil pseudo={this.state.pseudo} selfPseudo={this.state.selfPseudo}/>
           <Feed page={this.state.currentPage} pseudo={this.state.pseudo}
             setPage_={this.setPage_} setPseudo={this.setPseudo}
           />

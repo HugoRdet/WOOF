@@ -149,8 +149,9 @@ function init(usersDB, messagesDB) {
                 });
 
                 }else{
+                    console.log("create ok")
                     users.create(login, password, pseudo)
-                    .then((user_id) => res.status(201).send({ id: user_id }))
+                    .then((user_id) => res.status(201).send({status:201, id: user_id ,message:"d accord voila"}))
                     .catch((err) => res.status(200).send({status: 500 ,message :"Login déjà utilisé"}));
                 }
             }
@@ -191,7 +192,7 @@ function init(usersDB, messagesDB) {
                 if ( !pseudo ) {
                     res.status(400).send("Missing fields");
                 } else {
-                    
+                    console.log("follow done.")
                     users.follow(pseudo,req.session.userpseudo)
                     .then((doc) => res.status(201).send(doc))
                     .catch((err) => res.status(500).send(err));
@@ -210,6 +211,7 @@ function init(usersDB, messagesDB) {
                 if ( !pseudo ) {
                     res.status(400).send("Missing fields");
                 } else {
+                    console.log("unfollow done.")
                     users.unfollow(pseudo,req.session.userpseudo)
                     .then(() => res.status(201).send({response:" unfollowed OK "}))
                     .catch((err) => res.status(500).send(err));

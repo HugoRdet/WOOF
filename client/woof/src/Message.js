@@ -11,9 +11,12 @@ const serveur_config = {
 
 export default function Message(props) {
 	
-	const [statuslike, getstatuslike] = useState(0);
-	
 	const {message_} = props;
+	const [statuslike, getstatuslike] = useState(0);
+	const [Countlikes, getCountlikes] = useState(message_.likes.length);
+	
+	
+	
 	
 	
 	const api = axios.create({
@@ -24,7 +27,7 @@ export default function Message(props) {
 	
 	useEffect(() => {
 		get_like_s();
-	}, []);
+	}, [statuslike,Countlikes]);
 	
 	const get_like_s = () => {
 	
@@ -47,6 +50,7 @@ export default function Message(props) {
 		.then( response => {
 			const statuslike_= response.data.like;
 			getstatuslike(statuslike_);
+			getCountlikes(Countlikes+1);
 		})
 		.catch(err => {
 			console.log(err);
@@ -60,6 +64,7 @@ export default function Message(props) {
 		.then( response => {
 			const statuslike_= response.data.unlike;
 			getstatuslike(statuslike_);
+			getCountlikes(Countlikes-1);
 		})
 		.catch(err => {
 			console.log(err);
@@ -88,11 +93,11 @@ export default function Message(props) {
 			{
 				(statuslike==0)?
 				<section class="reations_elem" onClick = { (event => set_like_s() ) }> 
-				<h4> 🖤 Aimer </h4>
+				<h4> 🖤 {Countlikes} </h4>
 				</section>
 				:
 				<section class="reations_elem" onClick = { (event => set_like_s() ) }> 
-				<h4> ❤️ J aime </h4>
+				<h4> ❤️ {Countlikes} </h4>
 				</section>
 			}
 				<section class="reations_elem" onClick = { (event => props.setPage_("message",message_._id) ) }> 

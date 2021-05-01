@@ -41,6 +41,7 @@ class Messages {
     });
   }
 
+  
 
   unlikeMessage(messageId, userId) {
     this.db.update({_id: messageId}, {$pull : { likes: {user_id: userId}} }, {}, function(err, numAffected){
@@ -134,6 +135,7 @@ class Messages {
       });
     });
   }
+  
   
   
   getMessageById(messageId) {

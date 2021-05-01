@@ -30,7 +30,7 @@ export default function Feed(props) {
         }
       }, {threshold : 0.95} );
       if(node) observer.current.observe(node);
-    }, [loading, hasMore, props.pseudo]);
+    }, [loading, hasMore]);
     return (
       <div className="feed">
         {messages.map( (message,index) => {

@@ -9,8 +9,7 @@ export default function Baniere(props) {
   const [nb_tweets_state, getnb_tweets] = useState(0);
   const [follow_button_state, getfollow_button_state] = useState(0);
   const [pseudo,getpseudo]=useState(props.pseudo);
-  
-  
+  const [etat_b_S, get_etat_b_S] = useState("suivre");
   
   const api = axios.create({
     baseURL : '/api/',
@@ -18,10 +17,7 @@ export default function Baniere(props) {
     headers : {'X-Custom-Header' : 'foobar'}
   });
   
-  useEffect(() => {
-    init_follow_b();
-    Update_baniere();
-  }, [props.pseudo,follow_button_state]);
+  
   
   
   
@@ -32,6 +28,13 @@ export default function Baniere(props) {
       .then( response => {
         const b_init__ = response.data.response;
         getfollow_button_state(b_init__);
+        
+        if (b_init__){
+          get_etat_b_S("ne plus suivre");
+        }else{
+          get_etat_b_S("suivre");
+        }
+        
         })
       .catch(err => {
         console.log(err);
@@ -46,9 +49,8 @@ export default function Baniere(props) {
       var chemin='/user/follow';
       api.put(chemin,{pseudo:props.pseudo})
       .then( () => {
-        Update_baniere().then( ()=>{
+        
           getfollow_button_state(1)
-        });
         
       })
       .catch(err => {
@@ -58,9 +60,8 @@ export default function Baniere(props) {
       var chemin='/user/unfollow';
       api.put(chemin,{pseudo:props.pseudo})
       .then( () => {
-                Update_baniere().then( ()=>{
-          getfollow_button_state(0)
-        });
+                          getfollow_button_state(0)
+      
         
       })
       .catch(err => {
@@ -71,7 +72,7 @@ export default function Baniere(props) {
   
   
   
-  const Update_baniere = () => {
+  
   
     const getALLnb_followers = () => {
       var chemin='/user/display/count/followers/'+props.pseudo;
@@ -108,19 +109,16 @@ export default function Baniere(props) {
       console.log(err);
     });
       }
-  
-    Promise.all([getALLnb_followers, getALLnb_follows, get_nb_tweets]).then((values) => {
-        const follows=values[0];
-        const followe=values[1];
-        const nb_messages=values[2];
-        
-          getnb_followers(follows);
-          getnb_follows(followe);
-          getnb_tweets(nb_messages);
-    });
-  
-  
- }
+ 
+      useEffect(() => {
+    init_follow_b();
+    getALLnb_followers();
+    getALLnb_follows();
+    get_nb_tweets();
+    
+  }, [props.pseudo,follow_button_state]);
+
+
     const display_Baniere=(props) => {
           return (
           <div className="baniere">
@@ -141,20 +139,12 @@ export default function Baniere(props) {
             </div>
             
       {
-        (props.selfPseudo!=pseudo)?
+        (props.selfPseudo!=props.pseudo)?
         <div className="petitbouton_follow" onClick = { (event => follow_button_maj() ) } >
         <div>
-        {        
-          (follow_button_state==0)?
-          <>
-          Suivre
-          </>
-          :
-          <>
-          Ne plus suivre
-          </>
-
-        }
+        
+        {etat_b_S}
+        
         </div>
         </div>
         :
@@ -164,6 +154,8 @@ export default function Baniere(props) {
     )
     }
   
+  
+    
     return (
       <>
       {display_Baniere(props)}

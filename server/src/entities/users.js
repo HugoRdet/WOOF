@@ -13,6 +13,7 @@ class Users {
         followedPseudo VARCHAR(256) NOT NULL,
         followerPseudo VARCHAR(256) NOT NULL);
     `;
+    
     db.exec(req_create_tab, (err) => {
       if(err) {
         throw err;

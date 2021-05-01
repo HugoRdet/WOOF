@@ -192,9 +192,18 @@ function init(usersDB, messagesDB) {
                 if ( !pseudo ) {
                     res.status(400).send("Missing fields");
                 } else {
-                    users.follow(pseudo,req.session.userpseudo)
-                    .then((doc) => res.status(201).send(doc))
-                    .catch((err) => res.status(500).send(err));
+                    
+                    users.getAFollowsB(req.session.userpseudo,pseudo).then( (resp) => {
+                        if (resp.response==0){
+                            users.follow(pseudo,req.session.userpseudo)
+                            .then((doc) => res.status(201).send(doc))
+                            .catch((err) => res.status(500).send(err));
+                        }else{
+                            res.status(201).send({confirm: "OK"});
+                        }
+                    } )
+                    
+                    
                 }
             }
         });

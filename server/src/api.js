@@ -407,7 +407,23 @@ function init(usersDB, messagesDB) {
         }
     );
     
-
+    router
+        .route("/user/display/getfollow/:pseudo")
+        .get(async (req, res) => {
+        try {
+            
+            users.getAFollowsB(req.session.userpseudo,req.params.pseudo).then((count) => {  
+                if (count==undefined)
+                    res.sendStatus(404);
+                else
+                    console.log("count ", req.params.pseudo)
+                    res.status(201).send(count);
+            });
+        }
+        catch (e) {
+            res.status(500).send(e);
+        }
+    });
 
     router
         .route("/user/display/count/followers/:pseudo")

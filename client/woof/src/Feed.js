@@ -18,7 +18,7 @@ export default function Feed(props) {
     } = FeedFetch(number, multiplier, page, pseudo, id, input);
     let ids = new Set();
     
-    const observer = useRef();
+  const observer = useRef();
     const lastMessageRef = useCallback(node => {
       if(loading)
         return ;
@@ -30,7 +30,7 @@ export default function Feed(props) {
         }
       }, {threshold : 0.95} );
       if(node) observer.current.observe(node);
-    }, [loading, hasMore]);
+    }, [loading, hasMore, props.pseudo]);
     return (
       <div className="feed">
         {messages.map( (message,index) => {

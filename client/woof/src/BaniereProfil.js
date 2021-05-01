@@ -19,20 +19,36 @@ export default function Baniere(props) {
   });
   
   useEffect(() => {
+    init_follow_b();
     Update_baniere();
-  }, []);
+  }, [props.pseudo,follow_button_state]);
+  
+  
+  
+  
+  const init_follow_b= () =>{
+        var chemin='/user/display/getfollow/'+props.pseudo;
+      api.get(chemin)
+      .then( response => {
+        const b_init__ = response.data.response;
+        getfollow_button_state(b_init__);
+        })
+      .catch(err => {
+        console.log(err);
+        });
+  }
+  
   
   
   
   const follow_button_maj = () => {
     if (follow_button_state==0){
       var chemin='/user/follow';
-      api.put(chemin,{pseudo:pseudo})
+      api.put(chemin,{pseudo:props.pseudo})
       .then( () => {
         Update_baniere().then( ()=>{
           getfollow_button_state(1)
         });
-        
         
       })
       .catch(err => {
@@ -40,7 +56,7 @@ export default function Baniere(props) {
       });
     }else{
       var chemin='/user/unfollow';
-      api.put(chemin,{pseudo:pseudo})
+      api.put(chemin,{pseudo:props.pseudo})
       .then( () => {
                 Update_baniere().then( ()=>{
           getfollow_button_state(0)
@@ -58,7 +74,7 @@ export default function Baniere(props) {
   const Update_baniere = () => {
   
     const getALLnb_followers = () => {
-      var chemin='/user/display/count/followers/'+pseudo;
+      var chemin='/user/display/count/followers/'+props.pseudo;
       api.get(chemin)
       .then( response => {
         const nb_followers__ = response.data.FollowersCount;
@@ -70,7 +86,7 @@ export default function Baniere(props) {
       }
   
     const getALLnb_follows = () => {
-      var chemin='/user/display/count/follows/'+pseudo;
+      var chemin='/user/display/count/follows/'+props.pseudo;
       api.get(chemin)
       .then( response => {
         const nb_follows__ = response.data.FollowsCount;
@@ -82,7 +98,7 @@ export default function Baniere(props) {
      }
   
     const get_nb_tweets = () => {
-      var chemin='/user/display/count/messages/'+pseudo;
+      var chemin='/user/display/count/messages/'+props.pseudo;
       api.get(chemin)
       .then( response => {
       const nb_tweets_ = response.data.nb_tweets;

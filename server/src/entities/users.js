@@ -230,6 +230,23 @@ class Users {
     });
   }
   
+  getAFollowsB(A,B){
+    return new Promise ( (resolve, reject) => {
+      
+      let req = this.db.prepare(
+        `SELECT COUNT (*) AS response FROM follow where followerPseudo==? AND followedPseudo=?; `
+      );
+      req.get([A,B], (err, res) => {
+        if(err) {
+          console.log('Erreur SQL: ', err);
+          reject();
+        } else {
+          resolve(res);
+        }
+      });
+    });
+  }
+  
   getFollowers(pseudo){
     return new Promise( (resolve, reject) => {
       let req = this.db.prepare(

@@ -4,7 +4,11 @@ A simple social network.
 
 ### Install
 Simply clone the repo 
-```git clone "http://github.com/HugoRdet/WOOF```
+
+```
+git clone "http://github.com/HugoRdet/WOOF
+```
+
 Or unzip the .zip archive.
 
 
@@ -14,6 +18,13 @@ in both **server** and **client** folders.
 
 ### Usage
 Run the server -- from the **server** folder:
-```npm run serve```
+
+```
+npm run serve
+```
+
 Run the App -- from the **client** folder:
-```npm start```
+
+```
+npm start
+```

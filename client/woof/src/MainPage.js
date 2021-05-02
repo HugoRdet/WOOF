@@ -136,6 +136,7 @@ class MainPage extends React.Component {
   }
 
   getConnected() {
+    console.log("Utilisateur connecté")
     const nextPage = 'home'; 
     const isConnected = true;
     this.setPseudo();

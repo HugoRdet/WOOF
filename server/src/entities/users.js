@@ -5,7 +5,7 @@ class Users {
       CREATE TABLE IF NOT EXISTS users(
         login VARCHAR(256) NOT NULL PRIMARY KEY,
         password VARCHAR(256) NOT NULL,
-        pseudo VARCHAR(256) NOT NULL);
+        pseudo VARCHAR(256) UNIQUE NOT NULL);
     `;
     const req_create_tab_follow = `
       CREATE TABLE IF NOT EXISTS follow(
@@ -29,20 +29,17 @@ class Users {
   create(login, password,pseudo) {
     return new Promise((resolve, reject) => {
       
-      
-      const req_insert_user=this.db.prepare(`INSERT INTO users(login,password,pseudo)
-                            VALUES (?,?,?);`);
+      const req_insert_user=this.db.prepare(
+        `INSERT INTO users(login,password,pseudo) VALUES (?,?,?);`
+      );
       
       req_insert_user.run([login,password,pseudo],(err) => {
-        
         if(err) {
-          //throw err;
           reject(err);
         } else {
           resolve(req_insert_user.lastID);
         }
       });
-    
     });
   }
 

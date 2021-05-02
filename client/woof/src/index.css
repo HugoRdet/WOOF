@@ -542,8 +542,7 @@ main .petitbouton:hover {
    margin-left: 3em;
    margin-right:3em;
    justify-content: space-evenly;
-    
-   
+      
 }
 
 .baniere .nom{
@@ -717,6 +716,24 @@ body .contenu_animation{
 
 @media only screen and (max-width: 800px) {
    
+   
+   
+main .baniere{
+   max-width: 900px;
+   position: relative;
+   text-align: center;
+   margin-top: 1em;
+   padding: 1rem 1rem 1rem 1rem;
+   margin-left: auto;
+   margin-right: auto;
+   min-width: 300px;
+   width: 90%;
+   border: 4px solid var(--color-primary);
+   background-color: var(--color-secondary) ;
+   
+   
+}
+   
 body{
    background-color: var(--color-primary);
 }
@@ -737,7 +754,7 @@ main .menu{
    background-color: var(--color-primary) ;
    border-top: solid 3px var(--color-primary-alt)  ;
    padding-top:0px;
-   padding-bottom:0px;
+   padding-bottom:10px;
    position: fixed;
    
 }
@@ -867,5 +884,16 @@ article {
 h3{
    font-size: 100;
 }
+
+.baniere .content_b{
+   position: relative;
+   text-align: center;
+   display: inline-block;
+   margin-left: 2em;
+   margin-right:2em;
+   justify-content: space-evenly;
+      
+}
+
 
 }

@@ -16,8 +16,7 @@ function init(usersDB, messagesDB) {
     message.open();
 
     router.post("/user/login", async (req, res) => {
-        
-        
+    
         try {
             
             const { login, password } = req.body;
@@ -126,6 +125,8 @@ function init(usersDB, messagesDB) {
     
         
     router.put("/user/create", (req, res) => {
+        
+        
         const { login, password, pseudo } = req.body;
         if (!login || !password || !pseudo) {
             console.log("erreur interne");
@@ -149,10 +150,11 @@ function init(usersDB, messagesDB) {
                 });
 
                 }else{
-                    console.log("create ok")
+                    
                     users.create(login, password, pseudo)
-                    .then((user_id) => res.status(201).send({status:201, id: user_id ,message:"d accord voila"}))
+                    .then((user_id) => res.status(201).send({status:201, id: user_id ,message:"utilisateur créé"}))
                     .catch((err) => res.status(200).send({status: 500 ,message :"Login déjà utilisé"}));
+                
                 }
             }
             

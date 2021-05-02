@@ -537,9 +537,6 @@ function init(usersDB, messagesDB) {
         }
     });
     
-    
-    
-
     router
     .route("/message/delete_all")
     .put(async (req, res) => {

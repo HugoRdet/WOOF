@@ -19,6 +19,7 @@ export default function Menu(props) {
         });
         api.put('/user/logout')
           .then( response => {
+            console.log(response.data.response)
             props.setLogout();
           })
           .catch( err => {

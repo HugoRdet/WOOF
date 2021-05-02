@@ -30,15 +30,16 @@ export default function ProfileSearch(props) {
   console.log(profiles);
   
   return(
-      <div className="baniere">
+      <div className="baniere_search">
+      <div className="title_search">
+      <h2>Profiles</h2>
+      </div>
       {profiles.map( profile => {
         return(
-          <>
-          <h2>Profile</h2>
-          <div className='profileResult' onClick = {event => props.setPseudo(props.input)}>
+          
+          <div className='petitbouton_search' onClick = {event => props.setPseudo(props.input)}>
           <h3>{profile.login} @{props.input}</h3>  
           </div>
-          </>
         )
         } 
       )}

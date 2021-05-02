@@ -185,6 +185,7 @@ article .bigbutton:hover {
    color: var(--color-secondary);
    background: var(--color-primary);
    box-shadow: 12px 12px  var(--color-primary-pushed);
+   cursor: grab;
    
    
 }
@@ -193,6 +194,7 @@ main .bigbutton_options:hover {
    color: var(--color-secondary);
    background: var(--color-primary);
    box-shadow: 12px 12px  var(--color-primary-pushed);
+   cursor: grab;
 }
 
 article .login-box{
@@ -252,6 +254,7 @@ article .link_pseudo{
 
 article .link_pseudo:hover{
    border-bottom: 3px solid var(--color-primary);
+   cursor: grab;
 }
 
 article .reations_elem{
@@ -262,6 +265,7 @@ article .reations_elem{
 
 article .link :hover{
    border-bottom: 3px solid var(--color-primary);
+   cursor: grab;
 }
 
 
@@ -390,6 +394,7 @@ header .petitbouton_s:hover {
    color: var(--color-secondary);
    background: var(--color-primary);
    box-shadow: inset -4px -4px   var(--color-primary);
+   cursor: grab;
    
 }
 
@@ -411,7 +416,7 @@ main .petitbouton_follow:hover {
    color: var(--color-secondary);
    background: var(--color-primary);
    box-shadow: inset -4px -4px   var(--color-primary);
-   
+   cursor: grab;
 }
 
 main .petitbouton_tweet{
@@ -452,6 +457,7 @@ main .petitbouton_message:hover {
    color: var(--color-secondary);
    background: var(--color-primary);
    box-shadow: inset -4px -4px   var(--color-primary);
+   cursor: grab;
    
 }
 
@@ -459,6 +465,7 @@ main .petitbouton_tweet:hover {
    color: var(--color-secondary);
    background: var(--color-primary);
    box-shadow: inset -4px -4px   var(--color-primary);
+   cursor: grab;
    
 }
 
@@ -468,7 +475,7 @@ main .petitbouton:hover {
    color: var(--color-secondary);
    background: var(--color-primary);
    box-shadow: inset -4px -4px   var(--color-primary);
-   
+   cursor: grab;
 }
 
 
@@ -704,7 +711,7 @@ main .petitbouton:hover {
    color: var(--color-primary-pushed);
    background: var(--color-primary);
    box-shadow: inset -4px -4px   var(--color-primary);
-   
+   cursor: grab;
 }
 
 main .espace_tweet {

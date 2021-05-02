@@ -729,7 +729,7 @@ main .menu{
    background-color: #aaa;
    
    background-color: var(--color-primary) ;
-   border: solid 3px var(--color-primary)  ;
+   border-top: solid 3px var(--color-primary-alt)  ;
    padding-top:0px;
    padding-bottom:0px;
    position: fixed;

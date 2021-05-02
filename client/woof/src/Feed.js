@@ -60,6 +60,7 @@ export default function Feed(props) {
           setMessages( prevState => {
             return [...prevState, ...addRes]
           })
+
           setLoading(false)
       })
       .catch(e => {}) 
@@ -112,7 +113,9 @@ export default function Feed(props) {
 
   return (
     <>
-      {DisplayFeed(props)}
+      {
+        DisplayFeed(props)
+      }
     </>
   )
   

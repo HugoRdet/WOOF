@@ -17,11 +17,6 @@ export default function Baniere(props) {
     headers : {'X-Custom-Header' : 'foobar'}
   });
   
-  
-  
-  
-  
-  
   const init_follow_b= () =>{
         var chemin='/user/display/getfollow/'+props.pseudo;
       api.get(chemin)
@@ -37,7 +32,6 @@ export default function Baniere(props) {
         
         })
       .catch(err => {
-        console.log(err);
         });
   }
   
@@ -54,7 +48,6 @@ export default function Baniere(props) {
         
       })
       .catch(err => {
-        console.log(err);
       });
     }else{
       var chemin='/user/unfollow';
@@ -65,7 +58,6 @@ export default function Baniere(props) {
         
       })
       .catch(err => {
-        console.log(err);
       });
     }
   }
@@ -82,7 +74,6 @@ export default function Baniere(props) {
         getnb_followers(nb_followers__);
         })
       .catch(err => {
-        console.log(err);
         });
       }
   
@@ -94,7 +85,6 @@ export default function Baniere(props) {
         getnb_follows(nb_follows__);
        })
       .catch(err => {
-        console.log(err);
        });
      }
   
@@ -106,7 +96,6 @@ export default function Baniere(props) {
       getnb_tweets(nb_tweets_);
     })
     .catch(err => {
-      console.log(err);
     });
       }
  

@@ -1,7 +1,29 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
+
+const serveur_config = {
+  headers: {
+    'Access-Control-Allow-Origin': "*",
+    'Content-Type': 'application/json:charset=UTF-8',
+  }
+}
 
 export default function Menu(props) {
+
+  const Logout = () => {
+        const api = axios.create({
+          baseURL : '/api',
+          timeout : 1000,
+          headers : {'X-Custom-Header' : 'foobar'}
+        });
+        api.put('/user/logout')
+          .then( response => {
+            props.setLogout();
+          })
+          .catch( err => {
+          })
+    }
 
     return (
       <>
@@ -42,7 +64,7 @@ export default function Menu(props) {
             <h3>Options</h3>
           </div>
           
-          <div className="petitbouton" onClick = { event => {props.setLogout()} } >
+          <div className="petitbouton" onClick = { event => {Logout()} } >
             <h3>Sign Out</h3>
           </div>
         </div>

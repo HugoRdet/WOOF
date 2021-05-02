@@ -27,7 +27,6 @@ export default function ProfileSearch(props) {
     }
   }, [props.input]);
   
-  console.log(profiles);
   
   return(
       <div className="baniere_search">

@@ -38,7 +38,6 @@ export default function Message(props) {
 			getstatuslike(statuslike_);
 		})
 		.catch(err => {
-			console.log(err);
 		});
 	}
 	
@@ -53,7 +52,6 @@ export default function Message(props) {
 			getCountlikes(Countlikes+1);
 		})
 		.catch(err => {
-			console.log(err);
 		});
 			
 			
@@ -67,7 +65,6 @@ export default function Message(props) {
 			getCountlikes(Countlikes-1);
 		})
 		.catch(err => {
-			console.log(err);
 		});
 			
 		}

@@ -6,7 +6,7 @@ import SignUp from './SignUp'
 import HostPage from './HostPage'
 import NewMessage from './NewMessage'
 import InfosProfilNbFollowers from './InfosProfilNbFollowers'
-import InfosProfilNbFollows from './InfosProfilNbFollows'
+import Menu from './Menu'
 import SearchBar from './SearchBar'
 import ProfileSearch from './ProfileSearch'
 import SuppressAccount from './SuppressAccount'
@@ -85,7 +85,9 @@ class MainPage extends React.Component {
         <div className="MainPage">
         
         <header>
-            <SearchBar className="contenu" search={this.search}/>
+        <>
+          <SearchBar className="searchbar" search={this.search}/>
+        </>
         </header>
         
         <main>
@@ -112,23 +114,11 @@ class MainPage extends React.Component {
           </>
         }
         
-        <div className="menu">
-          <div className="petitbouton" onClick={event => {this.getConnected()}}>
-          <h3>Home</h3>
-          </div>
-        
-          <div className="petitbouton" onClick={event => {this.setPseudo()}}>
-            <h3>Profile</h3>
-          </div>
-          
-          <div className="petitbouton" onClick = { event => {this.setPageOptions(1)}}>
-            <h3>Options</h3>
-          </div>
-          
-          <div className="petitbouton" onClick = { event => {this.setLogout()} } >
-            <h3>Sign Out</h3>
-          </div>
-        </div>
+        <Menu getConnected={this.getConnected}
+              setPseudo={this.setPseudo}
+              setPageOptions={this.setPageOptions}
+              setLogout={this.setLogout}
+                />
         
         <div className="espace_tweet">
           

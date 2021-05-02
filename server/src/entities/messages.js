@@ -109,7 +109,7 @@ class Messages {
   }
   
   
-    getMessagesFromFollowed(followedPseudoList, loadNumber, loadMultiplier) {
+  getMessagesFromFollowed(followedPseudoList, loadNumber, loadMultiplier) {
     let loadNumber_ = parseInt(loadNumber)
     let loadMultiplier_ = parseInt(loadMultiplier)
     return new Promise ( (resolve, reject) => {

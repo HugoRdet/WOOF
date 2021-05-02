@@ -26,7 +26,9 @@ export default function ProfileSearch(props) {
       })
     }
   }, [props.input]);
-
+  
+  console.log(profiles);
+  
   return(
       <div className="baniere">
       {profiles.map( profile => {
@@ -40,10 +42,13 @@ export default function ProfileSearch(props) {
         )
         } 
       )}
-      {profiles === [] && 
-        <div className="baniere">
+      {(profiles.length == 0)? 
+        <>
           <h2>No Matching Profile</h2>
-        </div>
+        </>
+        :
+        <>
+        </>
       }
     </div>
   )

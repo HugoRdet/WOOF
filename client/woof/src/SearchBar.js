@@ -22,11 +22,11 @@ class SearchBar extends React.Component {
     return (
       <div className="searchbar">
           <div className="searchInput">
-            <input type="text" name="searchInput" onChange={this.handleChange}value={this.state.searchInput}/>
+            <input type="text" name="searchInput" className="s_inmp" onChange={this.handleChange}value={this.state.searchInput}/>
           </div>
-        <section className="petitbouton-search" onClick={ event => this.props.search(this.state.searchInput) }>
-          Search
-        </section>
+          <section className="petitbouton_s" onClick={ event => this.props.search(this.state.searchInput) }>
+            Search
+          </section>
       </div>
     )    
   };

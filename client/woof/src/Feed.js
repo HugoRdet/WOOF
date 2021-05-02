@@ -5,7 +5,7 @@ import axios from 'axios'
 
 export default function Feed(props) {
 
-  const [number, setNumber] = useState(3);
+  const [number, setNumber] = useState(4);
   const [multiplier, setMultiplier] = useState(0);
   const [id, setId] = useState(new Set())
   
@@ -23,8 +23,6 @@ export default function Feed(props) {
     setMessages([])
     setId(new Set())
     setMultiplier(0)
-    let url = getUrl()
-    feedFetch(url)
   }, [props.pseudo,props.page, props.id, props.input])
 
   useEffect(() => {
@@ -50,18 +48,13 @@ export default function Feed(props) {
     setLoading(true);
     api.get(url)
       .then( res => {
-       setHasMore(false)
-       res.data.map( (message, index) => {
-         if( index >= number )
-           return;
-         if(! id.has(message._id)){
-           id.add(message._id)
-           setHasMore(true)
-           setMessages(prevState => {
-              return [...prevState,message]
-            })
-         }
-        }) 
+        let addRes = res.data.filter( (message) => 
+          ( !id.has(message._id))
+        )
+        addRes.map( message => { setId( prevId => prevId.add( message._id ) ) } )
+        setMessages(prevState => {
+          return [...prevState, ...addRes]
+        })
       setLoading(false)
       })
       .catch(e => {}) 
@@ -76,7 +69,7 @@ export default function Feed(props) {
         return
       if(observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver(entries => {
-        if(entries[0].isIntersecting && hasMore){
+        if(entries[0].isIntersecting){
           setMultiplier(prevMultiplier =>{
             return prevMultiplier + 1});
         }
@@ -88,8 +81,9 @@ export default function Feed(props) {
     return (
       <>
       <div className="feed">
-        {messages.map( (message,index) => {
-            if (messages.length == index+1){
+        {
+          messages.map( (message, index) => {
+              if (index+1 === id.size){
               return (
                 <div key={message._id} ref={lastMessageRef}>
                 <Message message_={message} setPage_={props.setPage_} setPseudo={props.setPseudo}/>

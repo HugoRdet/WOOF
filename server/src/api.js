@@ -324,8 +324,8 @@ function init(usersDB, messagesDB) {
             if (!doc)
                 res.sendStatus(404);
             else{
-                doc.push({'pseudo' : req.session.userpseudo});
-                let followedPseudoList = doc.map((followedPseudo) => followedPseudo.pseudo);
+                doc.push({'followedPseudo' : req.session.userpseudo});
+                let followedPseudoList = doc.map((followedPseudo) => followedPseudo.followedPseudo);
                 message.getMessagesFromFollowed(followedPseudoList, number, multiplier).then(
                     (data) => {
                         if(!data)

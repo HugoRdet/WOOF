@@ -5,7 +5,7 @@ import axios from 'axios'
 
 export default function Feed(props) {
 
-  const [number, setNumber] = useState(4);
+  const [number, setNumber] = useState(3);
   const [multiplier, setMultiplier] = useState(0);
   const [id, setId] = useState(new Set())
   
@@ -48,14 +48,20 @@ export default function Feed(props) {
     setLoading(true);
     api.get(url)
       .then( res => {
-        let addRes = res.data.filter( (message) => 
+        let addRes = res.data
+          .slice( - (number * (multiplier + 1)))
+          .filter( (message) => 
           ( !id.has(message._id))
         )
-        addRes.map( message => { setId( prevId => prevId.add( message._id ) ) } )
-        setMessages(prevState => {
-          return [...prevState, ...addRes]
-        })
-      setLoading(false)
+        addRes
+          .map( message => { 
+            setId( prevId => prevId.add( message._id ) ) 
+          })
+
+          setMessages( prevState => {
+            return [...prevState, ...addRes]
+          })
+          setLoading(false)
       })
       .catch(e => {}) 
   }
@@ -73,7 +79,7 @@ export default function Feed(props) {
           setMultiplier(prevMultiplier =>{
             return prevMultiplier + 1});
         }
-      }, {threshold : 0.95});
+      }, {threshold : 0.99});
       if(node) observer.current.observe(node);
     }, [loading]);
 

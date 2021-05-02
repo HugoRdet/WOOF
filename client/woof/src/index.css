@@ -1,4 +1,4 @@
-
+/*définition de constantes*/
 :root {
    --color-primary: #000;
    --color-primary-alt: #ddd;
@@ -21,6 +21,8 @@
    -webkit-box-sizing: border-box;
    box-sizing: border-box;
 }
+
+
 
 
 body,
@@ -190,6 +192,7 @@ article .bigbutton:hover {
    
 }
 
+
 main .bigbutton_options:hover {
    color: var(--color-secondary);
    background: var(--color-primary);
@@ -278,8 +281,6 @@ header .searchbar{
    display: inline-flex;
 }
 
-
-
 article .content{
    padding-top: 1.5rem;
    text-align: left;
@@ -328,6 +329,28 @@ main .baniere{
    
 }
 
+main .title_search{
+   
+   border-bottom: 4px solid var(--color-primary);
+   margin-bottom: 30px;
+}
+
+main .baniere_search{
+   max-width: 600px;
+   position: relative;
+   text-align: center;
+   margin-top: 3em;
+   padding: 1rem 1rem 1rem 1rem;
+   margin-left: auto;
+   margin-right: auto;
+   min-width: 300px;
+   width: 75%;
+   border: 4px solid var(--color-primary);
+   background-color: var(--color-secondary) ;
+   
+   
+}
+
 .petitbouton{
    
    margin-left: auto;
@@ -344,6 +367,22 @@ main .baniere{
    max-width: 250px;
    
 }
+
+.petitbouton_search{
+   
+   margin-left: auto;
+   margin-right: auto;
+   text-align: center;
+   border: 4px solid var(--color-primary);
+   box-shadow: inset -4px -4px   var(--color-primary-alt);
+  /* espace a l interieur du bouton */
+   padding-top: 1em;
+   padding-bottom: 1em;
+   position: relative;
+  /* espace a l exeterieur du bouton */
+   margin: 3px 3px 3px 3px;
+}
+
 
 main .petitbouton_follow{
    
@@ -403,7 +442,6 @@ header .petitbouton_s:hover {
    cursor: grab;
    
 }
-
 main .petitbouton_follow_OK{
    
    margin-left: auto;
@@ -476,6 +514,12 @@ main .petitbouton_tweet:hover {
 }
 
 
+main .petitbouton_search:hover {
+   color: var(--color-secondary);
+   background: var(--color-primary);
+   box-shadow: inset -4px -4px   var(--color-primary);
+   cursor: grab;
+}
 
 main .petitbouton:hover {
    color: var(--color-secondary);
@@ -530,11 +574,11 @@ body .menu{
    
 }
 
-.menu .title{
+article .title{
    position: relative;
    text-align: center;
    padding: 5px 3px 5px 3px;
-   border-bottom:solid 6px var(--color-primary);
+   border-bottom:solid 0px var(--color-primary);
    margin-bottom: 10px;
 }
 
@@ -678,14 +722,14 @@ main .menu{
    width: 100%;
    max-width: 800px;
    left:0%;
-   top: 95%;
+   top: 94%;
    margin-left: auto;
    margin-right: auto;
    z-index:1;
    background-color: #aaa;
    
    background-color: var(--color-primary) ;
-   border: solid 3px var(--color-primary)  ;
+   border-top: solid 3px var(--color-primary-alt)  ;
    padding-top:0px;
    padding-bottom:0px;
    position: fixed;

@@ -55,7 +55,7 @@ class NewMessage extends React.Component {
         <div className='MainPage'>
           <main>
             <div className='article_tweet'>
-              <div className="title">
+              <div className="title_new_tweet">
               <h2>Envoyer un nouveau message</h2>
               </div>
       

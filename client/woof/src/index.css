@@ -211,7 +211,13 @@ article .login-box_erreur{
 
 article .title{
    position: relative;
-   top : -0.0em;
+   top : -0.40em;
+   display: inline-block;
+}
+
+main .title_new_tweet{
+   position: relative;
+   top : -1.15em;
    display: inline-block;
 }
 

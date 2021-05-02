@@ -122,7 +122,7 @@ class MainPage extends React.Component {
         
         <div className="espace_tweet">
           
-            <section class="petitbouton_tweet" onClick = { (event => this.setPage_("message",-1) ) 
+            <section className="petitbouton_tweet" onClick = { (event => this.setPage_("message",-1) ) 
             }> 
             <h4> 🖍 New Post </h4>
             </section>

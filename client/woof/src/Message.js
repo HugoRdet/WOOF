@@ -92,19 +92,19 @@ export default function Message(props) {
 				
 			{
 				(statuslike==0)?
-				<section class="reations_elem" onClick = { (event => set_like_s() ) }> 
+				<section className="reations_elem" onClick = { (event => set_like_s() ) }> 
 				<h4> 🖤 {Countlikes} </h4>
 				</section>
 				:
-				<section class="reations_elem" onClick = { (event => set_like_s() ) }> 
+				<section className="reations_elem" onClick = { (event => set_like_s() ) }> 
 				<h4> ❤️ {Countlikes} </h4>
 				</section>
 			}
-				<section class="reations_elem" onClick = { (event => props.setPage_("message",message_._id) ) }> 
+				<section className="reations_elem" onClick = { (event => props.setPage_("message",message_._id) ) }> 
 				<h4> 📣 Commenter</h4>
 				</section>
 				
-				<section class="reations_elem" onClick = { (event => props.setPage_("comments",message_._id) ) }> 
+				<section className="reations_elem" onClick = { (event => props.setPage_("comments",message_._id) ) }> 
 				<h4> Voir les réponses </h4>
 				</section>
 

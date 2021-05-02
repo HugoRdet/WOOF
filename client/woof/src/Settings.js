@@ -1,4 +1,4 @@
-import React from 'react'
+/bin/bash: line 1: q: command not found
 
 class Settings extends React.Component {
   constructor(props) {

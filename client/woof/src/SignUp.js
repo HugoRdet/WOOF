@@ -78,18 +78,18 @@ class SignUp extends React.Component {
           (this.state.status != "")? 
           
         <div>
-        <div class="login-box_erreur">
+        <div className="login-box_erreur">
         <label><h3>login</h3></label>
         <input type="text" name="login" onChange={this.handleChange} value={this.state.login}/>
         </div>
       
       
-        <div class="login-box_erreur">
+        <div className="login-box_erreur">
         <h3>pseudo</h3>
         <input type="text" name="pseudo" onChange={this.handleChange} value={this.state.pseudo}/>
         </div>
       
-        <div class="login-box_erreur">
+        <div className="login-box_erreur">
         <h3>Password</h3>
         <input type="password" name="password" onChange={this.handleChange}value={this.state.password}/>
         </div>
@@ -101,18 +101,18 @@ class SignUp extends React.Component {
         </div>
         : 
           <div>
-        <div class="login-box">
+        <div className="login-box">
         <label><h3>login</h3></label>
         <input type="text" name="login" onChange={this.handleChange} value={this.state.login}/>
         </div>
       
       
-        <div class="login-box">
+        <div className="login-box">
         <h3>pseudo</h3>
         <input type="text" name="pseudo" onChange={this.handleChange} value={this.state.pseudo}/>
         </div>
       
-        <div class="login-box">
+        <div className="login-box">
         <h3>Password</h3>
         <input type="password" name="password" onChange={this.handleChange}value={this.state.password}/>
         </div>  
@@ -122,12 +122,12 @@ class SignUp extends React.Component {
       
       
         
-        <section class="bigbutton" onClick = { (event => this.send()) }>
+        <section className="bigbutton" onClick = { (event => this.send()) }>
         <h3> s'inscrire</h3>
         </section> 
             
 
-        <section class="link" onClick={this.props.setLogout}>
+        <section className="link" onClick={this.props.setLogout}>
         <h3> Oops, se connecter </h3>
         </section> 
       

@@ -57,7 +57,6 @@ export default function Feed(props) {
           .map( message => { 
             setId( prevId => prevId.add( message._id ) ) 
           })
-
           setMessages( prevState => {
             return [...prevState, ...addRes]
           })

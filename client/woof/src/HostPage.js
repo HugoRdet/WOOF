@@ -15,11 +15,11 @@ class HostPage extends React.Component {
             </div>
           
             <div className="content">
-              <div class="bigbutton" onClick={this.props.setLogout}>
+              <div className="bigbutton" onClick={this.props.setLogout}>
                 <h2> se connecter</h2>
               </div> 
       
-              <div class="bigbutton" onClick={this.props.getSignUp}>
+              <div className="bigbutton" onClick={this.props.getSignUp}>
                 <h2> s'inscrire</h2>
               </div> 
           </div>

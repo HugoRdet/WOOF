@@ -1,3 +1,7 @@
+
 node_modules/*
 *.DS_Store
 *.node
+client/woof/node_modules/*
+server/node_modules/*
+

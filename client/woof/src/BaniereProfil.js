@@ -111,6 +111,9 @@ export default function Baniere(props) {
     const display_Baniere=(props) => {
           return (
           <div className="baniere">
+            
+            
+            
             <div className="nom">
               <h1>{props.pseudo}</h1>
             </div>

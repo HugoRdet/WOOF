@@ -82,7 +82,7 @@ export default function Message(props) {
 				</div>
 				
 				<section className="content">
-					<h3>	{message_.content}</h3>
+						{message_.content}
 				</section>
 						
 				<section className="reactions">

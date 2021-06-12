@@ -3,11 +3,11 @@
 A simple social network.
 
 <p align="center">
-<img src="screenshots/ss_1.png" alt="drawing" width="400" alt="Browser version"/>
+<img src="screenshots/ss_1.png" width="400" alt="Browser version"/>
 </p>
 
 <p align="center">
-<img src="screenshots/ss_2.png" alt="drawing" width="300" alt="Mobile version/>
+<img src="screenshots/ss_2.png" width="300" alt="Mobile version/>
  </p>                         
  
 ### Install

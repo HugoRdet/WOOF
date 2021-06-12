@@ -7,7 +7,7 @@ A simple social network.
 </p>
 
 <p align="center">
-<img src="screenshots/ss_2.png" width="300" alt="Mobile version/>
+<img src="screenshots/ss_2.png" width="300" alt="Mobile version"/>
  </p>                         
  
 ### Install

@@ -2,13 +2,13 @@
 
 A simple social network.
 
-<div style="text-align:center">
+<p align="center">
 <img src="screenshots/ss_1.png" alt="drawing" width="300"/>
-</div>
+</p>
 
-<div style="text-align:center">
+<p align="center">
 <img src="screenshots/ss_2.png" alt="drawing" width="200"/>
- </div>                         
+ </p>                         
  
 ### Install
 Simply clone the repo 

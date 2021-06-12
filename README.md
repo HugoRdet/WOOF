@@ -3,14 +3,8 @@
 A simple social network.
 
 <p align="center">
- Browser Version
 <img src="screenshots/ss_1.png" width="600" alt="Browser version"/>
-</p>
-
-<p align="center">
- Mobile Version
-<img src="screenshots/ss_2.png" width="300" alt="Mobile version"/>
- </p>                         
+</p>        
  
 ### Install
 Simply clone the repo 

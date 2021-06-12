@@ -3,7 +3,7 @@
 A simple social network.
 
 <p align="center">
-<img src="screenshots/ss_1.png" alt="drawing" width="300"/>
+<img src="screenshots/ss_1.png" alt="drawing" width="400"/>
 </p>
 
 <p align="center">

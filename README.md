@@ -1,7 +1,8 @@
 # WOOF
 
 A simple social network.
-
+![alt text](https://github.com/HugoRdet/WOOF/blob/master/screenshots/ss_1.png?raw=true)
+![alt text](https://github.com/HugoRdet/WOOF/blob/master/screenshots/ss_2.png?raw=true)
 ### Install
 Simply clone the repo 
 

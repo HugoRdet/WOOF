@@ -1,8 +1,11 @@
 # WOOF
 
 A simple social network.
-<img src="screenshots/ss_1.png alt="drawing" width="200"/>
+
+<img src="screenshots/ss_1.png" alt="drawing" width="300"/>
+                                                        
 <img src="screenshots/ss_2.png" alt="drawing" width="200"/>
+                                                         
 ### Install
 Simply clone the repo 
 

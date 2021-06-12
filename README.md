@@ -3,10 +3,12 @@
 A simple social network.
 
 <p align="center">
-<img src="screenshots/ss_1.png" width="400" alt="Browser version"/>
+ Browser Version
+<img src="screenshots/ss_1.png" width="600" alt="Browser version"/>
 </p>
 
 <p align="center">
+ Mobile Version
 <img src="screenshots/ss_2.png" width="300" alt="Mobile version"/>
  </p>                         
  
